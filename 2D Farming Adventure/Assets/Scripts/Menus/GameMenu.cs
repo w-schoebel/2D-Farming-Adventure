@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameMenu : MonoBehaviour
+namespace Assets.Scripts.Menu
 {
-    public void QuitGame()
+    public class GameMenu : MonoBehaviour
     {
-        Debug.Log("Quit");
-        Application.Quit();
-    }
+        public void QuitGame()
+        {
+            Debug.Log("Quit");
+            Application.Quit();
+        }
 
-    public void OpenMenu()
-    {
-        //läd Szene mit aktuellem Scenenindex + 1
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        public void OpenMenu()
+        {
+            //läd Szene mit aktuellem Scenenindex + 1
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
     }
 }
