@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerParty : MonoBehaviour
+public class StartPlayer : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class PlayerParty : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         //check what scene have been loaded
-        if (scene.name == "Menu")
+        if (scene.name == "Title")
         {
             //don´t even load it again
             SceneManager.sceneLoaded -= OnSceneLoaded;
