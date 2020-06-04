@@ -23,7 +23,7 @@ public class NPCMovement : MonoBehaviour
 
     // Update is called once per frame
     /// <summary>
-    /// This function changes the position of the object the script is added to, when the moving controls (e.g.: W-A-S-D) are used 
+    /// changes the position of the player character, when the moving controls (e.g.: W-A-S-D) are used 
     /// </summary>
     void Update()
     {
@@ -32,15 +32,22 @@ public class NPCMovement : MonoBehaviour
         rigidbody.MovePosition(movementService.CalculateNewPosition(curentPosition, movement_speed, enteredCollision));
     }
 
+    /// <summary>
+    /// when collision entered set bool to true
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         enteredCollision = true;
     }
 
+    /// <summary>
+    /// when collision exited set bool to false
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionExit2D(Collision2D collision)
     {
         enteredCollision = false;
-
     }
 
 }

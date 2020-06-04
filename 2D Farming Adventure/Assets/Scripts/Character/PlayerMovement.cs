@@ -2,6 +2,7 @@
 using Assets.Services;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         Vector2 curentPosition = rigidbody.position;
 
         SwitchMovementType();
@@ -34,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
         rigidbody.MovePosition(movementService.CalculateNewPosition(curentPosition, movement_speed, false));
     }
 
+    /// <summary>
+    /// Change moving speed when holding shift (player can run)
+    /// </summary>
     private void SwitchMovementType()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
