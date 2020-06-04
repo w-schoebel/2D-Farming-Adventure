@@ -22,23 +22,11 @@ namespace Assets.Services
             this.animator = animator;
         }
 
-        /// <summary>
-        /// public method to create a service implementation instance
-        /// </summary>
-        /// <param name="animator"></param>
-        /// <returns>new instance of this service implementation</returns>
         public static NPCMovementServiceImpl Create(Animator animator)
         {
             return new NPCMovementServiceImpl(animator);
         }
 
-        /// <summary>
-        /// calculates the new position of the NPC
-        /// </summary>
-        /// <param name="currentPosition"></param>
-        /// <param name="movementSpeed"></param>
-        /// <param name="enteredCollision"></param>
-        /// <returns>the new actual position of NPC</returns>
         public override Vector2 CalculateNewPosition(Vector2 currentPosition, float movementSpeed, bool enteredCollision)
         {
             SwitchDirection();
@@ -71,9 +59,6 @@ namespace Assets.Services
             return currentPosition;
         }
 
-        /// <summary>
-        /// after a timer is down to 0 RandomDirection is called to change direction of NPC
-        /// </summary>
         private void SwitchDirection()
         {
             timerDirection -= Time.deltaTime;
@@ -81,21 +66,15 @@ namespace Assets.Services
             if (timerDirection < 0)
             {
                 RandomDirection();
+                timerDirection = createRandomRange();
             }
         }
 
-        /// <summary>
-        /// generates a randome float between 5 (included) and 10 (excluded)
-        /// </summary>
-        /// <returns>a random float</returns>
         private float createRandomRange()
         {
-             return Random.Range(5, 10);
+             return Random.Range(1, 10);
         }
 
-        /// <summary>
-        /// changes moving direction of NPC
-        /// </summary>
         private void RandomDirection()
         {
             int rndDirection = Random.Range(1, 5);
@@ -114,8 +93,6 @@ namespace Assets.Services
                     possibleDirections = PossibleDirections.Rigth;
                     break;
             }
-
-            timerDirection = createRandomRange();
         }
     }
 }
