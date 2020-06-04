@@ -4,74 +4,72 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Menu
+
+public class SettingsMenu : MonoBehaviour
 {
-    public class SettingsMenu : MonoBehaviour
+    //Reference to the audio mixer
+    public AudioMixer audioMixer;
+
+    //Reference to the resolutionDropdown
+    public Dropdown resolutionDropdown;
+
+    Resolution[] resolutions;
+    private void Start()
     {
-        //Reference to the audio mixer
-        public AudioMixer audioMixer;
+        //Infos about what resolutions we have
+        //List of all the resolutions
+        resolutions = Screen.resolutions;
 
-        //Reference to the resolutionDropdown
-        public Dropdown resolutionDropdown;
+        //clear all options
+        resolutionDropdown.ClearOptions();
 
-        Resolution[] resolutions;
-        private void Start()
+        //Array of resolutions in List of Strings
+        List<string> options = new List<string>();
+
+        int currentResolutionIndex = 0;
+        for (int i = 0; i < resolutions.Length; i++)
         {
-            //Infos about what resolutions we have
-            //List of all the resolutions
-            resolutions = Screen.resolutions;
+            string option = resolutions[i].width + "x" + resolutions[i].height;
+            options.Add(option);
 
-            //clear all options
-            resolutionDropdown.ClearOptions();
-
-            //Array of resolutions in List of Strings
-            List<string> options = new List<string>();
-
-            int currentResolutionIndex = 0;
-            for (int i = 0; i < resolutions.Length; i++)
+            if (resolutions[i].width == Screen.currentResolution.width &&
+                resolutions[i].height == Screen.currentResolution.height)
             {
-                string option = resolutions[i].width + "x" + resolutions[i].height;
-                options.Add(option);
-
-                if (resolutions[i].width == Screen.currentResolution.width &&
-                    resolutions[i].height == Screen.currentResolution.height)
-                {
-                    currentResolutionIndex = i;
-                }
+                currentResolutionIndex = i;
             }
-
-            //Default options we have on the dropdown
-            //Add list to ResolutionOptions
-            resolutionDropdown.AddOptions(options);
-            resolutionDropdown.value = currentResolutionIndex;
-            resolutionDropdown.RefreshShownValue();
         }
 
-        public void SetResolution(int resolutionIndex)
-        {
-            //get height and width with the resolutionIndex
-            Resolution resolution = resolutions[resolutionIndex];
+        //Default options we have on the dropdown
+        //Add list to ResolutionOptions
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+    }
+
+    public void SetResolution (int resolutionIndex)
+    {
+        //get height and width with the resolutionIndex
+        Resolution resolution = resolutions[resolutionIndex];
 
 
-            Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        }
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
 
-        //Master Volume
-        public void SetVolume(float volume)
-        {
-            audioMixer.SetFloat("volume", volume);
-        }
+    //Master Volume
+    public void SetVolume (float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
 
-        //Unity set automaticly the QualityIndex to the chosen element
-        public void SetQuality(int qualityIndex)
-        {
-            QualitySettings.SetQualityLevel(qualityIndex);
-        }
+    //Unity set automaticly the QualityIndex to the chosen element
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
 
-        //Toggle for fullscreen
-        public void SetFullscreen(bool isFullscreen)
-        {
-            Screen.fullScreen = isFullscreen;
-        }
+    //Toggle for fullscreen
+    public void SetFullscreen (bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
     }
 }
