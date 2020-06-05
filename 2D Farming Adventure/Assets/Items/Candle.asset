@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Candle
   m_EditorClassIdentifier: 
   item_name: Candle
-  icon: {fileID: 2131087177346492376, guid: d17c07c5327656740944f9dab7243efb, type: 3}
+  icon: {fileID: -9214089150372828947, guid: d17c07c5327656740944f9dab7243efb, type: 3}
   isDefaultItem: 0
   itemType: 0

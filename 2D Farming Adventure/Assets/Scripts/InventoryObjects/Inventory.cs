@@ -29,7 +29,7 @@ namespace Assets.Scripts.InventoryObjects
         public delegate void OnItemChanged();
         public OnItemChanged itemChangedCallback;
 
-        public int space = 50; // number of slots
+        public int space = 40; // number of slots
         public List<Item> items = new List<Item>();
 
         public bool Add(Item item)
