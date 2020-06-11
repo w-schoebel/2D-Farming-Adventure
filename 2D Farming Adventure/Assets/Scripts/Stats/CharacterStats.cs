@@ -12,6 +12,8 @@ public class CharacterStats : MonoBehaviour
     public int currentHealth;
     public int maxEndurance = 150;
     public int currentEndurance;
+        public int armor;
+        public string name;
 
     // public Stat damage;
     //public Stat armor;
