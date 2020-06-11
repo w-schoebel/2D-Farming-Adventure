@@ -1,20 +1,21 @@
 ﻿using Assets.Scripts.ItemObjects.Types;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.InventoryObjects
 {
-    public class InventorySlot : MonoBehaviour
-        , IPointerClickHandler // 2
-        , IDragHandler
-        , IPointerEnterHandler
-        , IPointerExitHandler
+    public class ToolbarSlot : MonoBehaviour
+         , IPointerClickHandler // 2
+          , IDragHandler
+          , IPointerEnterHandler
+          , IPointerExitHandler
     {
-        public UnityEngine.UI.Image icon;
-        
+        public Image icon;
+        public bool isEntered = false;
+
         Item item;
-        bool isEntered = false;
-        bool isDragged = false;
         public void AddItem(Item newItem)
         {
             item = newItem;
@@ -23,42 +24,32 @@ namespace Assets.Scripts.InventoryObjects
                 icon.sprite = item.icon;
                 icon.enabled = true;
             }
+            Inventory.instance.RemoveItem(item);
         }
 
         public void ClearSlot()
         {
-            item = null;
-            if (icon != null)
+            bool wasMoved = Inventory.instance.Add(item); //add item to Inventory again before removing it from Toolbar
+            if (wasMoved)
             {
-                icon.sprite = null;
-                icon.enabled = false;
+                item = null;
+                if (icon != null)
+                {
+                    icon.sprite = null;
+                    icon.enabled = false;
+                }
             }
         }
-
 
 
         public void OnDrag(PointerEventData eventData)
         {
-            //TODO: item = item aus dem Slot (und nur das eine!)
-            if (!isDragged)
-            {
-                ToolbarManager.instance.Add(item);
-            }
-            isDragged = true;
-            //wenn über Toolbar -> in Toolbarslot einfügen und altes item zurück in InventorySlot
-            //wenn über EquipmentDisplay-> in passenden Slot einfügen & altes Item zurück in InventorySlot
+            throw new NotImplementedException();
         }
 
-        private void OnMouseUp()
-        {
-            if (isDragged)
-            {
-                isDragged = false;
-            }
-        }
         public void OnPointerClick(PointerEventData eventData)
         {
-            // UseItem();
+            UseItem();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -71,8 +62,14 @@ namespace Assets.Scripts.InventoryObjects
             isEntered = false;
         }
 
+        private void Start()
+        {
+
+            
+        }
         private void Update()
         {
+
             RemoveItemWhemButtonPressed();
         }
 
@@ -80,7 +77,7 @@ namespace Assets.Scripts.InventoryObjects
         {
             if (Input.GetKeyDown(KeyCode.O) && isEntered)
             {
-                Inventory.instance.RemoveItem(item);
+                ToolbarManager.instance.RemoveItem(item);
             }
         }
 
@@ -91,6 +88,6 @@ namespace Assets.Scripts.InventoryObjects
                 item.Use();
             }
         }
-
+       
     }
 }

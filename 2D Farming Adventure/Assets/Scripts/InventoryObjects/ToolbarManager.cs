@@ -1,11 +1,10 @@
-﻿using Assets.Enums;
-using Assets.Scripts.ItemObjects.Types;
+﻿using Assets.Scripts.ItemObjects.Types;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.InventoryObjects
 {
-   public class ToolbarManager : MonoBehaviour
+    public class ToolbarManager : MonoBehaviour
     {
         public delegate void OnItemChanged();
         public OnItemChanged itemChangedCallback;
@@ -42,9 +41,14 @@ namespace Assets.Scripts.InventoryObjects
 
             if (!newItem.isDefaultItem)
             {
-                
+                if (items.Count >= space)
+                {
+                    Debug.Log("Not enough space in Inventory");
+                    return false;
+                }
+
                 //checken, über welchem Slot Maus drüber ist -> i
-                //items[i].Add(item);
+                items.Add(newItem);
 
                 InvokeItemChangeCallback();
             }
