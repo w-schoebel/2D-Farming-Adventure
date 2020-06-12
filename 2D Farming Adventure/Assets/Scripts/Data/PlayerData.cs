@@ -30,5 +30,8 @@ namespace Assets.Scripts.Data
             position[0] = player.transform.position.x;
             position[1] = player.transform.position.y;
         }
+
+      
+
     }
 }

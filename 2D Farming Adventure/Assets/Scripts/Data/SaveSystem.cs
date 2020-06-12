@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Assets.Scripts.Stats;
-
+using System;
 
 namespace Assets.Scripts.Data
 {
@@ -26,6 +26,8 @@ namespace Assets.Scripts.Data
             stream.Close();
         }
 
+       
+
         public static PlayerData LoadPlayer ()
         {
             string path = Application.persistentDataPath + "/player.save";
@@ -38,6 +40,7 @@ namespace Assets.Scripts.Data
                 //from binary to read able and safe in variable (fomating in playerData)
                 PlayerData data = formatter.Deserialize(stream) as PlayerData;
                 stream.Close();
+                 Debug.Log("Save File not found!");
 
                 return data;
 

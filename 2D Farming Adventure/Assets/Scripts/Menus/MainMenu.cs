@@ -1,9 +1,11 @@
 ﻿using Assets.Scripts.Data;
+using Assets.Scripts.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //für Scenen-"Arbeit" in Unity
 using UnityEngine.SceneManagement;
+
 
 
 namespace Assets.Scripts.Menu
@@ -21,7 +23,9 @@ public class MainMenu : MonoBehaviour
     }
 
      public void LoadPlayer()
-        {
+        { 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
             PlayerData data = SaveSystem.LoadPlayer();
             Debug.Log("Load");
 
@@ -31,11 +35,16 @@ public class MainMenu : MonoBehaviour
             armor = data.armor;
             Vector2 position;
             position.x = data.position[0];
-            position.y = data.position[1];
+            position.y = data.position[1];  
 
         }
 
-    public void QuitGame()
+        public void SavePlayer()
+        {
+           // SaveSystem.SavePlayer(this);
+        }
+
+        public void QuitGame()
     {
         Debug.Log("Quit");
         Application.Quit();
