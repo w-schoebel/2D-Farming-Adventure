@@ -1,0 +1,94 @@
+﻿using Assets.Enums;
+using Assets.Scripts.ItemObjects.Types;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace Assets.Scripts.InventoryObjects
+{
+    public class EquipmentManager : MonoBehaviour
+    {
+        public delegate void OnEquipmentChanged(ArmorItem newItem, ArmorItem oldItem);
+        public OnEquipmentChanged onEquipmentChanged;
+
+        public List<ArmorItem> currentEquipment;
+        Inventory inventory;
+
+        #region Singleton
+        public static EquipmentManager instance;
+
+        void Awake()
+        {
+            if (instance != null)
+            {
+                Debug.LogWarning("More than one instance of EquipmentManager found!");
+                return;
+            }
+            instance = this;
+        }
+        #endregion
+
+        private void Start()
+        {
+            inventory = Inventory.instance;
+            currentEquipment = new List<ArmorItem>();
+        }
+
+        public void Equip(ArmorItem newItem)
+        {
+            ArmorItem oldItem = null;
+
+            if (newItem != null)
+            {
+                ArmorItem currentItem = currentEquipment.Where(item => item != null)?.FirstOrDefault(item => item.armor_Type == newItem.armor_Type);
+               
+                if(currentItem != null)
+                {
+                    oldItem = currentItem;
+                    currentEquipment.Remove(currentItem);
+                    inventory.Add(currentItem);
+                }
+
+                if (onEquipmentChanged != null)
+                {
+                    onEquipmentChanged.Invoke(newItem, oldItem);
+                }
+
+                currentEquipment.Add(newItem);
+             
+            }
+        }
+
+        public void Unequip(ArmorItem itemToRemove)
+        {
+            if (itemToRemove != null)
+            {
+                ArmorItem currentItem = currentEquipment.Where(item => item != null)?.FirstOrDefault(item => itemToRemove.armor_Type == item.armor_Type);
+
+                if(currentItem != null)
+                {
+                    currentEquipment.Remove(currentItem);
+                    inventory.Add(currentItem);
+
+                    if (onEquipmentChanged != null)
+                    {
+                        onEquipmentChanged.Invoke(null, currentItem);
+                    }
+                }
+            }
+        }
+
+        public void UnequipAll()
+        {
+            new List<ArmorItem>(currentEquipment).ForEach(item => Unequip(item));
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                UnequipAll();
+            }
+        }
+    }
+}

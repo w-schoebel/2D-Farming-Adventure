@@ -38,7 +38,7 @@ namespace Assets.Scripts.InventoryObjects
         {
             for (int i = 0; i < toolbarSlots.Length; i++)
             {
-                if (i < toolbar.items.Count)
+                if (toolbar.items[i] != null)
                 {
                     toolbarSlots[i].AddItem(toolbar.items[i]);
                 }
@@ -127,6 +127,7 @@ namespace Assets.Scripts.InventoryObjects
                         slotNumber = 0;
                     }
                     textMesh[i].text = slotNumber.ToString();
+                    toolbarSlots[i].SetSlotNumber(i);
                 }
             }
         }

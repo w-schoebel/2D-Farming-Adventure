@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.InventoryObjects
 {
@@ -17,6 +18,16 @@ namespace Assets.Scripts.InventoryObjects
             inventory.itemChangedCallback += UpdateUI; //Event that triggers UpdateUI
 
             inventorySlots = itemsParent.GetComponentsInChildren<InventorySlot>();
+
+            setSlotNumbers();
+        }
+
+        private void setSlotNumbers()
+        {
+            for (int i = 0; i < inventorySlots.Length; i++)
+            {
+                inventorySlots[i].SetSlotNumber(i);
+            }
         }
 
         // Update is called once per frame
@@ -32,7 +43,7 @@ namespace Assets.Scripts.InventoryObjects
         {
             for (int i = 0; i < inventorySlots.Length; i++)
             {
-                if (i < inventory.items.Count)
+                if (inventory.items[i] != null)
                 {
                     inventorySlots[i].AddItem(inventory.items[i]);
                 }

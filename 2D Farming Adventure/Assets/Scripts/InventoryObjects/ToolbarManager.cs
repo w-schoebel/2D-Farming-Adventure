@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.ItemObjects.Types;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Assets.Scripts.InventoryObjects
         public OnItemChanged itemChangedCallback;
 
         public int space = 10; // number of slots
-        public List<Item> items = new List<Item>();
+        public Item[] items;
 
         #region Singleton
 
@@ -21,44 +22,51 @@ namespace Assets.Scripts.InventoryObjects
         /// </summary>
         private void Awake()
         {
+            items = new Item[space];
+
             //proof that there is only one instance otherwise warn us
             if (instance != null)
             {
-                Debug.LogWarning("More than one instance of Toolbar found!");
+                Debug.LogWarning("More than one instance of ToolbarManager found!");
                 return;
             }
-            instance = this;
+            instance = this;     
         }
 
         #endregion
 
-        public bool Add(Item newItem)
+        public bool Add(Item newItem, int position, int positionInList)
         {
-            if (newItem == null)
+            if (newItem == null || position >= space)
             {
                 return false;
             }
 
-            if (!newItem.isDefaultItem)
+            int oldPosition = Array.IndexOf(items, newItem);
+
+            if(oldPosition > -1)
             {
-                if (items.Count >= space)
-                {
-                    Debug.Log("Not enough space in Inventory");
-                    return false;
-                }
-
-                //checken, über welchem Slot Maus drüber ist -> i
-                items.Add(newItem);
-
-                InvokeItemChangeCallback();
+                items[oldPosition] = items[position];
+                //fehlt hier nicht:
+              //  Inventory.instance.Add(items[oldPosition], positionInList, oldPosition);
             }
+            else
+            {
+                Inventory.instance.Add(items[position], positionInList, position);
+            }
+
+            items[position] = newItem;
+
+            InvokeItemChangeCallback();
 
             return true;
         }
 
         public void RemoveItem(Item item)
         {
-            items.Remove(item);
+           int index = Array.IndexOf(items, item);
+
+            items[index] = null;
 
             InvokeItemChangeCallback();
         }
@@ -69,6 +77,16 @@ namespace Assets.Scripts.InventoryObjects
             {
                 itemChangedCallback.Invoke();
             }
+        }
+
+        public bool ContainsItem(Item item)
+        {
+            int index = Array.IndexOf(items, item);
+            if (index == -1)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

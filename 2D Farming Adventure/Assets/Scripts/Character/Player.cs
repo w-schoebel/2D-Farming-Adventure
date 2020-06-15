@@ -5,7 +5,7 @@ namespace Assets.Scripts.Character
 {
     public class Player : MonoBehaviour
     {
-        Interactable element = new Interactable();
+        Interactable element;
         Transform player;
         Camera cam;
 
@@ -13,6 +13,7 @@ namespace Assets.Scripts.Character
         {
             cam = Camera.main;
             player = GetComponent<Transform>();
+            element = GetComponent<Interactable>();
         }
 
         void Update()

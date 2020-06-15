@@ -10,7 +10,7 @@ namespace Assets.Scripts.ItemObjects.Types
     {
         public WeaponItem()
         {
-            itemType = ItemType.Weapon;
+            item_Type = ItemType.Weapon;
         }
 
         public override void Use()

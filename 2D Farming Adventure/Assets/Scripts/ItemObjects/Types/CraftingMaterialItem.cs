@@ -10,7 +10,7 @@ namespace Assets.Scripts.ItemObjects.Types
     {
         public CraftingMaterialItem()
         {
-            itemType = ItemType.CraftMaterial;
+            item_Type = ItemType.CraftMaterial;
         }
     }
 }

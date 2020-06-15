@@ -17,9 +17,6 @@ namespace Assets.Scripts.ItemObjects
             {
                 Destroy(gameObject);
             }
-
-            Player player = new Player();
-            player.RemoveFocus();
         }
     }
 }

@@ -1,28 +1,29 @@
-﻿using Assets.Scripts.ItemObjects.Types;
+﻿using Assets.Scripts.InventoryObjects.Handler;
+using Assets.Scripts.ItemObjects.Types;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.InventoryObjects
 {
-    public class InventorySlot : MonoBehaviour
-        , IPointerClickHandler // 2
-        , IDragHandler
-        , IPointerEnterHandler
-        , IPointerExitHandler
+    public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IDropHandler
     {
         public UnityEngine.UI.Image icon;
-        
-        Item item;
-        bool isEntered = false;
-        bool isDragged = false;
+        public Item item;
+        private bool isEntered = false;
+        private bool isDragged = false;
+        private int slot_number = -1;
+
         public void AddItem(Item newItem)
         {
-            item = newItem;
-            if (icon != null)
+            if(newItem != null)
             {
-                icon.sprite = item.icon;
-                icon.enabled = true;
-            }
+                item = newItem;
+                if (icon != null)
+                {
+                    icon.sprite = item.icon;
+                    icon.enabled = true;
+                }
+            } 
         }
 
         public void ClearSlot()
@@ -35,30 +36,9 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
-
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            //TODO: item = item aus dem Slot (und nur das eine!)
-            if (!isDragged)
-            {
-                ToolbarManager.instance.Add(item);
-            }
-            isDragged = true;
-            //wenn über Toolbar -> in Toolbarslot einfügen und altes item zurück in InventorySlot
-            //wenn über EquipmentDisplay-> in passenden Slot einfügen & altes Item zurück in InventorySlot
-        }
-
-        private void OnMouseUp()
-        {
-            if (isDragged)
-            {
-                isDragged = false;
-            }
-        }
         public void OnPointerClick(PointerEventData eventData)
         {
-            // UseItem();
+            UseItem();
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -80,7 +60,7 @@ namespace Assets.Scripts.InventoryObjects
         {
             if (Input.GetKeyDown(KeyCode.O) && isEntered)
             {
-                Inventory.instance.RemoveItem(item);
+                item.RemoveFromInventory();
             }
         }
 
@@ -92,5 +72,44 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        public void SetSlotNumber(int slotNumber)
+        {
+            this.slot_number = slotNumber;
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (ItemDragHandler.Instance != null)
+            {
+                ItemDragHandler itemDragHandler = ItemDragHandler.Instance;
+                itemDragHandler.SetItem(item);
+                itemDragHandler.SetItemPosition(slot_number);
+            }
+        }
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            if (ItemDragHandler.Instance != null)
+            {
+                Item item = ItemDragHandler.Instance.GetItem();
+                int itemPosition = ItemDragHandler.Instance.GetItemPosition();
+
+                handleDroppedItem(item, itemPosition);
+            }
+        }
+
+        private void handleDroppedItem(Item item, int itemPosition)
+        {
+            RectTransform invPanel = transform as RectTransform;
+            Vector2 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(invPanel, worldPosition))
+            {
+                if (Inventory.instance != null && slot_number != -1)
+                {
+                    Inventory.instance.Add(item, slot_number, itemPosition);
+                }
+            }
+        }
     }
 }

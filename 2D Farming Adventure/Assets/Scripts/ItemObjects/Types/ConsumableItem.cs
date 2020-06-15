@@ -10,7 +10,7 @@ namespace Assets.Scripts.ItemObjects.Types
     {
         public ConsumableItem()
         {
-            itemType = ItemType.Consumable;
+            item_Type = ItemType.Consumable;
         }
 
         public override void Use()

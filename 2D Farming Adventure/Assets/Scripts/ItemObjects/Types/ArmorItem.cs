@@ -1,4 +1,5 @@
 ﻿using Assets.Enums;
+using Assets.Scripts.InventoryObjects;
 using UnityEngine;
 
 namespace Assets.Scripts.ItemObjects.Types
@@ -8,14 +9,32 @@ namespace Assets.Scripts.ItemObjects.Types
     [CreateAssetMenu(fileName = "New Item", menuName = "Invntory/ArmorItem")]
     public class ArmorItem : Item
     {
+        public int armor_Value;
+        public int damage_Value;
+        public ArmorType armor_Type;
+
         public ArmorItem()
         {
-            itemType = ItemType.Armor;
+            item_Type = ItemType.Armor;
         }
 
         public override void Use()
         {
-            //TODO: implement Item use
+            EquipmentManager.instance.Equip(this);
+            if(Inventory.instance != null)
+            {
+                if (Inventory.instance.ContainsItem(this))
+                {
+                    RemoveFromInventory();
+                }
+            }
+            if (ToolbarManager.instance != null)
+            {
+                if (ToolbarManager.instance.ContainsItem(this))
+                {
+                    RemoveFromToolbar();
+                }
+            }
         }
     }
 }
