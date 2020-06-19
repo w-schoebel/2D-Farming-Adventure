@@ -11,10 +11,7 @@ namespace Assets.Scripts.Menu
     public class GameMenu : MonoBehaviour
     {
 
-        public string playerName;
-        public int health;
-        public int armor;
-        public int endurance;
+       
         public void QuitGame()
         {
             Debug.Log("Quit");

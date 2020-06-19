@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using Assets.Scripts.Data;
+using Assets.Scripts.Stats;
 
-namespace Assets.Scripts.Stats
+
+namespace Assets.Scripts.Data
 { 
     public class CharacterStats : MonoBehaviour
     {
@@ -9,11 +10,11 @@ namespace Assets.Scripts.Stats
 
         //cant modify health
         public int maxHealth = 100;
-        public int currentHealth;
+        public int health;
         public int maxEndurance = 150;
-        public int currentEndurance;
-            public int armor;
-            public string Playername;
+        public int endurance;
+        public int armor;
+        public string playerName;
 
         // public Stat damage;
         //public Stat armor;
@@ -22,24 +23,18 @@ namespace Assets.Scripts.Stats
         //add HealthBar
         public HealthBar healthBar;
         public EnduranceBar enduranceBar;
+
         void Start()
         {
-            currentHealth = maxHealth;
+            health = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
+           
 
-            currentEndurance = maxEndurance;
+            endurance = maxEndurance;
             enduranceBar.SetMaxEndurance(maxEndurance);
         }
 
-        public void SavePlayer()
-        {
-
-            SaveSystem.SavePlayer(this);
-        }
-
-
-
-
+     
         //test
         private void Update()
             {
@@ -52,7 +47,9 @@ namespace Assets.Scripts.Stats
                 {
                     ConsumeEndurance(10);
                 }
-            }
+
+           
+        }
 
       
 
@@ -60,12 +57,12 @@ namespace Assets.Scripts.Stats
             {
             consume = Mathf.Clamp(consume, 0, int.MaxValue);
 
-            currentEndurance -= consume;
-            enduranceBar.SetEndurance(currentEndurance);
+            endurance -= consume;
+            enduranceBar.SetEndurance(endurance);
 
             Debug.Log(transform.name + "consume " + consume + " endurance.");
 
-            if (currentEndurance <= 0)
+            if (endurance <= 0)
             {
                 //Was soll beim Tod des jeweiligen Characters passieren?
                 Die();
@@ -78,12 +75,12 @@ namespace Assets.Scripts.Stats
                 //no negative dmg so we wont heal
                 damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
-                currentHealth -= damage;
-                healthBar.SetHealth(currentHealth);
+                health -= damage;
+                healthBar.SetHealth(health);
 
                 Debug.Log(transform.name + "take " + damage +  " damage.");
 
-                if (currentHealth <= 0)
+                if (health <= 0)
                 {
                     //Was soll beim Tod des jeweiligen Characters passieren?
                     Die();
@@ -98,7 +95,32 @@ namespace Assets.Scripts.Stats
                 Debug.Log(transform.name + "died");
             }
 
-       
+        public void SavePlayer()
+        {
+
+            SaveSystem.SavePlayer(this);
+            Debug.Log("Saving");
+
+        }
+
+        public void LoadPlayer()
+        {
+            PlayerData data = SaveSystem.LoadPlayer();
+            Debug.Log("Load");
+
+            playerName = data.playerName;
+            health = data.health;
+            endurance = data.endurance;
+            armor = data.armor;
+            healthBar.SetHealth(health);
+            enduranceBar.SetEndurance(endurance);
+
+            Vector2 position;
+            position.x = data.position[0];
+            position.y = data.position[1];
+            
+        }
+
     }
 
 }

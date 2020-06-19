@@ -11,7 +11,7 @@ namespace Assets.Scripts.Data
     public static class SaveSystem
     {
        
-        public static void SavePlayer(CharacterStats player)
+        public static void SavePlayer(CharacterStats manager)
         {
             BinaryFormatter formatter = new BinaryFormatter();
 
@@ -19,11 +19,13 @@ namespace Assets.Scripts.Data
             string path = Application.persistentDataPath + "/player.save";
             FileStream stream = new FileStream(path, FileMode.Create);
 
-            PlayerData data = new PlayerData(player);
+            PlayerData data = new PlayerData(manager);
 
             //write data into file
             formatter.Serialize(stream, data);
             stream.Close();
+            Debug.Log("Saved File");
+           
         }
 
        
@@ -36,12 +38,15 @@ namespace Assets.Scripts.Data
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 FileStream stream = new FileStream(path, FileMode.Open);
+                Debug.Log("Save File opened");
 
                 //from binary to read able and safe in variable (fomating in playerData)
                 PlayerData data = formatter.Deserialize(stream) as PlayerData;
+                Debug.Log(data);
                 stream.Close();
-                 Debug.Log("Save File not found!");
 
+                Debug.Log("Save File found");
+                
                 return data;
 
             } else

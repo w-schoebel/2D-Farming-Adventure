@@ -12,37 +12,13 @@ namespace Assets.Scripts.Menu
 { 
 public class MainMenu : MonoBehaviour
 {
-        public string playerName;
-        public int health;
-        public int armor;
-        public int endurance;
+        
         public void PlayGame()
     {
         //läd Szene mit aktuellem Scenenindex + 1
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-     public void LoadPlayer()
-        { 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
-            PlayerData data = SaveSystem.LoadPlayer();
-            Debug.Log("Load");
-
-            playerName = data.playerName;
-            health = data.health;
-            endurance = data.endurance;
-            armor = data.armor;
-            Vector2 position;
-            position.x = data.position[0];
-            position.y = data.position[1];  
-
-        }
-
-        public void SavePlayer()
-        {
-           // SaveSystem.SavePlayer(this);
-        }
 
         public void QuitGame()
     {

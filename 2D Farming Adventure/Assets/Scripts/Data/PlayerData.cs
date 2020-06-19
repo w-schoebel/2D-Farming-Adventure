@@ -18,17 +18,18 @@ namespace Assets.Scripts.Data
         //so store this in an array
         public float[] position;
 
-        public PlayerData (CharacterStats player)
+        public PlayerData (CharacterStats manager)
         {
             //variables from CharacterStats-Script
-            playerName = player.name;
-            health = player.currentHealth;
-            endurance = player.currentEndurance;
-            armor = player.armor;
+            playerName = manager.playerName;
+            health = manager.health;
+            endurance = manager.endurance;
+            armor = manager.armor;
 
             position = new float[2];
-            position[0] = player.transform.position.x;
-            position[1] = player.transform.position.y;
+            position[0] = manager.transform.position.x;
+            position[1] = manager.transform.position.y;
+            
         }
 
       

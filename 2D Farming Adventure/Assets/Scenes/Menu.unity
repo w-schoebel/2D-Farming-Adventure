@@ -435,7 +435,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 967618459}
-        m_MethodName: LoadPlayer
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -445,8 +445,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 967618459}
-        m_MethodName: PlayGame
+      - m_Target: {fileID: 1860793593}
+        m_MethodName: LoadPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2914,10 +2914,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9713d9d1bfa103c4e89e126fafdbf3fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: 
-  health: 0
-  armor: 0
-  endurance: 0
 --- !u!114 &967618460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5500,6 +5496,7 @@ GameObject:
   - component: {fileID: 1860793592}
   - component: {fileID: 1860793594}
   - component: {fileID: 1860793593}
+  - component: {fileID: 1860793595}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5539,11 +5536,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 0
+  health: 0
   maxEndurance: 150
-  currentEndurance: 0
+  endurance: 0
   armor: 0
-  Playername: 
+  playerName: 
   healthBar: {fileID: 0}
   enduranceBar: {fileID: 0}
 --- !u!212 &1860793594
@@ -5596,6 +5593,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1860793595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860793591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb9890fef53165f40ae44d0061c71d26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1869940239
 GameObject:
   m_ObjectHideFlags: 0
