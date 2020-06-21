@@ -90,5 +90,18 @@ namespace Assets.Scripts.InventoryObjects
                 UnequipAll();
             }
         }
+
+        public int GetCurrentAmor()
+        {
+            int armor = 0;
+            for(int i = 0; i<currentEquipment.Count; i++)
+            {
+                armor = armor + currentEquipment[i].armorValue;
+            }
+
+            Debug.Log(armor);
+
+            return armor;
+        }
     }
 }

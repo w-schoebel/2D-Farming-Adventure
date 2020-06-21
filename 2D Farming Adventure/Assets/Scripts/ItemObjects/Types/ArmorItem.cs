@@ -9,13 +9,13 @@ namespace Assets.Scripts.ItemObjects.Types
     [CreateAssetMenu(fileName = "New Item", menuName = "Invntory/ArmorItem")]
     public class ArmorItem : Item
     {
-        public int armor_Value;
-        public int damage_Value;
+        public int armorValue;
+        public int damageValue;
         public ArmorType armor_Type;
 
         public ArmorItem()
         {
-            item_Type = ItemType.Armor;
+            itemType = ItemType.Armor;
         }
 
         public override void Use()

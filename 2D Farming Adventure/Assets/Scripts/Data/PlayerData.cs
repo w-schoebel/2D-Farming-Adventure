@@ -29,10 +29,6 @@ namespace Assets.Scripts.Data
             position = new float[2];
             position[0] = manager.transform.position.x;
             position[1] = manager.transform.position.y;
-            
         }
-
-      
-
     }
 }

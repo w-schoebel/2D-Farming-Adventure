@@ -27,12 +27,12 @@ namespace Assets.Scripts.InventoryObjects.Handler
 
         public void OnDrop(PointerEventData eventData)
         {
-            if(ItemDragHandler.Instance != null)
+            if (ItemDragHandler.Instance != null)
             {
                 Item item = ItemDragHandler.Instance.GetItem();
 
                 OnItemDropped?.Invoke(this, new OnItemDroppedEventArgs { item = item });
-            } 
+            }
         }
     }
 }

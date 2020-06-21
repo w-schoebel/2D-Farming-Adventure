@@ -1,6 +1,9 @@
-﻿using Assets.Scripts.ItemObjects.Types;
+﻿using Assets.Scripts.Character;
+using Assets.Scripts.ItemObjects.Types;
+using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.InventoryObjects
 {
@@ -19,6 +22,14 @@ namespace Assets.Scripts.InventoryObjects
             equipmentManager.onEquipmentChanged += UpdateUI; //Event that triggers UpdateUI
 
             equipmentSlots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
+            SetPicture();
+        }
+
+        private void SetPicture()
+        {/*
+            Image image = itemsParent.GetComponentInChildren<Image>();
+            image.sprite = ;//Sprite vom Spieler
+            */
         }
 
         void UpdateUI(ArmorItem newItem, ArmorItem oldItem)

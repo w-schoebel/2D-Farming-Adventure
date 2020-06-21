@@ -6,10 +6,10 @@ namespace Assets.Scripts.ItemObjects.Types
 {
     public class Item : ScriptableObject
     {
-        public string item_name = "New Item";
+        public string itemName = "New Item";
         public Sprite icon = null;
         public bool isDefaultItem = false;
-        public ItemType item_Type;
+        public ItemType itemType;
 
         public virtual void Use()
         {

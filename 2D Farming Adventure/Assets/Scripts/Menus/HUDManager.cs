@@ -9,7 +9,7 @@ public class HUDManager : MonoBehaviour
     public GameObject GameUI;
     private void Start()
     {
-        time = GameObject.Find("Time").GetComponent<TextMeshProUGUI>();
+      //  time = GameObject.Find("Time").GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()

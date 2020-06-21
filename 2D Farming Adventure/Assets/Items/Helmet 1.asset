@@ -15,7 +15,7 @@ MonoBehaviour:
   item_name: Helmet1
   icon: {fileID: 7173742024756813901, guid: d17c07c5327656740944f9dab7243efb, type: 3}
   isDefaultItem: 0
-  itemType: 2
-  armor_Value: 0
-  damage_Value: 0
+  item_Type: 2
+  armorValue: 2
+  damageValue: 0
   armor_Type: 0

@@ -1,11 +1,12 @@
-﻿using Assets.Scripts.ItemObjects.Types;
+﻿using Assets.Scripts.Character;
+using Assets.Scripts.ItemObjects.Types;
 using UnityEngine;
 
 namespace Assets.Scripts.ItemObjects
 {
     public class Interactable : MonoBehaviour
     {
-        public float radius = 3f; //Entfernung bis mit Item interagiert werden kann
+        public float radius = 1f; //Entfernung bis mit Item interagiert werden kann
         public Transform interaction_Transform;
         public Item item;
 
@@ -59,8 +60,10 @@ namespace Assets.Scripts.ItemObjects
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            Interact();
-            Debug.Log("Object that entered trigger: " + collision.name);
+            if (collision.name.Contains("Player")) //maybe change to !collision.name.contains("") for the names of NPC, because user sets name of Player
+            {
+                Interact();
+            }
         }
     }
 }

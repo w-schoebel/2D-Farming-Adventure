@@ -1,4 +1,5 @@
 ﻿using Assets.Enums;
+using Assets.Scripts.Character;
 using UnityEngine;
 
 namespace Assets.Scripts.ItemObjects.Types
@@ -8,14 +9,17 @@ namespace Assets.Scripts.ItemObjects.Types
     [CreateAssetMenu(fileName = "New Item", menuName = "Invntory/WeaponItem")]
     public class WeaponItem : Item
     {
+        public int damageValue;
+        public int enduranceValue;
         public WeaponItem()
         {
-            item_Type = ItemType.Weapon;
+            itemType = ItemType.Weapon;
         }
 
         public override void Use()
         {
-            //TODO: implement Item use
+            ActingManager actingManager = new ActingManager();
+            actingManager.UseWeapon(this);
         }
     }
 }

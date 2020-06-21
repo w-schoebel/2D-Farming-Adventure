@@ -12,6 +12,7 @@ namespace Assets.Services
         
         
         float timerDirection;
+        int currentDirection;
         PossibleDirections possibleDirections;
         Animator animator;
 
@@ -98,22 +99,33 @@ namespace Assets.Services
         /// </summary>
         private void RandomDirection()
         {
+            int anzahlLoops = 0;
             int rndDirection = Random.Range(1, 5);
-            switch (rndDirection)
+            while (rndDirection == currentDirection)
             {
-                case 1:
-                    possibleDirections = PossibleDirections.Up;
-                    break;
-                case 2:
-                    possibleDirections = PossibleDirections.Down;
-                    break;
-                case 3:
-                    possibleDirections = PossibleDirections.Left;
-                    break;
-                case 4:
-                    possibleDirections = PossibleDirections.Rigth;
-                    break;
+                rndDirection = Random.Range(1, 5);
+                anzahlLoops = anzahlLoops + 1;
             }
+
+            if(rndDirection != currentDirection)
+            {
+                switch (rndDirection)
+                {
+                    case 1:
+                        possibleDirections = PossibleDirections.Up;
+                        break;
+                    case 2:
+                        possibleDirections = PossibleDirections.Down;
+                        break;
+                    case 3:
+                        possibleDirections = PossibleDirections.Left;
+                        break;
+                    case 4:
+                        possibleDirections = PossibleDirections.Rigth;
+                        break;
+                }
+            }
+            currentDirection = rndDirection;
 
             timerDirection = createRandomRange();
         }

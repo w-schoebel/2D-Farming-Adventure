@@ -47,8 +47,6 @@ namespace Assets.Scripts.InventoryObjects
             if(oldPosition > -1)
             {
                 items[oldPosition] = items[position];
-                //fehlt hier nicht:
-              //  Inventory.instance.Add(items[oldPosition], positionInList, oldPosition);
             }
             else
             {

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Serialization
 {
@@ -19,7 +17,5 @@ namespace Assets.Scripts.Serialization
         public string name;
         public PlayerType playerType;
         public Vector2 position;
-
-        
     }
 }

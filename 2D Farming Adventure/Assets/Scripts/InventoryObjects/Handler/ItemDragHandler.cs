@@ -17,8 +17,10 @@ namespace Assets.Scripts.InventoryObjects.Handler
         private Canvas canvas;
         private CanvasGroup canvasGroup;
         private RectTransform rectTransform;
+        private RectTransform SlotTransforms;
+        private Vector2 originalPosition;
         private Item item;
-        private int item_position;
+        private int itemPosition;
 
         private void Awake()
         {
@@ -31,6 +33,7 @@ namespace Assets.Scripts.InventoryObjects.Handler
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            originalPosition = rectTransform.position; //store originalPosition from IconTransform 
             canvasGroup.blocksRaycasts = false;
             canvasGroup.alpha = .6f;
         }
@@ -45,6 +48,7 @@ namespace Assets.Scripts.InventoryObjects.Handler
         {
             canvasGroup.blocksRaycasts = true;
             canvasGroup.alpha = 1f;
+            rectTransform.position = originalPosition; //set IconTransform back to original Position, so that future items can be shown on the right position in Inventory
         }
 
         public Item GetItem()
@@ -59,12 +63,12 @@ namespace Assets.Scripts.InventoryObjects.Handler
 
         public int GetItemPosition()
         {
-            return item_position;
+            return itemPosition;
         }
 
         public void SetItemPosition(int itemPosition)
         {
-            this.item_position = itemPosition;
+            this.itemPosition = itemPosition;
         }
     }
 }

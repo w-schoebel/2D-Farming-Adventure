@@ -1,4 +1,6 @@
 ﻿using Assets.Enums;
+using Assets.Scripts.Character;
+using Assets.Scripts.Data;
 using Assets.Services;
 using System;
 using UnityEngine;
@@ -7,12 +9,13 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
     MovementService movementService;
-    float movement_speed; 
-    float walking_speed = 10.0f;
-    float running_speed = 20.0f;
-    bool is_running = false;
+    float movementSpeed; 
+    float walkingSpeed = 5.0f;
+    float runningSpeed = 10.0f;
+    bool isRunning = false;
     Rigidbody2D rigidbody;
     Animator animator;
+    private CharacterStats characterStats;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +23,10 @@ public class PlayerMovement : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         movementService = PlayerMovementServiceImpl.Create(animator);
+        characterStats = new CharacterStats(); //TODO: Anbindung mit Maren
     }
+
+  
 
     // Update is called once per frame
     /// <summary>
@@ -34,10 +40,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector2 curentPosition = rigidbody.position;
+        //Vector2 currentPositionFromLoading = characterStats.position; //TODO: CharacterStats public global Vector2 position; und dann unten bei Load Werte diesem Vector2 zuordnen statt lokalem Vektor2
 
         SwitchMovementType();
 
-        rigidbody.MovePosition(movementService.CalculateNewPosition(curentPosition, movement_speed, false));
+        rigidbody.MovePosition(movementService.CalculateNewPosition(curentPosition, movementSpeed, false));
     }
 
     /// <summary>
@@ -47,21 +54,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            is_running = true;
+            isRunning = true;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            is_running = false;
+            isRunning = false;
         }
 
-        if (is_running)
+        if (isRunning)
         {
-            movement_speed = running_speed;
+            movementSpeed = runningSpeed;
         }
         else
         {
-            movement_speed = walking_speed;
+            movementSpeed = walkingSpeed;
         }
     }
 }

@@ -5,7 +5,7 @@ public class NPCMovement : MonoBehaviour
 {
     MovementService movementService;
 
-    float movement_speed = 10.0f;
+    float movementSpeed = 3.0f;
     Rigidbody2D rigidbody;
     bool enteredCollision;
     Animator animator;
@@ -29,7 +29,7 @@ public class NPCMovement : MonoBehaviour
     {
         Vector2 curentPosition = rigidbody.position;
 
-        rigidbody.MovePosition(movementService.CalculateNewPosition(curentPosition, movement_speed, enteredCollision));
+        rigidbody.MovePosition(movementService.CalculateNewPosition(curentPosition, movementSpeed, enteredCollision));
     }
 
     /// <summary>

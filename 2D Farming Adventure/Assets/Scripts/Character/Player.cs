@@ -8,6 +8,13 @@ namespace Assets.Scripts.Character
         Interactable element;
         Transform player;
         Camera cam;
+        private int maxHealth = 100;
+        private int health;
+        private int maxEndurance = 150;
+        private int endurance;
+        private int armor;
+        private string playerName;
+        private Vector2 position;
 
         private void Start()
         {

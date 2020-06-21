@@ -3,10 +3,10 @@ using Assets.Scripts.Stats;
 
 
 namespace Assets.Scripts.Data
-{ 
+{
     public class CharacterStats : MonoBehaviour
     {
-   
+
 
         //cant modify health
         public int maxHealth = 100;
@@ -15,6 +15,7 @@ namespace Assets.Scripts.Data
         public int endurance;
         public int armor;
         public string playerName;
+
 
         // public Stat damage;
         //public Stat armor;
@@ -28,33 +29,30 @@ namespace Assets.Scripts.Data
         {
             health = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
-           
 
             endurance = maxEndurance;
             enduranceBar.SetMaxEndurance(maxEndurance);
         }
 
-     
+
         //test
         private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
             {
-                if (Input.GetKeyDown(KeyCode.T))
-                {
-                    TakeDamage(10);
-                }
+                TakeDamage(10);
+            }
 
-                if (Input.GetKeyDown(KeyCode.V))
-                {
-                    ConsumeEndurance(10);
-                }
-
-           
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                ConsumeEndurance(10);
+            }
         }
 
-      
 
-        public void ConsumeEndurance (int consume)
-            {
+
+        public void ConsumeEndurance(int consume)
+        {
             consume = Mathf.Clamp(consume, 0, int.MaxValue);
 
             endurance -= consume;
@@ -67,40 +65,38 @@ namespace Assets.Scripts.Data
                 //Was soll beim Tod des jeweiligen Characters passieren?
                 Die();
             }
-            }
+        }
 
-        public void TakeDamage (int damage)
+        public void TakeDamage(int damage)
+        {
+            //damage -= armor.getValue();
+            //no negative dmg so we wont heal
+            damage = Mathf.Clamp(damage, 0, int.MaxValue);
+
+            health -= damage;
+            healthBar.SetHealth(health);
+
+            Debug.Log(transform.name + "take " + damage + " damage.");
+
+            if (health <= 0)
             {
-                //damage -= armor.getValue();
-                //no negative dmg so we wont heal
-                damage = Mathf.Clamp(damage, 0, int.MaxValue);
-
-                health -= damage;
-                healthBar.SetHealth(health);
-
-                Debug.Log(transform.name + "take " + damage +  " damage.");
-
-                if (health <= 0)
-                {
-                    //Was soll beim Tod des jeweiligen Characters passieren?
-                    Die();
-                }
+                //Was soll beim Tod des jeweiligen Characters passieren?
+                Die();
             }
+        }
 
         //GAme-over-Scene; ovverride with the die() from char
-        public virtual void Die ()
-            {
-                //Die in some way
-                //This method is meant to be overritten
-                Debug.Log(transform.name + "died");
-            }
+        public virtual void Die()
+        {
+            //Die in some way
+            //This method is meant to be overritten
+            Debug.Log(transform.name + "died");
+        }
 
         public void SavePlayer()
         {
-
             SaveSystem.SavePlayer(this);
             Debug.Log("Saving");
-
         }
 
         public void LoadPlayer()
@@ -114,13 +110,11 @@ namespace Assets.Scripts.Data
             armor = data.armor;
             healthBar.SetHealth(health);
             enduranceBar.SetEndurance(endurance);
-
             Vector2 position;
+
             position.x = data.position[0];
             position.y = data.position[1];
-            
         }
-
     }
 
 }

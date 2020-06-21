@@ -93,9 +93,9 @@ namespace Assets.Scripts.InventoryObjects
             {
                 Item item = ItemDragHandler.Instance.GetItem();
                 int itemPosition = ItemDragHandler.Instance.GetItemPosition();
-
                 handleDroppedItem(item, itemPosition);
             }
+
         }
 
         private void handleDroppedItem(Item item, int itemPosition)
@@ -108,6 +108,7 @@ namespace Assets.Scripts.InventoryObjects
                 if (Inventory.instance != null && slot_number != -1)
                 {
                     Inventory.instance.Add(item, slot_number, itemPosition);
+                    item.RemoveFromToolbar();
                 }
             }
         }
