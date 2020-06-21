@@ -10,6 +10,7 @@ namespace Assets.Scripts.Data
     public class CharacterStats : MonoBehaviour
     {
         public InputField playername;
+        
 
         //cant modify health
         public int maxHealth = 100;
@@ -18,6 +19,10 @@ namespace Assets.Scripts.Data
         public int endurance;
         public int armor;
         public string playerName;
+        public int year;
+        public int day;
+        public int hour;
+        public int minute;
 
 
         // public Stat damage;
@@ -35,6 +40,8 @@ namespace Assets.Scripts.Data
 
             endurance = maxEndurance;
             enduranceBar.SetMaxEndurance(maxEndurance);
+
+            
 
             LoadPlayer();
         }
@@ -54,6 +61,12 @@ namespace Assets.Scripts.Data
             }
         }
 
+        public int Armor()
+        {
+            armor = 5;
+            return armor;
+            
+        }
 
 
         public void ConsumeEndurance(int consume)
@@ -107,8 +120,11 @@ namespace Assets.Scripts.Data
         public void LoadPlayer()
         {
             PlayerData data = SaveSystem.LoadPlayer();
-            
 
+            minute = data.minute;
+             hour = data.hour;
+             day = data.day;
+             year = data.year;
             playerName = data.playerName;
             health = data.health;
             endurance = data.endurance;
@@ -125,6 +141,8 @@ namespace Assets.Scripts.Data
 
         public void NewGame()
         {
+            day = 1;
+            year = 1;
             playerName = playername.text;
             health = 100;
             endurance = 100;
