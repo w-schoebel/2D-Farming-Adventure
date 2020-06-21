@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using Assets.Scripts.Stats;
 using Assets.Scripts.Menu;
+using UnityEngine.UI;
 
 
 namespace Assets.Scripts.Data
 {
+
     public class CharacterStats : MonoBehaviour
     {
-
+        public InputField playername;
 
         //cant modify health
         public int maxHealth = 100;
@@ -119,6 +121,21 @@ namespace Assets.Scripts.Data
             position.y = data.position[1];
             Debug.Log("Load");
             Debug.Log(health);
+        }
+
+        public void NewGame()
+        {
+            playerName = playername.text;
+            health = 100;
+            endurance = 100;
+            armor = 0;
+            //sprite ?
+            
+
+            Debug.Log(playerName);
+
+            SavePlayer();
+                       
         }
     }
 

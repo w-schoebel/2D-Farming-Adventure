@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace Assets.Scripts.Character
@@ -100,6 +101,19 @@ namespace Assets.Scripts.Character
                 //letztes
                 characterInt = 2;
             }
+        }
+
+        public void BackButton()
+        {
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+
+        }
+
+        public void PlayGame()
+        {
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         }

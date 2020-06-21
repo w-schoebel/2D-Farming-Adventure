@@ -23,8 +23,8 @@ namespace Assets.Scripts.Menu
      
         public void OpenMenu()
         {
-            //läd Szene mit aktuellem Scenenindex + 1
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
         }
 
         

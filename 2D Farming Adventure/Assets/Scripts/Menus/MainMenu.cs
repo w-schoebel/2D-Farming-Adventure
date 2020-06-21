@@ -17,9 +17,18 @@ public class MainMenu : MonoBehaviour
         public void PlayGame()
     {
             
+            //läd Szene mit aktuellem Scenenindex + 2
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+      
+
+        }
+        public void NewGame()
+        {
+
             //läd Szene mit aktuellem Scenenindex + 1
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-      
+            //Reset all saves
+
 
         }
 
