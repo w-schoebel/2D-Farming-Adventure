@@ -3,8 +3,8 @@ using Assets.Scripts.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//für Scenen-"Arbeit" in Unity
 using UnityEngine.SceneManagement;
+
 
 
 
@@ -12,12 +12,16 @@ namespace Assets.Scripts.Menu
 { 
 public class MainMenu : MonoBehaviour
 {
+        public CharacterStats characterStats;
         
         public void PlayGame()
     {
-        //läd Szene mit aktuellem Scenenindex + 1
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+            
+            //läd Szene mit aktuellem Scenenindex + 1
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+      
+
+        }
 
 
         public void QuitGame()
@@ -25,5 +29,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
-}
+
+       
+    }
 }

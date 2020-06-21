@@ -14,7 +14,7 @@ namespace Assets.Scripts.Data
         public int armor;
         public int endurance;
         //serializeable will not work for:
-        //public Vector3 position;
+        //public Vector2 position;
         //so store this in an array
         public float[] position;
 

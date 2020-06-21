@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Assets.Scripts.Stats;
+using Assets.Scripts.Menu;
 
 
 namespace Assets.Scripts.Data
@@ -32,6 +33,8 @@ namespace Assets.Scripts.Data
 
             endurance = maxEndurance;
             enduranceBar.SetMaxEndurance(maxEndurance);
+
+            LoadPlayer();
         }
 
 
@@ -102,7 +105,7 @@ namespace Assets.Scripts.Data
         public void LoadPlayer()
         {
             PlayerData data = SaveSystem.LoadPlayer();
-            Debug.Log("Load");
+            
 
             playerName = data.playerName;
             health = data.health;
@@ -114,6 +117,8 @@ namespace Assets.Scripts.Data
 
             position.x = data.position[0];
             position.y = data.position[1];
+            Debug.Log("Load");
+            Debug.Log(health);
         }
     }
 

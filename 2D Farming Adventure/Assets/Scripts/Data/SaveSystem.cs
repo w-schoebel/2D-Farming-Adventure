@@ -15,8 +15,12 @@ namespace Assets.Scripts.Data
         {
             BinaryFormatter formatter = new BinaryFormatter();
 
-            //Create save File
-            string path = Application.persistentDataPath + "/player.save";
+            if (!Directory.Exists(Application.persistentDataPath + "/saving"))
+            {
+                Directory.CreateDirectory(Application.persistentDataPath + "/saving");
+            }
+            string path = Application.persistentDataPath + "/saving/game.save";
+             
             FileStream stream = new FileStream(path, FileMode.Create);
 
             PlayerData data = new PlayerData(manager);
@@ -24,36 +28,48 @@ namespace Assets.Scripts.Data
             //write data into file
             formatter.Serialize(stream, data);
             stream.Close();
+            
             Debug.Log("Saved File");
            
         }
 
-       
 
-        public static PlayerData LoadPlayer ()
+
+        public static PlayerData LoadPlayer()
         {
-            string path = Application.persistentDataPath + "/player.save";
+            string path = Application.persistentDataPath + "/saving/game.save";
             //existing check
             if (File.Exists(path))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
+               // FileStream file = File.Open(path, FileMode.Open);
                 FileStream stream = new FileStream(path, FileMode.Open);
                 Debug.Log("Save File opened");
+                try
+                {
+                    //from binary to read able and safe in variable (fomating in playerData)
+                    PlayerData data = formatter.Deserialize(stream) as PlayerData;
+                ;
+                    stream.Close();
+                 
 
-                //from binary to read able and safe in variable (fomating in playerData)
-                PlayerData data = formatter.Deserialize(stream) as PlayerData;
-                Debug.Log(data);
-                stream.Close();
+                    Debug.Log("Loaded");
 
-                Debug.Log("Save File found");
-                
-                return data;
-
-            } else
+                    return data;
+                }
+                catch
+                {
+                    Debug.LogErrorFormat("Failed to load file at {0}", path);
+                 
+                    return null;
+                }
+            }
+            else
             {
                 Debug.Log("Save File not found!");
                 return null;
             }
+
         }
     }
 }
