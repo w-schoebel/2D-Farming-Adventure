@@ -14,15 +14,15 @@ namespace Assets.Scripts.Stats
         private Text dayText;
         private Text yearText;
 
+      
 
-        private double minute, hour, day, second, month, year;
+        public double minute, hour, day, month, second, year;
 
-
+            
 
         void Start()
         {
-
-
+                   
             clockText = GameObject.Find("Clock").GetComponent<Text>();
             dayText = GameObject.Find("Day").GetComponent<Text>();
             yearText = GameObject.Find("Year").GetComponent<Text>();
@@ -35,13 +35,17 @@ namespace Assets.Scripts.Stats
             CalculateTime();
         }
 
+      
         void TextCallFunction()
         {
+            
+
             dayText.text = "Day: " + day;
             clockText.text = "Time: " + hour + ":" + minute;
             yearText.text = "Year: " + year;
 
         }
+      
 
         void CalculateTime()
         {

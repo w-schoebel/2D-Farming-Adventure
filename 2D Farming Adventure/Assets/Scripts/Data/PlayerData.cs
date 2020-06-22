@@ -17,10 +17,12 @@ namespace Assets.Scripts.Data
         //public Vector2 position;
         //so store this in an array
         public float[] position;
-        public int year;
-        public int day;
-        public int hour;
-        public int minute;
+        public double year;
+        public double month;
+        public double day;
+        public double hour;
+        public double minute;
+        public double second;
 
         public PlayerData (CharacterStats manager)
         {
@@ -30,11 +32,13 @@ namespace Assets.Scripts.Data
             endurance = manager.endurance;
             armor = manager.armor;
             year = manager.year;
+            month = manager.month;
             day = manager.day;
             hour = manager.hour;
             minute = manager.minute;
+            second = manager.second;
 
-        position = new float[2];
+            position = new float[2];
             position[0] = manager.transform.position.x;
             position[1] = manager.transform.position.y;
         }

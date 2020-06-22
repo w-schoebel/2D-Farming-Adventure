@@ -2,6 +2,7 @@
 using Assets.Scripts.Stats;
 using Assets.Scripts.Menu;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 namespace Assets.Scripts.Data
@@ -10,19 +11,22 @@ namespace Assets.Scripts.Data
     public class CharacterStats : MonoBehaviour
     {
         public InputField playername;
-        
+
+        public SceneLoader sceneLoader;
 
         //cant modify health
-        public int maxHealth = 100;
+        public int maxHealth;
         public int health;
-        public int maxEndurance = 150;
+        public int maxEndurance;
         public int endurance;
         public int armor;
         public string playerName;
-        public int year;
-        public int day;
-        public int hour;
-        public int minute;
+        public double year;
+        public double month;
+        public double day;
+        public double hour;
+        public double minute;
+        public double second;
 
 
         // public Stat damage;
@@ -108,7 +112,12 @@ namespace Assets.Scripts.Data
         {
             //Die in some way
             //This method is meant to be overritten
+            
             Debug.Log(transform.name + "died");
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            LoadPlayer();
+
         }
 
         public void SavePlayer()
@@ -121,10 +130,12 @@ namespace Assets.Scripts.Data
         {
             PlayerData data = SaveSystem.LoadPlayer();
 
+
+            year = data.year;
+            day = data.day;
+            hour = data.hour;
             minute = data.minute;
-             hour = data.hour;
-             day = data.day;
-             year = data.year;
+            second = data.second;
             playerName = data.playerName;
             health = data.health;
             endurance = data.endurance;
@@ -147,10 +158,12 @@ namespace Assets.Scripts.Data
             health = 100;
             endurance = 100;
             armor = 0;
-            //sprite ?
-            
+            maxHealth = 100;
+            maxEndurance = 100;
+        //sprite ?
 
-            Debug.Log(playerName);
+
+        Debug.Log(playerName);
 
             SavePlayer();
                        

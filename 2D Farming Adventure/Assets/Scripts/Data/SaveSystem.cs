@@ -24,6 +24,7 @@ namespace Assets.Scripts.Data
             FileStream stream = new FileStream(path, FileMode.Create);
 
             PlayerData data = new PlayerData(manager);
+           
 
             //write data into file
             formatter.Serialize(stream, data);
@@ -49,6 +50,7 @@ namespace Assets.Scripts.Data
                 {
                     //from binary to read able and safe in variable (fomating in playerData)
                     PlayerData data = formatter.Deserialize(stream) as PlayerData;
+                   
                 ;
                     stream.Close();
                  

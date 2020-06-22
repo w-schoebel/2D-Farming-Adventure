@@ -91,7 +91,7 @@ namespace Assets.Scripts.Character
 
         private void ResetInt()
         {
-            if(characterInt >= 2)
+            if (characterInt >= 2)
             {
                 //erstes
                 characterInt = 1;
@@ -103,19 +103,7 @@ namespace Assets.Scripts.Character
             }
         }
 
-        public void BackButton()
-        {
 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-
-        }
-
-        public void PlayGame()
-        {
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-
-        }
+    }
 
 }
