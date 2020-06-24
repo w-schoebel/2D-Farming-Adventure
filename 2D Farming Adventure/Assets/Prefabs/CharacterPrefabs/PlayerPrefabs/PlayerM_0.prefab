@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3386922397676633208}
   m_Layer: 0
   m_Name: PlayerM_0
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,17 +160,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8918977606339428040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db7642b21fd1b1040a1af4f724140521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playername: {fileID: 0}
+  sceneLoader: {fileID: 0}
   maxHealth: 100
   health: 0
   maxEndurance: 150
   endurance: 0
   armor: 0
   playerName: 
+  year: 0
+  month: 0
+  day: 0
+  hour: 0
+  minute: 0
+  second: 0
   healthBar: {fileID: 0}
   enduranceBar: {fileID: 0}
 --- !u!114 &3386922397676633208
@@ -180,7 +188,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8918977606339428040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a4b013651990cf42811e50f27cebc20, type: 3}
   m_Name: 

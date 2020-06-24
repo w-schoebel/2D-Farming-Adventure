@@ -10,6 +10,7 @@ namespace Assets.Scripts.Data
 
     public class CharacterStats : MonoBehaviour
     {
+        /*
         public InputField playername;
 
         public SceneLoader sceneLoader;
@@ -69,7 +70,6 @@ namespace Assets.Scripts.Data
         {
             armor = 5;
             return armor;
-            
         }
 
 
@@ -167,7 +167,7 @@ namespace Assets.Scripts.Data
 
             SavePlayer();
                        
-        }
+        }*/
     }
 
 }

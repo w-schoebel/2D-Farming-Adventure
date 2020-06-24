@@ -12,5 +12,6 @@ namespace Assets.Enums
         Down,
         Left,
         Rigth,
+        None
     }
 }

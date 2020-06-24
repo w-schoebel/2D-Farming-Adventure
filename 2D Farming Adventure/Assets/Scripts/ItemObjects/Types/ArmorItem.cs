@@ -1,4 +1,5 @@
 ﻿using Assets.Enums;
+using Assets.Scripts.Character;
 using Assets.Scripts.InventoryObjects;
 using UnityEngine;
 
@@ -20,21 +21,7 @@ namespace Assets.Scripts.ItemObjects.Types
 
         public override void Use()
         {
-            EquipmentManager.instance.Equip(this);
-            if(Inventory.instance != null)
-            {
-                if (Inventory.instance.ContainsItem(this))
-                {
-                    RemoveFromInventory();
-                }
-            }
-            if (ToolbarManager.instance != null)
-            {
-                if (ToolbarManager.instance.ContainsItem(this))
-                {
-                    RemoveFromToolbar();
-                }
-            }
+            ActingManager.instance.UseArmorItem(this);
         }
     }
 }

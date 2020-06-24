@@ -18,7 +18,6 @@ public class NPCMovement : MonoBehaviour
         enteredCollision = false;
         animator = GetComponent<Animator>();
         movementService = NPCMovementServiceImpl.Create(animator);
-
     }
 
     // Update is called once per frame
@@ -38,7 +37,14 @@ public class NPCMovement : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        enteredCollision = true;
+        if (!collision.gameObject.CompareTag("NPC"))
+        {
+
+        }
+        else
+        {
+            enteredCollision = true;
+        }
     }
 
     /// <summary>

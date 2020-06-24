@@ -10,8 +10,7 @@ namespace Assets.Scripts.Data
     
     public static class SaveSystem
     {
-       
-        public static void SavePlayer(CharacterStats manager)
+        public static void SavePlayer(PlayerStats manager)
         {
             BinaryFormatter formatter = new BinaryFormatter();
 
@@ -31,10 +30,7 @@ namespace Assets.Scripts.Data
             stream.Close();
             
             Debug.Log("Saved File");
-           
         }
-
-
 
         public static PlayerData LoadPlayer()
         {

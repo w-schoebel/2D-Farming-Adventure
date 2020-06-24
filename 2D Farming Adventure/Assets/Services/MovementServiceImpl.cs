@@ -20,6 +20,20 @@ public class MovementServiceImpl : MovementService
     }
 
     /// <summary>
+    /// calculation of new position as virtual method (can be overridden)
+    /// </summary>
+    /// <param name="currentPosition"></param>
+    /// <param name="movementSpeed"></param>
+    /// <param name="enteredCollision"></param>
+    /// <param name="possibleDirectionX"></param>
+    /// <param name="possibleDirectionY"></param>
+    /// <returns></returns>
+    public virtual Vector2 CalculateNewPosition(Vector2 currentPosition, float movementSpeed, bool enteredCollision, PossibleDirections possibleDirectionX, PossibleDirections possibleDirectionY)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    /// <summary>
     /// calculates for one coordinate new position
     /// </summary>
     /// <param name="currentPosition"></param>

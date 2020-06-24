@@ -24,7 +24,7 @@ namespace Assets.Scripts.Data
         public double minute;
         public double second;
 
-        public PlayerData (CharacterStats manager)
+        public PlayerData (PlayerStats manager)
         {
             //variables from CharacterStats-Script
             playerName = manager.playerName;

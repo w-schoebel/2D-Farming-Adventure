@@ -9,8 +9,11 @@ namespace Assets.Scripts.ItemObjects.Types
     [CreateAssetMenu(fileName = "New Item", menuName = "Invntory/WeaponItem")]
     public class WeaponItem : Item
     {
-        public int damageValue;
-        public int enduranceValue;
+        [SerializeField]
+        private int damageValue;
+
+        [SerializeField]
+        private int enduranceValue;
         public WeaponItem()
         {
             itemType = ItemType.Weapon;
@@ -18,8 +21,17 @@ namespace Assets.Scripts.ItemObjects.Types
 
         public override void Use()
         {
-            ActingManager actingManager = new ActingManager();
-            actingManager.UseWeapon(this);
+            ActingManager.instance.UseWeapon(this);
+        }
+
+        public int GetDamage()
+        {
+            return damageValue;
+        }
+
+        public int GetEndurance()
+        {
+            return enduranceValue;
         }
     }
 }

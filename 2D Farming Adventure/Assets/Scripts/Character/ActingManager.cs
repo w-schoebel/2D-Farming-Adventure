@@ -8,56 +8,101 @@ namespace Assets.Scripts.Character
 {
     public class ActingManager : MonoBehaviour
     {
-        private int damage;
-        private int endurance;
         private WeaponItem weapon;
-        private CharacterStats characterStats;
 
-        private void Start()
+        #region Singleton
+
+        public static ActingManager instance; //static variable is shared by all instances of a class
+
+        /// <summary>
+        /// setting the instance equal to this particular component
+        /// </summary>
+        private void Awake()
         {
-            // characterStats = GetComponent<CharacterStats>(); // TODO: Anbindung noch richtig bauen mit Maren
+            //proof that there is only one instance otherwise warn us
+            if (instance != null)
+            {
+                Debug.LogWarning("More than one instance of PlayerStats found!");
+                return;
+            }
+            instance = this;
+        }
+
+        #endregion
+
+        public void UseArmorItem(ArmorItem armor)
+        {
+            ClearWeapon();
+
+            EquipmentManager.instance.Equip(armor);
+            if (Inventory.instance != null)
+            {
+                if (Inventory.instance.ContainsItem(armor))
+                {
+                    armor.RemoveFromInventory();
+                }
+            }
+            if (ToolbarManager.instance != null)
+            {
+                if (ToolbarManager.instance.ContainsItem(armor))
+                {
+                    armor.RemoveFromToolbar();
+                }
+            }
+        }
+
+        public void UseConsumableItem(ConsumableItem consumable)
+        {
+            ClearWeapon();
+            //do sth
+            //e.g. heal (if eatable)
+        }
+
+        private void ClearWeapon()
+        {
+            weapon = null;
+        }
+
+        public void UseCraftingMaterialItem(CraftingMaterialItem craftingMaterial)
+        {
+            ClearWeapon();
+            //do sth
+            //e.g. show for wich items this craftingMaterial is needed to craft them
         }
 
         public void UseWeapon(WeaponItem item)
         {
-            weapon = item;
-            EquipmentManager.instance.GetCurrentAmor();
-            if (weapon.enduranceValue < weapon.damageValue)
+           
+
+            int damage = item.GetDamage();
+            int endurance = item.GetEndurance();
+
+            if (endurance < damage)
             {
-                attack();
+                weapon = item;
             }
             else
             {
-                work();
+                ClearWeapon();
+                work(item);
             }
         }
 
-        private int GetEnduranceValue()
+        public int GetCurrentDamage()
         {
-            int enduranceNeeded = weapon.enduranceValue;
-            return enduranceNeeded;
+            if(weapon == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return weapon.GetDamage();
+            }
         }
 
-        private int GetDamageValue()
+        private void work(WeaponItem item)
         {
-            int damageOfWeapon = weapon.damageValue;
-            return damageOfWeapon;
-        }
-
-        private void attack()
-        {
-            damage = GetDamageValue();
-            Debug.Log("reduce health by " + damage);
-
-            // characterStats.TakeDamage(damage); //vorerst zum Testen sich selbst Schaden zufügen 
-
-
-            //TODO: Animation
-        }
-
-        private void work()
-        {
-            endurance = GetEnduranceValue();
+            int endurance = item.GetEndurance();
             if (weapon.itemName.Contains("Axe"))
             {
                 if (weapon.itemName.Contains("Pickaxe"))
@@ -74,7 +119,7 @@ namespace Assets.Scripts.Character
                 DoFarmWork();
             }
             Debug.Log("reduce endurance by " + endurance);
-            //  characterStats.ConsumeEndurance(endurance);
+            PlayerStats.instance.ConsumeEndurance(endurance);
 
             //TODO: Animation
 
@@ -94,8 +139,5 @@ namespace Assets.Scripts.Character
         {
             //do sth
         }
-
-
-
     }
 }

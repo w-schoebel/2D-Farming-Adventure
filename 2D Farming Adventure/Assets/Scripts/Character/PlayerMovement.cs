@@ -1,74 +1,99 @@
 ﻿using Assets.Enums;
 using Assets.Scripts.Character;
 using Assets.Scripts.Data;
+using Assets.Scripts.Enemy;
 using Assets.Services;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerMovement : MonoBehaviour
+
+namespace Assets.Scripts.Character
 {
-    MovementService movementService;
-    float movementSpeed; 
-    float walkingSpeed = 5.0f;
-    float runningSpeed = 10.0f;
-    bool isRunning = false;
-    Rigidbody2D rigidbody;
-    Animator animator;
-    private CharacterStats characterStats;
-
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerMovement : MonoBehaviour
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        movementService = PlayerMovementServiceImpl.Create(animator);
-        characterStats = new CharacterStats(); //TODO: Anbindung mit Maren
-    }
+        MovementService movementService;
+        float movementSpeed;
+        float walkingSpeed = 5.0f;
+        float runningSpeed = 10.0f;
+        bool isRunning = false;
+        Rigidbody2D rigidbody;
+        Animator animator;
 
-  
-
-    // Update is called once per frame
-    /// <summary>
-    /// This function changes the position of the object the script is added to, when the moving controls (e.g.: W-A-S-D) are used 
-    /// </summary>
-    void Update()
-    {
-        if (EventSystem.current.IsPointerOverGameObject())
+        // Start is called before the first frame update
+        void Start()
         {
-            return;
+            rigidbody = GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
+            movementService = PlayerMovementServiceImpl.Create(animator);
+            //   characterStats = new CharacterStats(); //TODO: Anbindung mit Maren für Position nach Laden
         }
 
-        Vector2 curentPosition = rigidbody.position;
-        //Vector2 currentPositionFromLoading = characterStats.position; //TODO: CharacterStats public global Vector2 position; und dann unten bei Load Werte diesem Vector2 zuordnen statt lokalem Vektor2
 
-        SwitchMovementType();
 
-        rigidbody.MovePosition(movementService.CalculateNewPosition(curentPosition, movementSpeed, false));
-    }
-
-    /// <summary>
-    /// Change moving speed when holding shift (player can run)
-    /// </summary>
-    private void SwitchMovementType()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        // Update is called once per frame
+        /// <summary>
+        /// This function changes the position of the object the script is added to, when the moving controls (e.g.: W-A-S-D) are used 
+        /// </summary>
+        void Update()
         {
-            isRunning = true;
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
+            Vector2 curentPosition = rigidbody.position;
+            //Vector2 currentPositionFromLoading = characterStats.position; //TODO: CharacterStats public global Vector2 position; und dann unten bei Load Werte diesem Vector2 zuordnen statt lokalem Vektor2
+
+            SwitchMovementType();
+
+            rigidbody.MovePosition(movementService.CalculateNewPosition(curentPosition, movementSpeed, false));
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        /// <summary>
+        /// Change moving speed when holding shift (player can run)
+        /// </summary>
+        private void SwitchMovementType()
         {
-            isRunning = false;
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                isRunning = true;
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                isRunning = false;
+            }
+
+            if (isRunning)
+            {
+                movementSpeed = runningSpeed;
+            }
+            else
+            {
+                movementSpeed = walkingSpeed;
+            }
         }
 
-        if (isRunning)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            movementSpeed = runningSpeed;
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                EnemyStats enemy = collision.gameObject.GetComponent<EnemyStats>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(PlayerStats.instance.GetTotalDamage());
+                    animator.SetBool("Fighting", true);
+                }
+            }
         }
-        else
+
+        private void OnCollisionExit2D(Collision2D collision)
         {
-            movementSpeed = walkingSpeed;
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                animator.SetBool("Fighting", false);
+            }
         }
     }
 }

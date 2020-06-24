@@ -103,5 +103,16 @@ namespace Assets.Scripts.InventoryObjects
 
             return armor;
         }
+
+        public int GetCurrentDamage()
+        {
+            int damage = 0;
+            for (int i = 0; i < currentEquipment.Count; i++)
+            {
+                damage = damage + currentEquipment[i].damageValue;
+            }
+
+            return damage;
+        }
     }
 }

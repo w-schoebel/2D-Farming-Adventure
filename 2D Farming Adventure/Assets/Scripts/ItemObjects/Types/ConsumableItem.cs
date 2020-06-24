@@ -1,4 +1,5 @@
 ﻿using Assets.Enums;
+using Assets.Scripts.Character;
 using UnityEngine;
 
 namespace Assets.Scripts.ItemObjects.Types
@@ -15,7 +16,7 @@ namespace Assets.Scripts.ItemObjects.Types
 
         public override void Use()
         {
-            //TODO: implement Item use
+            ActingManager.instance.UseConsumableItem(this);
         }
     }
 }

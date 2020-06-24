@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 8315721635258911647}
   - component: {fileID: 8664864860868665111}
   - component: {fileID: 1855459490759898737}
-  - component: {fileID: 1172574457173300702}
   - component: {fileID: 1403518800250430007}
+  - component: {fileID: 65406931946639528}
   m_Layer: 0
   m_Name: PlayerF_0
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,26 +153,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1172574457173300702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4638774816524765458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db7642b21fd1b1040a1af4f724140521, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 0
-  maxEndurance: 150
-  endurance: 0
-  armor: 0
-  playerName: 
-  healthBar: {fileID: 0}
-  enduranceBar: {fileID: 0}
 --- !u!114 &1403518800250430007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,3 +165,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4b013651990cf42811e50f27cebc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &65406931946639528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4638774816524765458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6925750f809524c990ab49b65ff309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  damage: 10
+  health: 0
+  playername: {fileID: 0}
+  sceneLoader: {fileID: 0}
+  maxEndurance: 100
+  healthBar: {fileID: 0}
+  enduranceBar: {fileID: 0}
