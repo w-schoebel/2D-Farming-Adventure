@@ -24,23 +24,20 @@ namespace Assets.Scripts.Data
         public double minute;
         public double second;
 
-        public PlayerData (PlayerStats manager)
+        public PlayerData (string playerName, int health, int armor, int endurance, float[] position, double year, double month, double day, double hour, double minute, double second)
         {
             //variables from CharacterStats-Script
-            playerName = manager.playerName;
-            health = manager.health;
-            endurance = manager.endurance;
-            armor = manager.armor;
-            year = manager.year;
-            month = manager.month;
-            day = manager.day;
-            hour = manager.hour;
-            minute = manager.minute;
-            second = manager.second;
-
-            position = new float[2];
-            position[0] = manager.transform.position.x;
-            position[1] = manager.transform.position.y;
-        }
+          this.playerName = playerName;
+          this.health = health;
+          this.endurance = endurance;
+          this.armor = armor;
+          this.year = year;
+          this.month = month;
+          this.day = day;
+          this.hour = hour;
+          this.minute =minute;
+          this.second = second;       
+          this.position = position;
+        }     
     }
 }

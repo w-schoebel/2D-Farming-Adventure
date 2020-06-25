@@ -10,7 +10,7 @@ namespace Assets.Scripts.Data
     
     public static class SaveSystem
     {
-        public static void SavePlayer(PlayerStats manager)
+        public static void SavePlayer(PlayerData data)
         {
             BinaryFormatter formatter = new BinaryFormatter();
 
@@ -20,10 +20,7 @@ namespace Assets.Scripts.Data
             }
             string path = Application.persistentDataPath + "/saving/game.save";
              
-            FileStream stream = new FileStream(path, FileMode.Create);
-
-            PlayerData data = new PlayerData(manager);
-           
+            FileStream stream = new FileStream(path, FileMode.Create);           
 
             //write data into file
             formatter.Serialize(stream, data);
@@ -47,7 +44,7 @@ namespace Assets.Scripts.Data
                     //from binary to read able and safe in variable (fomating in playerData)
                     PlayerData data = formatter.Deserialize(stream) as PlayerData;
                    
-                ;
+                
                     stream.Close();
                  
 

@@ -1,7 +1,9 @@
 ﻿using Assets.Scripts.Data;
 using Assets.Scripts.InventoryObjects;
+using Assets.Scripts.ItemObjects.Types;
 using Assets.Scripts.Menu;
 using Assets.Scripts.Stats;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,23 +16,15 @@ namespace Assets.Scripts.Character
 
         public SceneLoader sceneLoader;
 
-        //  public int maxHealth;
-        //  public int health;
         public int maxEndurance;
-        public int endurance;
-        public int armor;
-        public string playerName;
-        public double year;
-        public double month;
-        public double day;
-        public double hour;
-        public double minute;
-        public double second;
+
+        private PlayerData playerData;
 
         //add HealthBar
         public HealthBar healthBar;
         public EnduranceBar enduranceBar;
         private Animator animator;
+        private Text armorText;
 
         #region Singleton
 
@@ -54,35 +48,42 @@ namespace Assets.Scripts.Character
 
         void Start()
         {
+            NewGame();
             animator = GetComponent<Animator>();
 
             health = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
 
-            endurance = maxEndurance;
+            playerData.endurance = maxEndurance;
             enduranceBar.SetMaxEndurance(maxEndurance);
 
-            armor = EquipmentManager.instance.GetCurrentAmor();
-            //TODO: show ArmorAmount 
+            armorText = GameObject.Find("Armor").GetComponent<Text>();
 
+            EquipmentManager.instance.onEquipmentChanged += UpdateArmorUI;
             LoadPlayer();
+        }
+
+        private void UpdateArmorUI(ArmorItem newItem, ArmorItem oldItem)
+        {
+            playerData.armor = EquipmentManager.instance.GetCurrentAmor();
+            armorText.text = playerData.armor.ToString();
         }
 
         public int GetTotalDamage()
         {
-           return damage + ActingManager.instance.GetCurrentDamage() + EquipmentManager.instance.GetCurrentDamage();
+            return damage + ActingManager.instance.GetCurrentDamage() + EquipmentManager.instance.GetCurrentDamage();
         }
 
         public void ConsumeEndurance(int consume)
         {
             consume = Mathf.Clamp(consume, 0, int.MaxValue);
 
-            endurance -= consume;
-            enduranceBar.SetEndurance(endurance);
+            playerData.endurance -= consume;
+            enduranceBar.SetEndurance(playerData.endurance);
 
             Debug.Log(transform.name + "consume " + consume + " endurance.");
 
-            if (endurance <= 0)
+            if (playerData.endurance <= 0)
             {
                 Die();
             }
@@ -90,7 +91,7 @@ namespace Assets.Scripts.Character
 
         public override void TakeDamage(int damage)
         {
-            damage -= armor;
+            damage -= playerData.armor;
             base.TakeDamage(damage);
             healthBar.SetHealth(health);
             Debug.Log(transform.name + " has " + health + " LifePoints remaining.");
@@ -106,49 +107,30 @@ namespace Assets.Scripts.Character
 
         public void SavePlayer()
         {
-            SaveSystem.SavePlayer(this); //TODO: Parameter in SaveSystem.SavePlayer von CharacterStats zu PlayerStats ändern
+            SaveSystem.SavePlayer(playerData); //TODO: Parameter in SaveSystem.SavePlayer von CharacterStats zu PlayerStats ändern
             Debug.Log("Saving");
         }
 
         public void LoadPlayer()
         {
-            PlayerData data = SaveSystem.LoadPlayer();
+            playerData = SaveSystem.LoadPlayer();
 
-            if (data != null)
-            {
-                year = data.year;
-                day = data.day;
-                hour = data.hour;
-                minute = data.minute;
-                second = data.second;
-                playerName = data.playerName;
-                health = data.health;
-                endurance = data.endurance;
-                armor = data.armor;
-                healthBar.SetHealth(health);
-                enduranceBar.SetEndurance(endurance);
-                Vector2 position;
-
-                position.x = data.position[0];
-                position.y = data.position[1];
-                Debug.Log("Load");
-                Debug.Log(health);
-            }
+            Debug.Log("Load");
+            Debug.Log(health);
         }
 
         public void NewGame()
         {
-            day = 1;
-            year = 1;
-            playerName = playername.text;
-            health = 100;
-            endurance = 100;
-            armor = 0;
+            float[] position = new float[2];
+            position[0] = transform.position.x;
+            position[1] = transform.position.y;
+            string playerName = "Domenik"; //playername.text
+            playerData = new PlayerData(playerName, 100, 0, 100, position, 1.0, 1.0, 1.0, 6.0, 0.0, 0.0);
             maxHealth = 100;
             maxEndurance = 100;
             //sprite ?
 
-            Debug.Log(playerName);
+            Debug.Log(playerData.playerName);
 
             SavePlayer();
         }
