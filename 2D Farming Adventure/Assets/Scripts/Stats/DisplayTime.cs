@@ -40,9 +40,9 @@ namespace Assets.Scripts.Stats
         {
             
 
-            dayText.text = "Day: " + day;
-            clockText.text = "Time: " + hour + ":" + minute;
-            yearText.text = "Year: " + year;
+            dayText.text = day.ToString();
+            clockText.text =  hour + ":" + minute;
+            yearText.text = year.ToString();
 
         }
       

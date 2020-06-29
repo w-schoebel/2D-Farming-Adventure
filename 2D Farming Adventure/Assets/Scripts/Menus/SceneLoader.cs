@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.Data;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditorInternal;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

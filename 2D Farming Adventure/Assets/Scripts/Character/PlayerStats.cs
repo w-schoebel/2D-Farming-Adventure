@@ -48,7 +48,7 @@ namespace Assets.Scripts.Character
 
         void Start()
         {
-            NewGame();
+            //NewGame();
             animator = GetComponent<Animator>();
 
             health = maxHealth;
@@ -124,7 +124,9 @@ namespace Assets.Scripts.Character
             float[] position = new float[2];
             position[0] = transform.position.x;
             position[1] = transform.position.y;
-            string playerName = "Domenik"; //playername.text
+            string playerName = playername.text;
+
+            //choosePlayer
             playerData = new PlayerData(playerName, 100, 0, 100, position, 1.0, 1.0, 1.0, 6.0, 0.0, 0.0);
             maxHealth = 100;
             maxEndurance = 100;
