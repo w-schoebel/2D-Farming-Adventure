@@ -16,7 +16,7 @@ namespace Assets.Scripts.Character
 
         public SceneLoader sceneLoader;
 
-        public int maxEndurance;
+        private int maxEndurance;
 
         private PlayerData playerData;
 
@@ -51,16 +51,20 @@ namespace Assets.Scripts.Character
             //NewGame();
             animator = GetComponent<Animator>();
 
+            armorText = GameObject.Find("Armor").GetComponent<Text>();
+
+            EquipmentManager.instance.onEquipmentChanged += UpdateArmorUI;
+            LoadPlayer();
+        }
+
+        private void UpdateUI()
+        {
             health = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
 
             playerData.endurance = maxEndurance;
             enduranceBar.SetMaxEndurance(maxEndurance);
 
-            armorText = GameObject.Find("Armor").GetComponent<Text>();
-
-            EquipmentManager.instance.onEquipmentChanged += UpdateArmorUI;
-            LoadPlayer();
         }
 
         private void UpdateArmorUI(ArmorItem newItem, ArmorItem oldItem)
@@ -125,16 +129,29 @@ namespace Assets.Scripts.Character
             position[0] = transform.position.x;
             position[1] = transform.position.y;
             string playerName = playername.text;
-
-            //choosePlayer
             playerData = new PlayerData(playerName, 100, 0, 100, position, 1.0, 1.0, 1.0, 6.0, 0.0, 0.0);
             maxHealth = 100;
             maxEndurance = 100;
             //sprite ?
+            GetChoosenPlayer();
 
             Debug.Log(playerData.playerName);
 
             SavePlayer();
+            UpdateUI();
         }
+
+        private void GetChoosenPlayer()
+        {
+            int id = CharacterSelector.instance.GetChoosenCharacterID();
+            switch (id)
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+        }
+
     }
 }

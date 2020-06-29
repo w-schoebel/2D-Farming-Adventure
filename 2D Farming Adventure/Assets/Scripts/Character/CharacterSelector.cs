@@ -12,9 +12,22 @@ namespace Assets.Scripts.Character
         private int characterInt = 1;
         private SpriteRenderer player1Renderer, player2Renderer;
 
+        #region Singleton
+
+        public static CharacterSelector instance; //static variable is shared by all instances of a class
+
+        #endregion
 
         private void Awake()
         {
+            //proof that there is only one instance otherwise warn us
+            if (instance != null)
+            {
+                Debug.LogWarning("More than one instance of PlayerStats found!");
+                return;
+            }
+            instance = this;
+
             //get characterPosition
             characterPosition = player1.transform.position;
 
@@ -96,7 +109,22 @@ namespace Assets.Scripts.Character
             }
         }
 
-
+        public int GetChoosenCharacterID()
+        {
+            if (player1Renderer == enabled)
+            {
+                return 1;
+            }
+            else if(player2Renderer == enabled)
+            {
+                return 2;
+            }
+            else
+            {
+                Debug.Log("No Character choosed!");
+                return 0;
+            }
+        }
     }
 
 }
