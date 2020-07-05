@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a411aba279b79647bd5015cafc4fbad, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  itemName: Sword
+  item_name: Sword
   icon: {fileID: 3459292145084207789, guid: d17c07c5327656740944f9dab7243efb, type: 3}
   isDefaultItem: 0
-  itemType: 3
+  item_Type: 3
   damageValue: 15
   enduranceValue: 0
