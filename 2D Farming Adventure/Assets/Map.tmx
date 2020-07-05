@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="74" height="102" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="516">
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="74" height="102" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="511">
  <tileset firstgid="1" source="usedTiles/[Base]BaseChip_pipo.tsx"/>
  <tileset firstgid="1065" source="usedTiles/tf_beach_tileB.tsx"/>
  <tileset firstgid="1641" source="usedTiles/addwork.tsx"/>
@@ -43,16 +43,16 @@
   </object>
   <object id="184" x="106" y="8" width="1077" height="108"/>
   <object id="185" x="96" y="6" width="32" height="761"/>
-  <object id="187" x="254.667" y="735" width="925.333" height="31"/>
+  <object id="187" x="96" y="735" width="1084" height="31"/>
   <object id="188" x="1151" y="95" width="32" height="671"/>
   <object id="189" x="130" y="256" width="29" height="225"/>
   <object id="190" x="159" y="288" width="31" height="131"/>
-  <object id="191" x="254" y="704" width="193" height="33"/>
+  <object id="191" x="130" y="704" width="317" height="33"/>
   <object id="192" x="544" y="704" width="223" height="34"/>
   <object id="193" x="991" y="707" width="161" height="28"/>
   <object id="194" x="1121" y="585" width="31" height="125"/>
   <object id="195" x="575" y="673" width="162" height="37"/>
-  <object id="196" x="127.667" y="670.333" width="63.3333" height="37"/>
+  <object id="196" x="129" y="673" width="126" height="37"/>
   <object id="197" x="131" y="639" width="29" height="36"/>
   <object id="198" x="128" y="605" width="29" height="46"/>
   <object id="199" x="128" y="117" width="159" height="30"/>
@@ -133,7 +133,7 @@
   <object id="232" x="361" y="674" width="16" height="15">
    <ellipse/>
   </object>
-  <object id="233" x="254.667" y="671.333" width="29" height="32">
+  <object id="233" x="256" y="674" width="29" height="32">
    <ellipse/>
   </object>
   <object id="234" x="162" y="641" width="28" height="35">
@@ -217,7 +217,7 @@
    <ellipse/>
   </object>
   <object id="264" x="610" y="207" width="27" height="48"/>
-  <object id="265" x="253.333" y="768" width="929.667" height="78"/>
+  <object id="265" x="96" y="768" width="1087" height="78"/>
   <object id="266" x="544" y="844" width="221" height="67"/>
   <object id="267" x="767" y="848" width="32" height="34"/>
   <object id="268" x="799" y="845" width="164" height="22"/>
@@ -228,7 +228,7 @@
   <object id="275" x="446" y="845" width="31" height="35"/>
   <object id="276" x="512" y="845" width="32" height="35"/>
   <object id="277" x="288" y="847" width="64" height="48"/>
-  <object id="278" x="95" y="847" width="96.6667" height="27"/>
+  <object id="278" x="95" y="847" width="190" height="27"/>
   <object id="279" x="251" y="874" width="35" height="38"/>
   <object id="280" x="96" y="875" width="94" height="66"/>
   <object id="281" x="96" y="942" width="33" height="592"/>
@@ -652,9 +652,5 @@
   </object>
   <object id="509" x="382.667" y="1673.33" width="6.66667" height="52"/>
   <object id="510" x="437.333" y="1673.33" width="8" height="53.3333"/>
-  <object id="512" x="128" y="710.667" width="62.6667" height="54.6667"/>
-  <object id="513" x="97.3333" y="816" width="1.33333"/>
-  <object id="514" x="254.667" y="844" width="32" height="42.6667"/>
-  <object id="515" x="92" y="766.667" width="98.6667" height="105.333"/>
  </objectgroup>
 </map>
