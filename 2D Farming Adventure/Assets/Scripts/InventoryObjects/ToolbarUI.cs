@@ -12,16 +12,15 @@ namespace Assets.Scripts.InventoryObjects
         ToolbarSlot[] toolbarSlots;
         TextMeshProUGUI[] textMesh;
 
-
-        // Start is called before the first frame update
+            // Start is called before the first frame update
         void Start()
         {
             toolbar = ToolbarManager.instance;
             toolbar.itemChangedCallback += UpdateUI; //Event that triggers UpdateUI
-
             toolbarSlots = itemsParent.GetComponentsInChildren<ToolbarSlot>();
             textMesh = GetComponentsInChildren<TextMeshProUGUI>();
             UpdateTMP();
+            UpdateUI();
         }
 
         // Update is called once per frame
@@ -106,20 +105,18 @@ namespace Assets.Scripts.InventoryObjects
         private void UpdateTMP()
         {
             int slotNumber;
-            for(int i=0; i < textMesh.Length; i++)
+            int slotCount = 0;
+            foreach (TextMeshProUGUI mesh in textMesh)
             {
-                if (textMesh[i].name == "ToolSlotNR")
+                if (mesh.name == "ToolSlotNR")
                 {
-                    slotNumber = i+1;
-                    if (i == 9)
-                    {
-                        slotNumber = 0;
-                    }
-                    textMesh[i].text = slotNumber.ToString();
-                    toolbarSlots[i].SetSlotNumber(i);
+                    slotNumber = slotCount == 9 ? 0 : slotCount + 1;
+
+                    mesh.text = slotNumber.ToString();
+                    toolbarSlots[slotCount].SetSlotNumber(slotCount);
+                    slotCount++;
                 }
             }
         }
-
     }
 }

@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Data;
+using Assets.Services;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Character
 {
@@ -11,6 +16,8 @@ namespace Assets.Scripts.Character
         private Vector3 offScreen;
         private int characterInt = 1;
         private SpriteRenderer player1Renderer, player2Renderer;
+        public InputField playerName;
+        private SaveLoadService saveLoadService;
 
         #region Singleton
 
@@ -36,36 +43,48 @@ namespace Assets.Scripts.Character
 
             //get each spriteRenderer
             player1Renderer = player1.GetComponent<SpriteRenderer>();
+            player1Renderer.enabled = true;
             player2Renderer = player2.GetComponent<SpriteRenderer>();
-        }
+            player2Renderer.enabled = false;
 
+            saveLoadService = new SaveLoadServiceImpl();
+        }
 
         public void NextCharacter()
         {
             switch (characterInt)
             {
                 case 1:
-                    //disable Player 1 and move him to the OffScreenPosition
-                    player1Renderer.enabled = false;
-                    player1.transform.position = offScreen;
-                    //enable player 2 after move him to the characterPosition
-                    player2.transform.position = characterPosition;
-                    player2Renderer.enabled = true;
-                    characterInt++;
+                    enablePlayer2();
                     break;
                 case 2:
-                    player2Renderer.enabled = false;
-                    player2.transform.position = offScreen;
-                    //enable player 2 after move him to the characterPosition
-                    player1.transform.position = characterPosition;
-                    player1Renderer.enabled = true;
-                    characterInt++;
+                    enablePlayer1();
                     break;
                 default:
-                    ResetInt();
                     break;
             }
 
+        }
+
+        private void enablePlayer2()
+        {
+            //disable Player 1 and move him to the OffScreenPosition
+            player1Renderer.enabled = false;
+            player1.transform.position = offScreen;
+            //enable player 2 after move him to the characterPosition
+            player2.transform.position = characterPosition;
+            player2Renderer.enabled = true;
+            characterInt++;
+        }
+
+        private void enablePlayer1()
+        {
+            player2Renderer.enabled = false;
+            player2.transform.position = offScreen;
+            //enable player 2 after move him to the characterPosition
+            player1.transform.position = characterPosition;
+            player1Renderer.enabled = true;
+            characterInt--;
         }
 
         public void PeviousCharacter()
@@ -73,49 +92,23 @@ namespace Assets.Scripts.Character
             switch (characterInt)
             {
                 case 1:
-                    //disable Player 1 and move him to the OffScreenPosition
-                    player1Renderer.enabled = false;
-                    player1.transform.position = offScreen;
-                    //enable player 2 after move him to the characterPosition
-                    player2.transform.position = characterPosition;
-                    player2Renderer.enabled = true;
-                    ResetInt();
+                    enablePlayer2();
                     break;
                 case 2:
-                    player2Renderer.enabled = false;
-                    player2.transform.position = offScreen;
-                    //enable player 2 after move him to the characterPosition
-                    player1.transform.position = characterPosition;
-                    player1Renderer.enabled = true;
-                    characterInt--;
+                    enablePlayer1();
                     break;
                 default:
-                    ResetInt();
                     break;
-            }
-        }
-
-        private void ResetInt()
-        {
-            if (characterInt >= 2)
-            {
-                //erstes
-                characterInt = 1;
-            }
-            else
-            {
-                //letztes
-                characterInt = 2;
             }
         }
 
         public int GetChoosenCharacterID()
         {
-            if (player1Renderer == enabled)
+            if (player1Renderer.enabled == enabled)
             {
                 return 1;
             }
-            else if(player2Renderer == enabled)
+            else if (player2Renderer.enabled == enabled)
             {
                 return 2;
             }
@@ -125,6 +118,10 @@ namespace Assets.Scripts.Character
                 return 0;
             }
         }
-    }
 
+        public void SaveIntialInformations()
+        {
+            saveLoadService.Save(new PlayerData(GetChoosenCharacterID(), playerName.text, true));
+        }
+    }
 }

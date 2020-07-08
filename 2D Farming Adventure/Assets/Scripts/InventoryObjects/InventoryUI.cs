@@ -20,6 +20,7 @@ namespace Assets.Scripts.InventoryObjects
             inventorySlots = itemsParent.GetComponentsInChildren<InventorySlot>();
 
             setSlotNumbers();
+            UpdateUI();
         }
 
         private void setSlotNumbers()

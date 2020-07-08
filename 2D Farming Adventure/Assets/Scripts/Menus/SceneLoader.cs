@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Character;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,13 +11,9 @@ namespace Assets.Scripts.Menu
         public Animator transition;
 
         public float transitionTime = 1f;
-
-        
-
      
         public void LoadScene0()
          {
-            
             StartCoroutine(SceneLoad(0));
          }
 
@@ -26,10 +24,8 @@ namespace Assets.Scripts.Menu
 
         public void LoadScene2()
         {
-            StartCoroutine(SceneLoad(2));
-            
+            StartCoroutine(SceneLoad(2));       
         }
-
 
         IEnumerator SceneLoad(int sceneIndex)
         {

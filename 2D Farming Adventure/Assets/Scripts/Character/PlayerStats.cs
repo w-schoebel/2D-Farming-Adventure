@@ -3,6 +3,7 @@ using Assets.Scripts.InventoryObjects;
 using Assets.Scripts.ItemObjects.Types;
 using Assets.Scripts.Menu;
 using Assets.Scripts.Stats;
+using Assets.Services;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,65 +13,107 @@ namespace Assets.Scripts.Character
 {
     public class PlayerStats : StatsManager
     {
-        public InputField playername;
-
         public SceneLoader sceneLoader;
+
+        public Sprite image;
 
         private int maxEndurance;
 
         private PlayerData playerData;
 
+        private Rigidbody2D rigidbody;
+
+        private SaveLoadService saveLoadService;
+
         //add HealthBar
         public HealthBar healthBar;
         public EnduranceBar enduranceBar;
-        private Animator animator;
         private Text armorText;
-
-        #region Singleton
-
-        public static PlayerStats instance; //static variable is shared by all instances of a class
-
-        /// <summary>
-        /// setting the instance equal to this particular component
-        /// </summary>
-        private void Awake()
-        {
-            //proof that there is only one instance otherwise warn us
-            if (instance != null)
-            {
-                Debug.LogWarning("More than one instance of PlayerStats found!");
-                return;
-            }
-            instance = this;
-        }
-
-        #endregion
 
         void Start()
         {
-            //NewGame();
-            animator = GetComponent<Animator>();
-
-            armorText = GameObject.Find("Armor").GetComponent<Text>();
-
-            EquipmentManager.instance.onEquipmentChanged += UpdateArmorUI;
-            LoadPlayer();
+            Init();
         }
 
-        private void UpdateUI()
+        public void Init()
         {
-            health = maxHealth;
-            healthBar.SetMaxHealth(maxHealth);
+            rigidbody = GetComponent<Rigidbody2D>();
+            saveLoadService = SaveLoadServiceImpl.Create();
+            maxHealth = 100;
+            maxEndurance = 100;
 
-            playerData.endurance = maxEndurance;
-            enduranceBar.SetMaxEndurance(maxEndurance);
+            GameObject amorObject = GameObject.Find("Armor");
 
+            if (amorObject != null)
+            {
+                armorText = amorObject.GetComponent<Text>();
+            }
+
+            if (EquipmentManager.instance != null)
+            {
+                EquipmentManager.instance.onEquipmentChanged += UpdateArmorUI;
+            }
+
+            if (HealthBar.instance != null)
+            {
+                healthBar = HealthBar.instance;
+            }
+
+            if (EnduranceBar.instance != null)
+            {
+                enduranceBar = EnduranceBar.instance;
+            }
+        }
+
+        public virtual Sprite GetSpecificSprite()
+        {
+            return image;
+        }
+
+        private void UpdateUI(int health, int endurance)
+        {
+            SetHealthValue(health);
+
+            SetEnduranceValue(endurance);
+
+            SetAmorValue();
+        }
+
+        private void SetHealthValue(int health)
+        {
+            this.health = health;
+            if (healthBar != null)
+            {
+                this.healthBar.SetHealth(health);
+                this.healthBar.SetMaxHealth(maxHealth);
+            }
+        }
+
+        private void SetEnduranceValue(int endurance)
+        {
+            if (enduranceBar != null)
+            {
+                enduranceBar.SetEndurance(endurance);
+                enduranceBar.SetMaxEndurance(maxEndurance);
+            }
+        }
+
+        private void SetAmorValue()
+        {
+            if(playerData != null)
+            {
+                playerData.armor = EquipmentManager.instance.GetCurrentAmor();
+
+                if (armorText != null)
+                {
+                    armorText.text = playerData.armor.ToString();
+                }
+            }
         }
 
         private void UpdateArmorUI(ArmorItem newItem, ArmorItem oldItem)
-        {
-            playerData.armor = EquipmentManager.instance.GetCurrentAmor();
-            armorText.text = playerData.armor.ToString();
+        {        
+            SetAmorValue();
         }
 
         public int GetTotalDamage()
@@ -98,6 +141,7 @@ namespace Assets.Scripts.Character
             damage -= playerData.armor;
             base.TakeDamage(damage);
             healthBar.SetHealth(health);
+            playerData.health = health;
             Debug.Log(transform.name + " has " + health + " LifePoints remaining.");
         }
 
@@ -109,49 +153,21 @@ namespace Assets.Scripts.Character
             LoadPlayer();
         }
 
-        public void SavePlayer()
-        {
-            SaveSystem.SavePlayer(playerData); //TODO: Parameter in SaveSystem.SavePlayer von CharacterStats zu PlayerStats ändern
-            Debug.Log("Saving");
-        }
-
         public void LoadPlayer()
         {
-            playerData = SaveSystem.LoadPlayer();
-
-            Debug.Log("Load");
-            Debug.Log(health);
+            playerData = saveLoadService.LoadPlayer(rigidbody);
+            UpdateUI(playerData.health, playerData.endurance);
         }
 
-        public void NewGame()
+        public void SavePlayer()
         {
-            float[] position = new float[2];
-            position[0] = transform.position.x;
-            position[1] = transform.position.y;
-            string playerName = playername.text;
-            playerData = new PlayerData(playerName, 100, 0, 100, position, 1.0, 1.0, 1.0, 6.0, 0.0, 0.0);
-            maxHealth = 100;
-            maxEndurance = 100;
-            //sprite ?
-            GetChoosenPlayer();
-
-            Debug.Log(playerData.playerName);
-
-            SavePlayer();
-            UpdateUI();
+            saveLoadService.SavePlayer(playerData, rigidbody.position);
         }
 
-        private void GetChoosenPlayer()
+        public void NewGame(PlayerData playerData)
         {
-            int id = CharacterSelector.instance.GetChoosenCharacterID();
-            switch (id)
-            {
-                case 1:
-                    break;
-                case 2:
-                    break;
-            }
+            playerData = saveLoadService.NewGame(playerData.playerId, playerData.playerName, maxHealth, maxEndurance);
+            LoadPlayer();
         }
-
     }
 }

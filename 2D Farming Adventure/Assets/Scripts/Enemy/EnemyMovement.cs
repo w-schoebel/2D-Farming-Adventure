@@ -8,9 +8,7 @@ namespace Assets.Scripts.Enemy
 {
     public class EnemyMovement : MonoBehaviour
     {
-        [SerializeField]
-        private Transform player;
-
+        private GameObject player;
         private MovementService movementService;
 
         private float movementSpeed = 2.0f;
@@ -29,11 +27,12 @@ namespace Assets.Scripts.Enemy
             animator = GetComponent<Animator>();
             movementService = EnemyMovementServiceImpl.Create(animator);
             enemyStats = gameObject.GetComponent<EnemyStats>();
+            player = CharacterDecider.instance.GetCurrentCharacter();
         }
 
         private void Update()
         {
-            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
             possibleDirectionX = PossibleDirections.None;
             possibleDirectionY = PossibleDirections.None;
 
@@ -68,17 +67,17 @@ namespace Assets.Scripts.Enemy
         private void ChasePlayer()
         {
             Vector2 curentPosition = rigidbody.position;
-            float differenceX = transform.position.x - player.position.x;
-            float differenceY = transform.position.y - player.position.y;
+            float differenceX = transform.position.x - player.transform.position.x;
+            float differenceY = transform.position.y - player.transform.position.y;
 
             if (!Mathf.Approximately(Round(differenceX, 2), 0.0f))
             {
-                if (transform.position.x < player.position.x)
+                if (transform.position.x < player.transform.position.x)
                 {
                     //if player is at the right side of the enemy, the enemy will move right
                     possibleDirectionX = PossibleDirections.Rigth;
                 }
-                else if (transform.position.x > player.position.x)
+                else if (transform.position.x > player.transform.position.x)
                 {
                     //if player is at the left side of the enemy, the enemy will move left
                     possibleDirectionX = PossibleDirections.Left;
@@ -87,12 +86,12 @@ namespace Assets.Scripts.Enemy
 
             if (!Mathf.Approximately(Round(differenceY, 2), 0.0f))
             {
-                if (transform.position.y < player.position.y)
+                if (transform.position.y < player.transform.position.y)
                 {
                     //if player is over the enemy, the enemy will move upwards
                     possibleDirectionY = PossibleDirections.Up;
                 }
-                else if (transform.position.y > player.position.y)
+                else if (transform.position.y > player.transform.position.y)
                 {
                     //if player is under the enemy, the enemy will move downwards
                     possibleDirectionY = PossibleDirections.Down;
@@ -112,7 +111,7 @@ namespace Assets.Scripts.Enemy
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                PlayerStats.instance.TakeDamage(enemyStats.damage);
+                CharacterDecider.instance.GetCurrentCharacterPlayerStats().TakeDamage(enemyStats.damage);
             }
         }
     }

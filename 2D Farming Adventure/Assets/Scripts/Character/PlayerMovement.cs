@@ -82,7 +82,7 @@ namespace Assets.Scripts.Character
                 EnemyStats enemy = collision.gameObject.GetComponent<EnemyStats>();
                 if (enemy != null)
                 {
-                    enemy.TakeDamage(PlayerStats.instance.GetTotalDamage());
+                    enemy.TakeDamage(CharacterDecider.instance.GetCurrentCharacterPlayerStats().GetTotalDamage());
                     animator.SetBool("Fighting", true);
                 }
             }

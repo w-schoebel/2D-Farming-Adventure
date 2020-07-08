@@ -30,7 +30,7 @@ namespace Assets.Scripts.InventoryObjects
                 Debug.LogWarning("More than one instance of ToolbarManager found!");
                 return;
             }
-            instance = this;     
+            instance = this;
         }
 
         #endregion
@@ -44,11 +44,11 @@ namespace Assets.Scripts.InventoryObjects
 
             int oldPosition = Array.IndexOf(items, newItem);
 
-            if(oldPosition > -1)
+            if (oldPosition > -1)
             {
                 items[oldPosition] = items[position];
             }
-            else
+            else if (positionInList > -1)
             {
                 Inventory.instance.Add(items[position], positionInList, position);
             }
@@ -62,11 +62,13 @@ namespace Assets.Scripts.InventoryObjects
 
         public void RemoveItem(Item item)
         {
-           int index = Array.IndexOf(items, item);
+            int index = Array.IndexOf(items, item);
 
-            items[index] = null;
-
-            InvokeItemChangeCallback();
+            if(index != -1)
+            {
+                items[index] = null;
+                InvokeItemChangeCallback();
+            }
         }
 
         private void InvokeItemChangeCallback()

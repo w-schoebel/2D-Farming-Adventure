@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3785a03f4eac4974ebe02d6ab854c3f0, type: 3}
   m_Name: Helmet 1
   m_EditorClassIdentifier: 
-  item_name: Helmet1
+  itemName: New Item
   icon: {fileID: 7173742024756813901, guid: d17c07c5327656740944f9dab7243efb, type: 3}
   isDefaultItem: 0
-  item_Type: 2
+  itemType: 2
   armorValue: 2
   damageValue: 0
   armor_Type: 0

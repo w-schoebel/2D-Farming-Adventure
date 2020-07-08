@@ -11,9 +11,10 @@ namespace Assets.Scripts.InventoryObjects
     {
         public Transform itemsParent;
         public GameObject equipment_UI;
+        public GameObject equipmentBackground;
 
         EquipmentManager equipmentManager;
-        EquipmentSlot[] equipmentSlots; 
+        EquipmentSlot[] equipmentSlots;
 
         // Start is called before the first frame update
         void Start()
@@ -23,13 +24,24 @@ namespace Assets.Scripts.InventoryObjects
 
             equipmentSlots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
             SetPicture();
+            UpdateUiIinitial();
         }
 
         private void SetPicture()
-        {/*
-            Image image = itemsParent.GetComponentInChildren<Image>();
-            image.sprite = ;//Sprite vom Spieler
-            */
+        {
+            if(CharacterDecider.instance != null)
+            {
+                Image sourceImage = equipmentBackground.GetComponent<Image>();
+                sourceImage.sprite = CharacterDecider.instance.GetCurrentCharacterPlayerStats().GetSpecificSprite();
+            }
+        }
+
+        void UpdateUiIinitial()
+        {
+            foreach(ArmorItem armorItem in equipmentManager.currentEquipment)
+            {
+                UpdateUI(armorItem, null);
+            }
         }
 
         void UpdateUI(ArmorItem newItem, ArmorItem oldItem)
@@ -37,7 +49,8 @@ namespace Assets.Scripts.InventoryObjects
             if (newItem != null)
             {
                 equipmentSlots.FirstOrDefault(slot => slot.armor_Type == newItem.armor_Type)?.AddItem(newItem);
-            } else
+            } 
+            else if(oldItem != null)
             {
                 equipmentSlots.FirstOrDefault(slot => slot.armor_Type == oldItem.armor_Type)?.ClearSlot();
             }

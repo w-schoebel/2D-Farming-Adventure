@@ -71,7 +71,7 @@ namespace Assets.Scripts.InventoryObjects
             {
                 items[oldPosition] = items[position];
             }
-            else
+            else if (positionInToolbar > -1)
             {
                 ToolbarManager.instance.Add(item, positionInToolbar, position);
             }
@@ -106,7 +106,7 @@ namespace Assets.Scripts.InventoryObjects
         public bool ContainsItem(Item item)
         {
             int index = Array.IndexOf(items, item);
-            if(index == -1)
+            if (index == -1)
             {
                 return false;
             }

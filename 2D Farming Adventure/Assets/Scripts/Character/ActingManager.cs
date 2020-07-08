@@ -72,8 +72,6 @@ namespace Assets.Scripts.Character
 
         public void UseWeapon(WeaponItem item)
         {
-           
-
             int damage = item.GetDamage();
             int endurance = item.GetEndurance();
 
@@ -103,9 +101,9 @@ namespace Assets.Scripts.Character
         private void work(WeaponItem item)
         {
             int endurance = item.GetEndurance();
-            if (weapon.itemName.Contains("Axe"))
+            if (item.itemName.Contains("Axe"))
             {
-                if (weapon.itemName.Contains("Pickaxe"))
+                if (item.itemName.Contains("Pickaxe"))
                 {
                     MineOre();
                 }
@@ -114,12 +112,13 @@ namespace Assets.Scripts.Character
                     CutTree();
                 }
             }
-            else if (weapon.itemName.Contains("Scyther"))
+            else if (item.itemName.Contains("Scyther"))
             {
                 DoFarmWork();
             }
             Debug.Log("reduce endurance by " + endurance);
-            PlayerStats.instance.ConsumeEndurance(endurance);
+
+            CharacterDecider.instance.GetCurrentCharacterPlayerStats().ConsumeEndurance(endurance);
 
             //TODO: Animation
 

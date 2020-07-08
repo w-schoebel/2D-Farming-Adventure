@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.ItemObjects.Types
 {
+    [System.Serializable]
     public class Item : ScriptableObject
     {
         public string itemName = "New Item";

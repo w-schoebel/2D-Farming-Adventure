@@ -19,6 +19,8 @@ namespace Assets.Scripts.InventoryObjects
 
         void Awake()
         {
+            currentEquipment = new List<ArmorItem>();
+
             if (instance != null)
             {
                 Debug.LogWarning("More than one instance of EquipmentManager found!");
@@ -31,22 +33,24 @@ namespace Assets.Scripts.InventoryObjects
         private void Start()
         {
             inventory = Inventory.instance;
-            currentEquipment = new List<ArmorItem>();
         }
 
-        public void Equip(ArmorItem newItem)
+        public void Equip(ArmorItem newItem, bool isInitial = false)
         {
             ArmorItem oldItem = null;
 
             if (newItem != null)
             {
-                ArmorItem currentItem = currentEquipment.Where(item => item != null)?.FirstOrDefault(item => item.armor_Type == newItem.armor_Type);
-               
-                if(currentItem != null)
+                if(!isInitial)
                 {
-                    oldItem = currentItem;
-                    currentEquipment.Remove(currentItem);
-                    inventory.Add(currentItem);
+                    ArmorItem currentItem = currentEquipment.Where(item => item != null)?.FirstOrDefault(item => item.armor_Type == newItem.armor_Type);
+
+                    if (currentItem != null)
+                    {
+                        oldItem = currentItem;
+                        currentEquipment.Remove(currentItem);
+                        inventory.Add(currentItem);
+                    }
                 }
 
                 if (onEquipmentChanged != null)

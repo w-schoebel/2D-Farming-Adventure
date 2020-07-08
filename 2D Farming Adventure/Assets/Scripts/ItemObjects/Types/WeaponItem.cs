@@ -33,5 +33,14 @@ namespace Assets.Scripts.ItemObjects.Types
         {
             return enduranceValue;
         }
+
+        public void SetDamage(int damageValue)
+        {
+            this.damageValue = damageValue;
+        }
+        public void SetEndurance(int enduranceValue)
+        {
+            this.enduranceValue = enduranceValue;
+        }
     }
 }

@@ -14,19 +14,38 @@ namespace Assets.Scripts.Stats
         private Text dayText;
         private Text yearText;
 
-      
+        private PlayerTimeData playerTimeData;
 
-        public double minute, hour, day, month, second, year;
+        #region Singleton
 
-            
+        public static DisplayTime instance; //static variable is shared by all instances of a class
+
+        /// <summary>
+        /// setting the instance equal to this particular component
+        /// </summary>
+        private void Awake()
+        {
+            //proof that there is only one instance otherwise warn us
+            if (instance != null)
+            {
+                Debug.LogWarning("More than one instance of DisplayTime found!");
+                return;
+            }
+            instance = this;
+        }
+
+        #endregion
+
 
         void Start()
         {
-                   
             clockText = GameObject.Find("Clock").GetComponent<Text>();
             dayText = GameObject.Find("Day").GetComponent<Text>();
             yearText = GameObject.Find("Year").GetComponent<Text>();
-
+            if (playerTimeData == null)
+            {
+                playerTimeData = new PlayerTimeData(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            }
         }
 
         // Update is called once per frame
@@ -35,53 +54,64 @@ namespace Assets.Scripts.Stats
             CalculateTime();
         }
 
-      
+
         void TextCallFunction()
         {
-            
-
-            dayText.text = day.ToString();
-            clockText.text =  hour + ":" + minute;
-            yearText.text = year.ToString();
-
+            if (playerTimeData != null && dayText != null && clockText != null && yearText != null)
+            {
+                dayText.text = playerTimeData.day.ToString();
+                clockText.text = playerTimeData.hour + ":" + playerTimeData.minute;
+                yearText.text = playerTimeData.year.ToString();
+            }
         }
-      
+
 
         void CalculateTime()
         {
             //TIMESCALE == time speed
-            second += Time.deltaTime * TIMESCALE;
+            playerTimeData.second += Time.deltaTime * TIMESCALE;
 
-            if (second >= 60)
+            if (playerTimeData.second >= 60)
             {
-                minute++;
-                second = 0;
+                playerTimeData.minute++;
+                playerTimeData.second = 0;
                 TextCallFunction();
             }
-            else if (minute >= 60)
+            else if (playerTimeData.minute >= 60)
             {
-                hour++;
-                minute = 0;
+                playerTimeData.hour++;
+                playerTimeData.minute = 0;
                 TextCallFunction();
             }
-            else if (hour >= 24)
+            else if (playerTimeData.hour >= 24)
             {
-                day++;
-                hour = 0;
+                playerTimeData.day++;
+                playerTimeData.hour = 0;
                 TextCallFunction();
             }
-            else if (day >= 29)
+            else if (playerTimeData.day >= 29)
             {
-                month++;
-                day = 1;
+                playerTimeData.month++;
+                playerTimeData.day = 1;
                 TextCallFunction();
             }
-            else if (month >= 12)
+            else if (playerTimeData.month >= 12)
             {
-                year++;
-                month = 1;
+                playerTimeData.year++;
+                playerTimeData.month = 1;
                 TextCallFunction();
             }
+        }
+
+        public PlayerTimeData GetCurrentPlayerTimeData()
+        {
+            return this.playerTimeData;
+        }
+
+        public void SetCurrentPlayerTimeData(PlayerTimeData playerTimeData)
+        {
+            this.playerTimeData = playerTimeData;
+            TextCallFunction();
         }
     }
 }

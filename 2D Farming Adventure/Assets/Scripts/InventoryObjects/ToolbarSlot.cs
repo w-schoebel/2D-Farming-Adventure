@@ -113,6 +113,7 @@ namespace Assets.Scripts.InventoryObjects
 
         private void handleDroppedItem(Item item, int itemPosition)
         {
+            //TODO: not working for male
             RectTransform invPanel = transform as RectTransform;
             Vector2 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

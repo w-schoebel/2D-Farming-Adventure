@@ -32,7 +32,6 @@ namespace Assets.Scripts.Stats
         public void SetMaxEndurance(int endurance)
         {
             slider.maxValue = endurance;
-            slider.value = endurance;
         }
 
         public void SetEndurance(int endurance)
