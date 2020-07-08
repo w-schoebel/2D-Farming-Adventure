@@ -30,7 +30,7 @@ namespace Assets.Scripts.Character
             instance = this;
             base.Init();
         }
-
+       
         #endregion
     }
 }

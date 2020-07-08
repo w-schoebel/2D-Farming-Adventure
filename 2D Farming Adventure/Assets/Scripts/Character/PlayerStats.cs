@@ -25,6 +25,8 @@ namespace Assets.Scripts.Character
 
         private SaveLoadService saveLoadService;
 
+        public GameObject camera;
+
         //add HealthBar
         public HealthBar healthBar;
         public EnduranceBar enduranceBar;
@@ -62,6 +64,11 @@ namespace Assets.Scripts.Character
             if (EnduranceBar.instance != null)
             {
                 enduranceBar = EnduranceBar.instance;
+            }
+
+            if(CharacterDecider.instance != null)
+            {
+                camera.transform.SetParent(CharacterDecider.instance.GetCurrentCharacter().transform);
             }
         }
 
