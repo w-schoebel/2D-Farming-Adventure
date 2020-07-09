@@ -12,7 +12,7 @@ namespace Assets.Scripts.InventoryObjects
         ToolbarSlot[] toolbarSlots;
         TextMeshProUGUI[] textMesh;
 
-            // Start is called before the first frame update
+        // Start is called before the first frame update
         void Start()
         {
             toolbar = ToolbarManager.instance;
@@ -26,7 +26,7 @@ namespace Assets.Scripts.InventoryObjects
         // Update is called once per frame
         void Update()
         {
-            if(toolbarSlots != null)
+            if (toolbarSlots != null)
             {
                 KeyPressed();
             }
@@ -52,7 +52,8 @@ namespace Assets.Scripts.InventoryObjects
         /// </summary>
         void KeyPressed()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha0)){
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
                 toolbarSlots[9].UseItem();
                 return; //return to stop checking if any other key is pressed
             }

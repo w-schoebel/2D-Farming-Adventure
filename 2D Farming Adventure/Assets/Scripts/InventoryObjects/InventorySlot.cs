@@ -15,7 +15,7 @@ namespace Assets.Scripts.InventoryObjects
 
         public void AddItem(Item newItem)
         {
-            if(newItem != null)
+            if (newItem != null)
             {
                 item = newItem;
                 if (icon != null)
@@ -23,7 +23,7 @@ namespace Assets.Scripts.InventoryObjects
                     icon.sprite = item.icon;
                     icon.enabled = true;
                 }
-            } 
+            }
         }
 
         public void ClearSlot()

@@ -1,5 +1,4 @@
-﻿using Assets.Enums;
-using Assets.Scripts.ItemObjects.Types;
+﻿using Assets.Scripts.ItemObjects.Types;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -41,7 +40,7 @@ namespace Assets.Scripts.InventoryObjects
 
             if (newItem != null)
             {
-                if(!isInitial)
+                if (!isInitial)
                 {
                     ArmorItem currentItem = currentEquipment.Where(item => item != null)?.FirstOrDefault(item => item.armor_Type == newItem.armor_Type);
 
@@ -59,7 +58,7 @@ namespace Assets.Scripts.InventoryObjects
                 }
 
                 currentEquipment.Add(newItem);
-             
+
             }
         }
 
@@ -69,7 +68,7 @@ namespace Assets.Scripts.InventoryObjects
             {
                 ArmorItem currentItem = currentEquipment.Where(item => item != null)?.FirstOrDefault(item => itemToRemove.armor_Type == item.armor_Type);
 
-                if(currentItem != null)
+                if (currentItem != null)
                 {
                     currentEquipment.Remove(currentItem);
                     inventory.Add(currentItem);
@@ -98,7 +97,7 @@ namespace Assets.Scripts.InventoryObjects
         public int GetCurrentAmor()
         {
             int armor = 0;
-            for(int i = 0; i<currentEquipment.Count; i++)
+            for (int i = 0; i < currentEquipment.Count; i++)
             {
                 armor = armor + currentEquipment[i].armorValue;
             }

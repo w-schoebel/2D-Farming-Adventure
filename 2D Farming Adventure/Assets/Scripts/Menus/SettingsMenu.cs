@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/* Author Maren Fischer
+ * Created at 21.05.2020
+ * Version 1
+ * 
+ * Contains setting options for the game (graphic, audio)
+ */
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;

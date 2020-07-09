@@ -1,7 +1,5 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.InventoryObjects;
+﻿using Assets.Scripts.InventoryObjects;
 using Assets.Scripts.ItemObjects.Types;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Character
@@ -88,7 +86,7 @@ namespace Assets.Scripts.Character
 
         public int GetCurrentDamage()
         {
-            if(weapon == null)
+            if (weapon == null)
             {
                 return 0;
             }

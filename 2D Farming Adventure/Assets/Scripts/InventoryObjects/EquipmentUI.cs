@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Character;
 using Assets.Scripts.ItemObjects.Types;
-using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,7 +28,7 @@ namespace Assets.Scripts.InventoryObjects
 
         private void SetPicture()
         {
-            if(CharacterDecider.instance != null)
+            if (CharacterDecider.instance != null)
             {
                 Image sourceImage = equipmentBackground.GetComponent<Image>();
                 sourceImage.sprite = CharacterDecider.instance.GetCurrentCharacterPlayerStats().GetSpecificSprite();
@@ -38,7 +37,7 @@ namespace Assets.Scripts.InventoryObjects
 
         void UpdateUiIinitial()
         {
-            foreach(ArmorItem armorItem in equipmentManager.currentEquipment)
+            foreach (ArmorItem armorItem in equipmentManager.currentEquipment)
             {
                 UpdateUI(armorItem, null);
             }
@@ -49,8 +48,8 @@ namespace Assets.Scripts.InventoryObjects
             if (newItem != null)
             {
                 equipmentSlots.FirstOrDefault(slot => slot.armor_Type == newItem.armor_Type)?.AddItem(newItem);
-            } 
-            else if(oldItem != null)
+            }
+            else if (oldItem != null)
             {
                 equipmentSlots.FirstOrDefault(slot => slot.armor_Type == oldItem.armor_Type)?.ClearSlot();
             }

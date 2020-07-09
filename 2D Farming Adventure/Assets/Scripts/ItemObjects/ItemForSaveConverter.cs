@@ -1,9 +1,4 @@
 ﻿using Assets.Scripts.ItemObjects.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.Scripts.ItemObjects
 {
@@ -12,7 +7,7 @@ namespace Assets.Scripts.ItemObjects
 
         public Item ConvertFromItemForSave(ItemForSave itemForSave)
         {
-            if(itemForSave == null)
+            if (itemForSave == null)
             {
                 return null;
             }
@@ -76,7 +71,7 @@ namespace Assets.Scripts.ItemObjects
 
         public ItemForSave ConvertFromItem(Item item)
         {
-            if(item == null)
+            if (item == null)
             {
                 return null;
             }
@@ -84,7 +79,7 @@ namespace Assets.Scripts.ItemObjects
             switch (item.itemType)
             {
                 case Enums.ItemType.Armor:
-                    return ConvertFromItem((ArmorItem) item);
+                    return ConvertFromItem((ArmorItem)item);
                 case Enums.ItemType.Weapon:
                     return ConvertFromItem((WeaponItem)item);
                 case Enums.ItemType.Consumable:

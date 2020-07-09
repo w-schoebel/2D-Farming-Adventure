@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.InventoryObjects.Handler;
 using Assets.Scripts.ItemObjects.Types;
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -30,16 +29,16 @@ namespace Assets.Scripts.InventoryObjects
 
         public void ClearSlot()
         {
-      //      bool wasMoved = Inventory.instance.Add(item); //add item to Inventory again before removing it from Toolbar
-      //      if (wasMoved)
-      //      {
-                item = null;
-                if (icon != null)
-                {
-                    icon.sprite = null;
-                    icon.enabled = false;
-                }
-      //      }
+            //      bool wasMoved = Inventory.instance.Add(item); //add item to Inventory again before removing it from Toolbar
+            //      if (wasMoved)
+            //      {
+            item = null;
+            if (icon != null)
+            {
+                icon.sprite = null;
+                icon.enabled = false;
+            }
+            //      }
         }
 
         public void OnPointerClick(PointerEventData eventData)

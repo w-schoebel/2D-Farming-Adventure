@@ -1,6 +1,4 @@
 ﻿using Assets.Enums;
-using Assets.Scripts.Character;
-using System;
 using UnityEngine;
 
 namespace Assets.Services

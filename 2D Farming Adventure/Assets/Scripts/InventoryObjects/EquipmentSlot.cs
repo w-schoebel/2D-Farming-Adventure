@@ -14,7 +14,7 @@ namespace Assets.Scripts.InventoryObjects
         public ArmorItem item;
         public ArmorType armor_Type;
         private bool isEntered = false;
-        
+
         public void AddItem(ArmorItem newItem)
         {
             item = newItem;

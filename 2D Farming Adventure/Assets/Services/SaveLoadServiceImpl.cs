@@ -1,11 +1,9 @@
-﻿using Assets.Scripts.Character;
-using Assets.Scripts.Data;
+﻿using Assets.Scripts.Data;
 using Assets.Scripts.InventoryObjects;
 using Assets.Scripts.ItemObjects;
 using Assets.Scripts.ItemObjects.Types;
 using Assets.Scripts.Stats;
 using System.Collections.Generic;
-using System.Security.Principal;
 using UnityEngine;
 
 namespace Assets.Services

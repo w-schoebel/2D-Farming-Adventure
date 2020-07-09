@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Character;
-using Assets.Scripts.InventoryObjects;
+﻿using Assets.Scripts.InventoryObjects;
 
 namespace Assets.Scripts.ItemObjects
 {

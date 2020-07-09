@@ -1,9 +1,6 @@
 ﻿using Assets.Enums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -43,9 +40,9 @@ namespace Assets.Scripts.ItemObjects.Types
         {
             Sprite result = null;
             Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(this.path).OfType<Sprite>().ToArray();
-            for(int i = 0; i < sprites.Length; i++)
+            for (int i = 0; i < sprites.Length; i++)
             {
-                if(sprites[i].name == this.childName)
+                if (sprites[i].name == this.childName)
                 {
                     result = sprites[i];
                     break;

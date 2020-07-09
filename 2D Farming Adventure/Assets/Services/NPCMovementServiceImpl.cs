@@ -9,8 +9,8 @@ namespace Assets.Services
         const int DOWN = -1;
         const int RIGTH = 1;
         const int LEFT = -1;
-        
-        
+
+
         float timerDirection;
         int currentDirection;
         PossibleDirections possibleDirections;
@@ -91,7 +91,7 @@ namespace Assets.Services
         /// <returns>a random float</returns>
         private float createRandomRange()
         {
-             return Random.Range(5, 10);
+            return Random.Range(5, 10);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Assets.Services
                 anzahlLoops = anzahlLoops + 1;
             }
 
-            if(rndDirection != currentDirection)
+            if (rndDirection != currentDirection)
             {
                 switch (rndDirection)
                 {

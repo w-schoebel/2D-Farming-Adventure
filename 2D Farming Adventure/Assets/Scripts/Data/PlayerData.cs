@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.Character;
+﻿/* Author Maren Fischer, Wiebke Schöbel
+ * Created at 
+ * Version 
+ * 
+ * 
+ */
 using Assets.Scripts.ItemObjects.Types;
-using Assets.Scripts.Stats;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.Scripts.Data
 {
@@ -43,7 +43,7 @@ namespace Assets.Scripts.Data
         }
 
         public PlayerData(int playerId, string playerName, bool loadNextAsNewGame)
-        { 
+        {
             this.playerId = playerId;
             this.playerName = playerName;
             this.health = -1;

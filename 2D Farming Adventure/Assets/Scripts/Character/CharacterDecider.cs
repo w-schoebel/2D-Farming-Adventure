@@ -1,15 +1,17 @@
-﻿using Assets.Scripts.Data;
+﻿/* Author Wiebke Schöbel
+ * Created at 10.06.2020
+ * Version 1
+ * 
+ * Save the selected character in PlayerData
+ * After selecting the character, the unselected character is destroyed
+ */
+using Assets.Scripts.Data;
 using Assets.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Character
 {
+    
     public class CharacterDecider : MonoBehaviour
     {
         public GameObject male;
@@ -106,10 +108,10 @@ namespace Assets.Scripts.Character
             {
                 return FemalePlayerStats.instance;
             }
-            else if(male != null && male.activeSelf)
+            else if (male != null && male.activeSelf)
             {
                 return MalePlayerStats.instance;
-            } 
+            }
             else
             {
                 return null;

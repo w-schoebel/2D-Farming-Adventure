@@ -1,8 +1,13 @@
-﻿using Assets.Scripts.Data;
+﻿/* Author Maren Fischer
+ * Created at 10.06.2020
+ * Version 1
+ * 
+ * Select the male or female character at the start of the new game
+ */
+
+using Assets.Scripts.Data;
 using Assets.Services;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Character
@@ -50,6 +55,7 @@ namespace Assets.Scripts.Character
             saveLoadService = new SaveLoadServiceImpl();
         }
 
+        //select which character is choosen when cklick on next-Button
         public void NextCharacter()
         {
             switch (characterInt)
@@ -87,6 +93,7 @@ namespace Assets.Scripts.Character
             characterInt--;
         }
 
+        //select which character is choosen with cklick on previos-Button
         public void PeviousCharacter()
         {
             switch (characterInt)
@@ -102,6 +109,7 @@ namespace Assets.Scripts.Character
             }
         }
 
+        //get ID from the choosen character
         public int GetChoosenCharacterID()
         {
             if (player1Renderer.enabled == enabled)
@@ -119,6 +127,7 @@ namespace Assets.Scripts.Character
             }
         }
 
+        //save the playername in the inputfield
         public void SaveIntialInformations()
         {
             saveLoadService.Save(new PlayerData(GetChoosenCharacterID(), playerName.text, true));

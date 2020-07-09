@@ -1,9 +1,5 @@
-﻿using Assets.Enums;
-using Assets.Scripts.Character;
-using Assets.Scripts.Data;
-using Assets.Scripts.Enemy;
+﻿using Assets.Scripts.Enemy;
 using Assets.Services;
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.ItemObjects.Types;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.InventoryObjects
@@ -64,7 +63,7 @@ namespace Assets.Scripts.InventoryObjects
         {
             int index = Array.IndexOf(items, item);
 
-            if(index != -1)
+            if (index != -1)
             {
                 items[index] = null;
                 InvokeItemChangeCallback();

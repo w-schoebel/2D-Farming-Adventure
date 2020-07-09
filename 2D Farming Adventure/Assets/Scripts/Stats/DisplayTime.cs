@@ -1,4 +1,10 @@
-﻿using Assets.Scripts.Data;
+﻿/* Author Maren Fischer
+ * Created at 22.06.2020
+ * Version 1
+ * 
+ * ingame time system, which is displayed in the player mask
+ */
+using Assets.Scripts.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +12,7 @@ namespace Assets.Scripts.Stats
 {
     public class DisplayTime : MonoBehaviour
     {
+        //variable to set the in game day to 15 minutes in real time
         // for testing:
         //private const int TIMESCALE = 2500;
         private const int TIMESCALE = 45;
@@ -54,7 +61,7 @@ namespace Assets.Scripts.Stats
             CalculateTime();
         }
 
-
+        //add the data from TimeData to the respective text display
         void TextCallFunction()
         {
             if (playerTimeData != null && dayText != null && clockText != null && yearText != null)
@@ -71,6 +78,7 @@ namespace Assets.Scripts.Stats
             //TIMESCALE == time speed
             playerTimeData.second += Time.deltaTime * TIMESCALE;
 
+            //timesystem
             if (playerTimeData.second >= 60)
             {
                 playerTimeData.minute++;
@@ -103,6 +111,7 @@ namespace Assets.Scripts.Stats
             }
         }
 
+        //getter and setter for the TimeData values
         public PlayerTimeData GetCurrentPlayerTimeData()
         {
             return this.playerTimeData;

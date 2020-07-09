@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/* Author Maren Fischer
+ * Created at 22.06.2020
+ * Version 1
+ * 
+ * class for time values
+ */
 
 namespace Assets.Scripts.Data
 {

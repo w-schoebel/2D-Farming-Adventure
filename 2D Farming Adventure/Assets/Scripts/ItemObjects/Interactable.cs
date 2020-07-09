@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Character;
-using Assets.Scripts.ItemObjects.Types;
+﻿using Assets.Scripts.ItemObjects.Types;
 using UnityEngine;
 
 namespace Assets.Scripts.ItemObjects

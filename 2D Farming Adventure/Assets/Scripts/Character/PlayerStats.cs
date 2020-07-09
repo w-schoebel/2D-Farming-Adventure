@@ -1,16 +1,22 @@
-﻿using Assets.Scripts.Data;
+﻿/* Author Maren Fischer, Wiebke Schöbel
+ * Created at 11.05.2020
+ * Version 6
+ * 
+ * set the stats of the player at game start and ingame
+ */
+using Assets.Scripts.Data;
 using Assets.Scripts.InventoryObjects;
 using Assets.Scripts.ItemObjects.Types;
 using Assets.Scripts.Menu;
 using Assets.Scripts.Stats;
 using Assets.Services;
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Character
 {
+   
     public class PlayerStats : StatsManager
     {
         public SceneLoader sceneLoader;
@@ -27,7 +33,7 @@ namespace Assets.Scripts.Character
 
         public GameObject camera;
 
-        //add HealthBar
+        //add bars
         public HealthBar healthBar;
         public EnduranceBar enduranceBar;
         private Text armorText;
@@ -41,6 +47,7 @@ namespace Assets.Scripts.Character
         {
             rigidbody = GetComponent<Rigidbody2D>();
             saveLoadService = SaveLoadServiceImpl.Create();
+            //set maxValues for the bars
             maxHealth = 100;
             maxEndurance = 100;
 
@@ -66,7 +73,7 @@ namespace Assets.Scripts.Character
                 enduranceBar = EnduranceBar.instance;
             }
 
-            if(CharacterDecider.instance != null)
+            if (CharacterDecider.instance != null)
             {
                 camera.transform.SetParent(CharacterDecider.instance.GetCurrentCharacter().transform);
             }
@@ -107,7 +114,7 @@ namespace Assets.Scripts.Character
 
         private void SetAmorValue()
         {
-            if(playerData != null)
+            if (playerData != null)
             {
                 playerData.armor = EquipmentManager.instance.GetCurrentAmor();
 
@@ -119,7 +126,7 @@ namespace Assets.Scripts.Character
         }
 
         private void UpdateArmorUI(ArmorItem newItem, ArmorItem oldItem)
-        {        
+        {
             SetAmorValue();
         }
 

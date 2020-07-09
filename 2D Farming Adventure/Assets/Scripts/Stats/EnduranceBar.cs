@@ -1,5 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/* Author Maren Fischer
+ * Created at 13.05.2020
+ * Version 1
+ * 
+ * set max and current value of enduranceBar
+ */
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,6 +1,10 @@
-﻿using Assets.Scripts.Data;
-using System.Collections;
-using System.Collections.Generic;
+﻿/* Author Maren Fischer
+ * Created at 22.05.2020
+ * Version 1
+ * 
+ * life deduction for incoming damage
+ * die when the life value <= 0
+ */
 using UnityEngine;
 
 namespace Assets.Scripts.Stats
@@ -27,7 +31,7 @@ namespace Assets.Scripts.Stats
             }
         }
 
-        //GAme-over-Scene; ovverride with the die() from char
+        //Game-over-Scene; ovverride with the die() from char
         public virtual void Die()
         {
             Debug.Log(transform.name + "died");

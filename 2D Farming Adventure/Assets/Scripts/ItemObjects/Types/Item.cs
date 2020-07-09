@@ -19,7 +19,7 @@ namespace Assets.Scripts.ItemObjects.Types
 
         public void RemoveFromInventory()
         {
-            if(Inventory.instance != null)
+            if (Inventory.instance != null)
             {
                 Inventory.instance.RemoveItem(this);
             }
