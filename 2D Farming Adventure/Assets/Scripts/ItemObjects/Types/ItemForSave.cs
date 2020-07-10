@@ -7,7 +7,6 @@
 using Assets.Enums;
 using System;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.ItemObjects.Types
@@ -32,7 +31,6 @@ namespace Assets.Scripts.ItemObjects.Types
         //for All
         public string itemName;
 
-        public String path;
         public String childName;
 
         public bool isDefaultItem;
@@ -44,7 +42,6 @@ namespace Assets.Scripts.ItemObjects.Types
         /// <returns></returns>
         public void SetSprite(Sprite icon)
         {
-            this.path = AssetDatabase.GetAssetPath(icon);
             this.childName = icon.name;
         }
 
@@ -55,7 +52,7 @@ namespace Assets.Scripts.ItemObjects.Types
         public Sprite GetSprite()
         {
             Sprite result = null;
-            Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(this.path).OfType<Sprite>().ToArray();
+            Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/ItemSprites");
             for (int i = 0; i < sprites.Length; i++)
             {
                 if (sprites[i].name == this.childName)
