@@ -376,6 +376,7 @@ GameObject:
   - component: {fileID: 96398816}
   - component: {fileID: 96398815}
   - component: {fileID: 96398814}
+  - component: {fileID: 96398817}
   m_Layer: 5
   m_Name: 'PlayButton '
   m_TagString: Untagged
@@ -494,6 +495,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96398812}
   m_CullTransparentMesh: 0
+--- !u!114 &96398817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96398812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e770e9ebc505f0e46a8fe0b071c352f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 96398812}
+  buttonText: {fileID: 57466124}
 --- !u!1 &105890399
 GameObject:
   m_ObjectHideFlags: 0
@@ -5166,7 +5181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BACK
+  m_text: ZURUECK
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -5236,7 +5251,7 @@ MonoBehaviour:
   m_margin: {x: -0.43783042, y: 0, z: 0.08082535, w: 0}
   m_textInfo:
     textComponent: {fileID: 1833519158}
-    characterCount: 4
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1

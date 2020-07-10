@@ -1,65 +1,38 @@
-﻿using Assets.Scripts.ItemObjects.Types;
+﻿/* Author Wiebke Schöbel
+ * Created at 03.06.2020
+ * Version 6
+ * 
+ * Handles interaction between player and interactable
+ */
+using Assets.Scripts.ItemObjects.Types;
 using UnityEngine;
 
 namespace Assets.Scripts.ItemObjects
 {
+    /// <summary>
+    /// Handles interaction between player and interactable
+    /// </summary>
     public class Interactable : MonoBehaviour
     {
-        public float radius = 1f; //Entfernung bis mit Item interagiert werden kann
+        public float radius = 1f; //range for possible interaction with the player
         public Transform interaction_Transform;
         public Item item;
 
-        bool isFocus = false;
-        bool hasInteracted = false;
-        Transform player;
-
+        /// <summary>
+        /// Handles the interact of items in scene with the player
+        /// </summary>
         public virtual void Interact()
         {
             Debug.Log("Interacting with " + transform.name);
         }
 
-        private void Update()
-        {
-            // if (isFocus && !hasInteracted)
-            // {
-            //     float distance = Vector2.Distance(player.position, interaction_Transform.position);
-            //     if (distance <= radius)
-            //     {
-            //         Interact();
-            //         Debug.Log("interacted");
-            //         hasInteracted = true;
-            //     }
-            // }
-        }
-
-        public void OnFocused(Transform playerTransform)
-        {
-            isFocus = true;
-            player = playerTransform;
-            hasInteracted = false;
-        }
-
-        public void OnDefocused()
-        {
-            isFocus = false;
-            player = null;
-            hasInteracted = false;
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if (interaction_Transform == null)
-            {
-                interaction_Transform = player;
-            }
-
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, radius);
-        }
-
+        /// <summary>
+        /// Calls interact if player collides with interactable
+        /// </summary>
+        /// <param name="collision"></param>
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.name.Contains("Player")) //maybe change to !collision.name.contains("") for the names of NPC, because user sets name of Player
+            if (collision.name.Contains("Player")) 
             {
                 Interact();
             }

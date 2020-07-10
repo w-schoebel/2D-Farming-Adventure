@@ -1,8 +1,8 @@
-﻿/* Author Maren Fischer
+﻿/* Author Maren Fischer, Wiebke Schöbel
  * Created at 10.06.2020
- * Version 1
+ * Version 8
  * 
- * Select the male or female character at the start of the new game
+ * Controls the CharacterSelection and returns active character and playerstats
  */
 
 using Assets.Scripts.Data;
@@ -12,6 +12,9 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Character
 {
+    /// <summary>
+    /// Controls the CharacterSelection and returns active character and playerstats
+    /// </summary>
     public class CharacterSelector : MonoBehaviour
     {
         //create a Gameobject for each sprite
@@ -55,16 +58,18 @@ namespace Assets.Scripts.Character
             saveLoadService = new SaveLoadServiceImpl();
         }
 
-        //select which character is choosen when cklick on next-Button
+        /// <summary>
+        ///Handles the click on the next button
+        /// </summary>
         public void NextCharacter()
         {
             switch (characterInt)
             {
                 case 1:
-                    enablePlayer2();
+                    EnablePlayer2();
                     break;
                 case 2:
-                    enablePlayer1();
+                    EnablePlayer1();
                     break;
                 default:
                     break;
@@ -72,7 +77,10 @@ namespace Assets.Scripts.Character
 
         }
 
-        private void enablePlayer2()
+        /// <summary>
+        /// Prepares second player 
+        /// </summary>
+        private void EnablePlayer2()
         {
             //disable Player 1 and move him to the OffScreenPosition
             player1Renderer.enabled = false;
@@ -83,7 +91,10 @@ namespace Assets.Scripts.Character
             characterInt++;
         }
 
-        private void enablePlayer1()
+        /// <summary>
+        /// Prepares first player 
+        /// </summary>
+        private void EnablePlayer1()
         {
             player2Renderer.enabled = false;
             player2.transform.position = offScreen;
@@ -93,23 +104,28 @@ namespace Assets.Scripts.Character
             characterInt--;
         }
 
-        //select which character is choosen with cklick on previos-Button
+        /// <summary>
+        /// Handles the click on the previous button
+        /// </summary>
         public void PeviousCharacter()
         {
             switch (characterInt)
             {
                 case 1:
-                    enablePlayer2();
+                    EnablePlayer2();
                     break;
                 case 2:
-                    enablePlayer1();
+                    EnablePlayer1();
                     break;
                 default:
                     break;
             }
         }
 
-        //get ID from the choosen character
+        /// <summary>
+        /// Returns the id for the choosen character
+        /// </summary>
+        /// <returns></returns>
         public int GetChoosenCharacterID()
         {
             if (player1Renderer.enabled == enabled)
@@ -127,7 +143,9 @@ namespace Assets.Scripts.Character
             }
         }
 
-        //save the playername in the inputfield
+        /// <summary>
+        /// Saves the choosen character and name in the database
+        /// </summary>
         public void SaveIntialInformations()
         {
             saveLoadService.Save(new PlayerData(GetChoosenCharacterID(), playerName.text, true));

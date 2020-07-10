@@ -1,8 +1,17 @@
-﻿using TMPro;
+﻿/* Author Wiebke Schöbel
+ * Created at 11.06.2020
+ * Version 6
+ * 
+ * Controls the ui for the toolbar
+ */
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.InventoryObjects
 {
+    /// <summary>
+    /// Controls the ui for the toolbar
+    /// </summary>
     public class ToolbarUI : MonoBehaviour
     {
         public Transform itemsParent;
@@ -32,6 +41,9 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Updates the ui with all items 
+        /// </summary>
         void UpdateUI()
         {
             for (int i = 0; i < toolbarSlots.Length; i++)
@@ -103,6 +115,10 @@ namespace Assets.Scripts.InventoryObjects
                 return;
             }
         }
+
+        /// <summary>
+        /// Updates the numbers of all slots 
+        /// </summary>
         private void UpdateTMP()
         {
             int slotNumber;

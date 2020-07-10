@@ -1,9 +1,17 @@
-﻿using Assets.Scripts.Enemy;
+﻿/* Author Wiebke Schöbel
+ * Created at 03.06.2020
+ * Version 11
+ * 
+ * Controls the movement for the PC-Player
+ */
+using Assets.Scripts.Enemy;
 using Assets.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
+/// <summary>
+/// Controls the movement for the PC-player
+/// </summary>
 namespace Assets.Scripts.Character
 {
     public class PlayerMovement : MonoBehaviour
@@ -22,7 +30,6 @@ namespace Assets.Scripts.Character
             rigidbody = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             movementService = PlayerMovementServiceImpl.Create(animator);
-            //   characterStats = new CharacterStats(); //TODO: Anbindung mit Maren für Position nach Laden
         }
 
 
@@ -39,7 +46,6 @@ namespace Assets.Scripts.Character
             }
 
             Vector2 curentPosition = rigidbody.position;
-            //Vector2 currentPositionFromLoading = characterStats.position; //TODO: CharacterStats public global Vector2 position; und dann unten bei Load Werte diesem Vector2 zuordnen statt lokalem Vektor2
 
             SwitchMovementType();
 
@@ -71,6 +77,10 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Handle collision with Enemys or CaveEntrance
+        /// </summary>
+        /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Enemy"))
@@ -82,8 +92,20 @@ namespace Assets.Scripts.Character
                     animator.SetBool("Fighting", true);
                 }
             }
+            else if (collision.gameObject.CompareTag("CaveEntranceBottom"))
+            {
+                rigidbody.position = new Vector2(-1.7f, 3.1f);
+            } 
+            else if (collision.gameObject.CompareTag("CaveEntranceTop"))
+            {
+                rigidbody.position = new Vector2(-1.7f, 0.2f);
+            }
         }
 
+        /// <summary>
+        /// Handle collision with Enemys 
+        /// </summary>
+        /// <param name="collision"></param>
         private void OnCollisionExit2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Enemy"))

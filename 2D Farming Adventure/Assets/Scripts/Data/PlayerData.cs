@@ -1,13 +1,16 @@
 ﻿/* Author Maren Fischer, Wiebke Schöbel
- * Created at 
- * Version 
+ * Created at 11.06.2020
+ * Version 12
  * 
- * 
+ * DataClass for saving/loading the character
  */
 using Assets.Scripts.ItemObjects.Types;
 
 namespace Assets.Scripts.Data
 {
+    /// <summary>
+    /// DataClass for saving/loading the character 
+    /// </summary>
     [System.Serializable]
     public class PlayerData
     {
@@ -16,9 +19,6 @@ namespace Assets.Scripts.Data
         public int health;
         public int armor;
         public int endurance;
-        //serializeable will not work for:
-        //public Vector2 position;
-        //so store this in an array
         public float[] position;
         public PlayerTimeData playerTimeData;
         public ItemForSave[] currentEquipment;

@@ -1,10 +1,23 @@
-﻿using Assets.Scripts.ItemObjects.Types;
+﻿/* Author Wiebke Schöbel
+ * Created at 08.07.2020
+ * Version 3
+ * 
+ * Handles the convertation between item and itemForSave
+ */
+using Assets.Scripts.ItemObjects.Types;
 
 namespace Assets.Scripts.ItemObjects
 {
+    /// <summary>
+    /// Handles the convertation between item and itemForSave
+    /// </summary>
     public class ItemForSaveConverter
     {
-
+        /// <summary>
+        /// Returns the specific item that was parsed before to the itemForSave
+        /// </summary>
+        /// <param name="itemForSave"></param>
+        /// <returns></returns>
         public Item ConvertFromItemForSave(ItemForSave itemForSave)
         {
             if (itemForSave == null)
@@ -28,6 +41,11 @@ namespace Assets.Scripts.ItemObjects
 
         }
 
+        /// <summary>
+        /// Create an armor item from a given itemForSave
+        /// </summary>
+        /// <param name="itemForSave"></param>
+        /// <returns></returns>
         private ArmorItem CreateArmorItem(ItemForSave itemForSave)
         {
             ArmorItem item = new ArmorItem();
@@ -40,6 +58,11 @@ namespace Assets.Scripts.ItemObjects
             return item;
         }
 
+        /// <summary>
+        /// Create an weapon item from a given itemForSave
+        /// </summary>
+        /// <param name="itemForSave"></param>
+        /// <returns></returns>
         private WeaponItem CreateWeaponItem(ItemForSave itemForSave)
         {
             WeaponItem item = new WeaponItem();
@@ -51,6 +74,11 @@ namespace Assets.Scripts.ItemObjects
             return item;
         }
 
+        /// <summary>
+        /// Create an consumable item from a given itemForSave
+        /// </summary>
+        /// <param name="itemForSave"></param>
+        /// <returns></returns>
         private ConsumableItem CreateConsumableItem(ItemForSave itemForSave)
         {
             ConsumableItem item = new ConsumableItem();
@@ -60,6 +88,11 @@ namespace Assets.Scripts.ItemObjects
             return item;
         }
 
+        /// <summary>
+        /// Create an crafting material item from a given itemForSave
+        /// </summary>
+        /// <param name="itemForSave"></param>
+        /// <returns></returns>
         private CraftingMaterialItem CreateCraftingMaterialItem(ItemForSave itemForSave)
         {
             CraftingMaterialItem item = new CraftingMaterialItem();
@@ -69,6 +102,11 @@ namespace Assets.Scripts.ItemObjects
             return item;
         }
 
+        /// <summary>
+        /// Returns the itemForSave for a given specific item tpye
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public ItemForSave ConvertFromItem(Item item)
         {
             if (item == null)
@@ -91,6 +129,11 @@ namespace Assets.Scripts.ItemObjects
             }
         }
 
+        /// <summary>
+        /// Creates an itemForSave for a given WeaponItem
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private ItemForSave ConvertFromItem(WeaponItem item)
         {
             ItemForSave itemForSave = new ItemForSave();
@@ -102,6 +145,11 @@ namespace Assets.Scripts.ItemObjects
             return itemForSave;
         }
 
+        /// <summary>
+        /// Creates an itemForSave for a given ArmrorItem
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private ItemForSave ConvertFromItem(ArmorItem item)
         {
             ItemForSave itemForSave = new ItemForSave();
@@ -114,6 +162,11 @@ namespace Assets.Scripts.ItemObjects
             return itemForSave;
         }
 
+        /// <summary>
+        /// Creates an itemForSave for a given ConsumableItem
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private ItemForSave ConvertFromItem(ConsumableItem item)
         {
             ItemForSave itemForSave = new ItemForSave();
@@ -123,6 +176,11 @@ namespace Assets.Scripts.ItemObjects
             return itemForSave;
         }
 
+        /// <summary>
+        /// Creates an itemForSave for a given CraftingMaterialItem
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private ItemForSave ConvertFromItem(CraftingMaterialItem item)
         {
             ItemForSave itemForSave = new ItemForSave();
@@ -132,6 +190,11 @@ namespace Assets.Scripts.ItemObjects
             return itemForSave;
         }
 
+        /// <summary>
+        /// Set common properties for ItemForSave from given Item
+        /// </summary>
+        /// <param name="sourceItem"></param>
+        /// <param name="targetItem"></param>
         private void SetCommonProperties(Item sourceItem, ItemForSave targetItem)
         {
             targetItem.itemName = sourceItem.itemName;
@@ -140,6 +203,11 @@ namespace Assets.Scripts.ItemObjects
             targetItem.itemType = sourceItem.itemType;
         }
 
+        /// <summary>
+        /// Set common properties for Item from given ItemForSave
+        /// </summary>
+        /// <param name="sourceItem"></param>
+        /// <param name="targetItem"></param>
         private void SetCommonProperties(ItemForSave sourceItem, Item targetItem)
         {
             targetItem.itemName = sourceItem.itemName;

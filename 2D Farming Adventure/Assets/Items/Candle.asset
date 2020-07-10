@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c3327ca7ecbba479219c57ae605047, type: 3}
   m_Name: Candle
   m_EditorClassIdentifier: 
-  itemName: New Item
-  icon: {fileID: -9214089150372828947, guid: d17c07c5327656740944f9dab7243efb, type: 3}
+  itemName: Candle
+  icon: {fileID: 2958836535679281681, guid: 0511432c9740b334ea9f1bf0d562f698, type: 3}
   isDefaultItem: 0
   itemType: 0

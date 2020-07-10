@@ -1,4 +1,10 @@
-﻿using Assets.Scripts.Character;
+﻿/* Author Wiebke Schöbel
+ * Created at 15.06.2020
+ * Version 5
+ * 
+ * Controls the ui for the equipment
+ */
+using Assets.Scripts.Character;
 using Assets.Scripts.ItemObjects.Types;
 using System.Linq;
 using UnityEngine;
@@ -6,6 +12,9 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.InventoryObjects
 {
+    /// <summary>
+    /// Controls the ui for the equipment
+    /// </summary>
     public class EquipmentUI : MonoBehaviour
     {
         public Transform itemsParent;
@@ -26,6 +35,9 @@ namespace Assets.Scripts.InventoryObjects
             UpdateUiIinitial();
         }
 
+        /// <summary>
+        /// Sets the Sprite from the active character in the background of the equipment
+        /// </summary>
         private void SetPicture()
         {
             if (CharacterDecider.instance != null)
@@ -35,6 +47,9 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Updates the UI for loading the character initial
+        /// </summary>
         void UpdateUiIinitial()
         {
             foreach (ArmorItem armorItem in equipmentManager.currentEquipment)
@@ -43,6 +58,11 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Updates the ui for new item
+        /// </summary>
+        /// <param name="newItem"></param>
+        /// <param name="oldItem"></param>
         void UpdateUI(ArmorItem newItem, ArmorItem oldItem)
         {
             if (newItem != null)

@@ -1,9 +1,18 @@
-﻿using Assets.Scripts.ItemObjects.Types;
+﻿/* Author Wiebke Schöbel
+ * Created at 10.06.2020
+ * Version 7
+ * 
+ * Controls the toolbar
+ */
+using Assets.Scripts.ItemObjects.Types;
 using System;
 using UnityEngine;
 
 namespace Assets.Scripts.InventoryObjects
 {
+    /// <summary>
+    /// Controls the toolbar
+    /// </summary>
     public class ToolbarManager : MonoBehaviour
     {
         public delegate void OnItemChanged();
@@ -34,6 +43,13 @@ namespace Assets.Scripts.InventoryObjects
 
         #endregion
 
+        /// <summary>
+        /// Adds the item to the inventory (specific position handling)
+        /// </summary>
+        /// <param name="newItem"></param>
+        /// <param name="position"></param>
+        /// <param name="positionInList"></param>
+        /// <returns></returns>
         public bool Add(Item newItem, int position, int positionInList)
         {
             if (newItem == null || position >= space)
@@ -59,6 +75,10 @@ namespace Assets.Scripts.InventoryObjects
             return true;
         }
 
+        /// <summary>
+        /// Remove item from inventory
+        /// </summary>
+        /// <param name="item"></param>
         public void RemoveItem(Item item)
         {
             int index = Array.IndexOf(items, item);
@@ -70,6 +90,9 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Called to update the slots with new item
+        /// </summary>
         private void InvokeItemChangeCallback()
         {
             if (itemChangedCallback != null)
@@ -78,6 +101,11 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Check if given item exists in toolbar
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool ContainsItem(Item item)
         {
             int index = Array.IndexOf(items, item);

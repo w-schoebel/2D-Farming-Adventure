@@ -1,4 +1,10 @@
-﻿using Assets.Scripts.InventoryObjects.Handler;
+﻿/* Author Wiebke Schöbel
+ * Created at 11.06.2020
+ * Version 5
+ * 
+ * Controls a specific slot of the toolbar
+ */
+using Assets.Scripts.InventoryObjects.Handler;
 using Assets.Scripts.ItemObjects.Types;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,6 +12,9 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.InventoryObjects
 {
+    /// <summary>
+    /// Controls a specific slot of the toolbar
+    /// </summary>
     public class ToolbarSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IDropHandler
     {
         public Image icon;
@@ -13,6 +22,10 @@ namespace Assets.Scripts.InventoryObjects
         private Item item;
         private int slot_number = -1;
 
+        /// <summary>
+        /// Adds the given item to the slot
+        /// </summary>
+        /// <param name="newItem"></param>
         public void AddItem(Item newItem)
         {
             if (newItem != null)
@@ -27,6 +40,9 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Removes the item from the slot
+        /// </summary>
         public void ClearSlot()
         {
             //      bool wasMoved = Inventory.instance.Add(item); //add item to Inventory again before removing it from Toolbar
@@ -41,32 +57,44 @@ namespace Assets.Scripts.InventoryObjects
             //      }
         }
 
+        /// <summary>
+        /// Calls the item to be used after click
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerClick(PointerEventData eventData)
         {
             UseItem();
         }
 
+        /// <summary>
+        /// Set isEntered to true if pointer entered
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerEnter(PointerEventData eventData)
         {
             isEntered = true;
         }
 
+        /// <summary>
+        /// Set isEntered to false if pointer left
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerExit(PointerEventData eventData)
         {
             isEntered = false;
         }
 
-        private void Start()
-        {
-
-
-        }
+        /// <summary>
+        /// Calls to remove an item if button is pressed
+        /// </summary>
         private void Update()
         {
-
             RemoveItemWhemButtonPressed();
         }
 
+        /// <summary>
+        /// Removed the item from toolbar if button is pressed
+        /// </summary>
         private void RemoveItemWhemButtonPressed()
         {
             if (Input.GetKeyDown(KeyCode.O) && isEntered)
@@ -75,6 +103,9 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Uses the Item
+        /// </summary>
         public void UseItem()
         {
             if (item != null)
@@ -83,11 +114,19 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Set the number of the slot for a given slotNumber
+        /// </summary>
+        /// <param name="slotNumber"></param>
         public void SetSlotNumber(int slotNumber)
         {
             this.slot_number = slotNumber;
         }
 
+        /// <summary>
+        /// Handles ItemDragging from inventory if mouse is clicked down
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerDown(PointerEventData eventData)
         {
             if (ItemDragHandler.Instance != null)
@@ -98,6 +137,10 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Handles item on dropped position
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnDrop(PointerEventData eventData)
         {
             if (ItemDragHandler.Instance != null)
@@ -110,6 +153,11 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Checks if item is in the right position and adds the item to the toolbar
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="itemPosition"></param>
         private void handleDroppedItem(Item item, int itemPosition)
         {
             //TODO: not working for male

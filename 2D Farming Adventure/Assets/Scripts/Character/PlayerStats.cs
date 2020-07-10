@@ -1,8 +1,8 @@
-﻿/* Author Maren Fischer, Wiebke Schöbel
- * Created at 11.05.2020
- * Version 6
+﻿/* Author Wiebke Schöbel, Maren Fischer 
+ * Created at 24.06.2020
+ * Version 8
  * 
- * set the stats of the player at game start and ingame
+ * Controls the player specific stats for items and controls the values in the ui
  */
 using Assets.Scripts.Data;
 using Assets.Scripts.InventoryObjects;
@@ -16,7 +16,9 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Character
 {
-   
+   /// <summary>
+   /// Controls the player specific stats for items and controls the values in the ui
+   /// </summary>
     public class PlayerStats : StatsManager
     {
         public SceneLoader sceneLoader;
@@ -33,7 +35,6 @@ namespace Assets.Scripts.Character
 
         public GameObject camera;
 
-        //add bars
         public HealthBar healthBar;
         public EnduranceBar enduranceBar;
         private Text armorText;
@@ -43,11 +44,14 @@ namespace Assets.Scripts.Character
             Init();
         }
 
+        /// <summary>
+        /// Initialize the properties, events and services
+        /// </summary>
         public void Init()
         {
             rigidbody = GetComponent<Rigidbody2D>();
             saveLoadService = SaveLoadServiceImpl.Create();
-            //set maxValues for the bars
+
             maxHealth = 100;
             maxEndurance = 100;
 
@@ -79,11 +83,20 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Returns the Sprite for the specific character (male or female)
+        /// </summary>
+        /// <returns></returns>
         public virtual Sprite GetSpecificSprite()
         {
             return image;
         }
 
+        /// <summary>
+        /// Updates the Ui elements for health, endurance and armor
+        /// </summary>
+        /// <param name="health"></param>
+        /// <param name="endurance"></param>
         private void UpdateUI(int health, int endurance)
         {
             SetHealthValue(health);
@@ -93,6 +106,10 @@ namespace Assets.Scripts.Character
             SetAmorValue();
         }
 
+        /// <summary>
+        /// Sets the health value for the bar
+        /// </summary>
+        /// <param name="health"></param>
         private void SetHealthValue(int health)
         {
             this.health = health;
@@ -103,6 +120,10 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Sets the endurance value for the bar
+        /// </summary>
+        /// <param name="endurance"></param>
         private void SetEnduranceValue(int endurance)
         {
             if (enduranceBar != null)
@@ -112,6 +133,9 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Sets the current armor value for the armor text
+        /// </summary>
         private void SetAmorValue()
         {
             if (playerData != null)
@@ -125,16 +149,29 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Event function for updating the armor text
+        /// </summary>
+        /// <param name="newItem"></param>
+        /// <param name="oldItem"></param>
         private void UpdateArmorUI(ArmorItem newItem, ArmorItem oldItem)
         {
             SetAmorValue();
         }
 
+        /// <summary>
+        /// Returns the total damage based on weapon and equipment
+        /// </summary>
+        /// <returns></returns>
         public int GetTotalDamage()
         {
             return damage + ActingManager.instance.GetCurrentDamage() + EquipmentManager.instance.GetCurrentDamage();
         }
 
+        /// <summary>
+        /// Reduces the endurance value for given value (Player dies with 0 endurance)
+        /// </summary>
+        /// <param name="consume"></param>
         public void ConsumeEndurance(int consume)
         {
             consume = Mathf.Clamp(consume, 0, int.MaxValue);
@@ -150,6 +187,10 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Reduces the health for a given value
+        /// </summary>
+        /// <param name="damage"></param>
         public override void TakeDamage(int damage)
         {
             damage -= playerData.armor;
@@ -159,6 +200,9 @@ namespace Assets.Scripts.Character
             Debug.Log(transform.name + " has " + health + " LifePoints remaining.");
         }
 
+        /// <summary>
+        /// Load last saved state after player died
+        /// </summary>
         public override void Die()
         {
             Debug.Log(transform.name + "died");
@@ -167,17 +211,27 @@ namespace Assets.Scripts.Character
             LoadPlayer();
         }
 
+        /// <summary>
+        /// Loads the player from the database
+        /// </summary>
         public void LoadPlayer()
         {
             playerData = saveLoadService.LoadPlayer(rigidbody);
             UpdateUI(playerData.health, playerData.endurance);
         }
 
+        /// <summary>
+        /// Saves the player in the database
+        /// </summary>
         public void SavePlayer()
         {
             saveLoadService.SavePlayer(playerData, rigidbody.position);
         }
 
+        /// <summary>
+        /// Creates a new game for the player
+        /// </summary>
+        /// <param name="playerData"></param>
         public void NewGame(PlayerData playerData)
         {
             playerData = saveLoadService.NewGame(playerData.playerId, playerData.playerName, maxHealth, maxEndurance);

@@ -1473,8 +1473,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 404421729}
-        m_MethodName: BackButton
+      - m_Target: {fileID: 1212949027}
+        m_MethodName: LoadScene0
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2678,8 +2678,9 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   health: 0
-  playername: 
   sceneLoader: {fileID: 1212949027}
+  image: {fileID: 0}
+  camera: {fileID: 0}
   healthBar: {fileID: 0}
   enduranceBar: {fileID: 0}
 --- !u!1 &2054819161

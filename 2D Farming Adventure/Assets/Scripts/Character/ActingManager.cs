@@ -1,9 +1,18 @@
-﻿using Assets.Scripts.InventoryObjects;
+﻿/* Author Wiebke Schöbel
+ * Created at 21.06.2020
+ * Version 5
+ * 
+ * Controls the item usage
+ */
+using Assets.Scripts.InventoryObjects;
 using Assets.Scripts.ItemObjects.Types;
 using UnityEngine;
 
 namespace Assets.Scripts.Character
 {
+    /// <summary>
+    /// Controls the item usage
+    /// </summary>
     public class ActingManager : MonoBehaviour
     {
         private WeaponItem weapon;
@@ -27,7 +36,10 @@ namespace Assets.Scripts.Character
         }
 
         #endregion
-
+        /// <summary>
+        /// Handles the Equip of ArmorItems from Inventory or Toolbar
+        /// </summary>
+        /// <param name="armor"></param>
         public void UseArmorItem(ArmorItem armor)
         {
             ClearWeapon();
@@ -49,6 +61,10 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Handles the consume of a ConsuableItem
+        /// </summary>
+        /// <param name="consumable"></param>
         public void UseConsumableItem(ConsumableItem consumable)
         {
             ClearWeapon();
@@ -61,6 +77,10 @@ namespace Assets.Scripts.Character
             weapon = null;
         }
 
+        /// <summary>
+        /// Handles the usage of CraftingItems
+        /// </summary>
+        /// <param name="craftingMaterial"></param>
         public void UseCraftingMaterialItem(CraftingMaterialItem craftingMaterial)
         {
             ClearWeapon();
@@ -68,6 +88,10 @@ namespace Assets.Scripts.Character
             //e.g. show for wich items this craftingMaterial is needed to craft them
         }
 
+        /// <summary>
+        /// Handles the usage of WeaponItems
+        /// </summary>
+        /// <param name="item"></param>
         public void UseWeapon(WeaponItem item)
         {
             int damage = item.GetDamage();
@@ -80,10 +104,14 @@ namespace Assets.Scripts.Character
             else
             {
                 ClearWeapon();
-                work(item);
+                Work(item);
             }
         }
 
+        /// <summary>
+        /// Gets the Damage of the Weapon or 0
+        /// </summary>
+        /// <returns></returns>
         public int GetCurrentDamage()
         {
             if (weapon == null)
@@ -96,7 +124,11 @@ namespace Assets.Scripts.Character
             }
         }
 
-        private void work(WeaponItem item)
+        /// <summary>
+        /// Handles the usage of specific Weapons for Work
+        /// </summary>
+        /// <param name="item"></param>
+        private void Work(WeaponItem item)
         {
             int endurance = item.GetEndurance();
             if (item.itemName.Contains("Axe"))

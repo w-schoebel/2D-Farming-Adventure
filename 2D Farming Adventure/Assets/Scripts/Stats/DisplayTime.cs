@@ -1,8 +1,8 @@
-﻿/* Author Maren Fischer
- * Created at 22.06.2020
- * Version 1
+﻿/* Author Maren Fischer, Wiebke Schöbel
+ * Created at 21.06.2020
+ * Version 6
  * 
- * ingame time system, which is displayed in the player mask
+ * Handles the time display in the ui
  */
 using Assets.Scripts.Data;
 using UnityEngine;
@@ -10,6 +10,9 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Stats
 {
+    /// <summary>
+    /// Handles the time display in the ui
+    /// </summary>
     public class DisplayTime : MonoBehaviour
     {
         //variable to set the in game day to 15 minutes in real time
@@ -55,13 +58,17 @@ namespace Assets.Scripts.Stats
             }
         }
 
-        // Update is called once per frame
+        /// <summary>
+        /// Calls update time in each frame
+        /// </summary>
         void Update()
         {
             CalculateTime();
         }
 
-        //add the data from TimeData to the respective text display
+        /// <summary>
+        /// Shows the time data in the ui
+        /// </summary>
         void TextCallFunction()
         {
             if (playerTimeData != null && dayText != null && clockText != null && yearText != null)
@@ -72,7 +79,9 @@ namespace Assets.Scripts.Stats
             }
         }
 
-
+        /// <summary>
+        /// Calculates the time 
+        /// </summary>
         void CalculateTime()
         {
             //TIMESCALE == time speed
@@ -111,12 +120,19 @@ namespace Assets.Scripts.Stats
             }
         }
 
-        //getter and setter for the TimeData values
+        /// <summary>
+        /// Returns the current player time
+        /// </summary>
+        /// <returns></returns>
         public PlayerTimeData GetCurrentPlayerTimeData()
         {
             return this.playerTimeData;
         }
 
+        /// <summary>
+        /// Set the current player time data and calls the ui update for the time
+        /// </summary>
+        /// <param name="playerTimeData"></param>
         public void SetCurrentPlayerTimeData(PlayerTimeData playerTimeData)
         {
             this.playerTimeData = playerTimeData;

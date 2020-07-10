@@ -1,14 +1,16 @@
-﻿/* Author Maren Fischer
- * Created at 22.05.2020
- * Version 1
+﻿/* Author Maren Fischer, Wiebke Schöbel
+ * Created at 24.06.2020
+ * Version 4
  * 
- * life deduction for incoming damage
- * die when the life value <= 0
+ * 
  */
 using UnityEngine;
 
 namespace Assets.Scripts.Stats
 {
+    /// <summary>
+    /// BaseClass for other Stats methods
+    /// </summary>
     [System.Serializable]
     public class StatsManager : MonoBehaviour
     {
@@ -16,6 +18,10 @@ namespace Assets.Scripts.Stats
         public int damage;
         public int health;
 
+        /// <summary>
+        /// BaseMethod for reducing the health with given value
+        /// </summary>
+        /// <param name="damage"></param>
         public virtual void TakeDamage(int damage)
         {
             //no negative dmg so we wont heal
@@ -31,7 +37,9 @@ namespace Assets.Scripts.Stats
             }
         }
 
-        //Game-over-Scene; ovverride with the die() from char
+        /// <summary>
+        /// BaseMethod for die
+        /// </summary>
         public virtual void Die()
         {
             Debug.Log(transform.name + "died");

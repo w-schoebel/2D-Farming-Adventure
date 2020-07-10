@@ -1,9 +1,15 @@
-﻿using UnityEngine;
+﻿/* Author Wiebke Schöbel
+ * Created at 24.05.2020
+ * Version 6
+ *
+ * Movement functionality for player
+ */
+using UnityEngine;
 
 namespace Assets.Services
 {
     /// <summary>
-    /// Player Movement Service Implementation
+    /// Movement functionality for player
     /// </summary>
     class PlayerMovementServiceImpl : MovementServiceImpl
     {
@@ -14,7 +20,7 @@ namespace Assets.Services
         }
 
         /// <summary>
-        /// public method to create a new service implementation instance
+        /// Public method to create a new service implementation instance
         /// </summary>
         /// <param name="animator"></param>
         /// <returns>new instance of this service</returns>
@@ -24,7 +30,7 @@ namespace Assets.Services
         }
 
         /// <summary>
-        /// calculates the new position of the Player
+        /// Calculates new position based on current position and movementspeed
         /// </summary>
         /// <param name="currentPosition"></param>
         /// <param name="movementSpeed"></param>

@@ -1,9 +1,8 @@
 ﻿/* Author Wiebke Schöbel
- * Created at 10.06.2020
- * Version 1
+ * Created at 8.07.2020
+ * Version 3
  * 
- * Save the selected character in PlayerData
- * After selecting the character, the unselected character is destroyed
+ * Controls the CharacterDecision and calls the game start based on the decision
  */
 using Assets.Scripts.Data;
 using Assets.Services;
@@ -11,7 +10,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Character
 {
-    
+    /// <summary>
+    /// Controls the CharacterDecision and calls the game start based on the decision
+    /// </summary>
     public class CharacterDecider : MonoBehaviour
     {
         public GameObject male;
@@ -51,6 +52,10 @@ namespace Assets.Scripts.Character
 
         #endregion
 
+        /// <summary>
+        /// Intialize a new game based on given Player
+        /// </summary>
+        /// <param name="playerData"></param>
         public void CreateNewGame(PlayerData playerData)
         {
 
@@ -69,6 +74,10 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Loads an existing game based on given Player
+        /// </summary>
+        /// <param name="playerData"></param>
         public void LoadExistingGame(PlayerData playerData)
         {
             switch (playerData.playerId)
@@ -86,6 +95,10 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Returns the active character (male or female)
+        /// </summary>
+        /// <returns></returns>
         public GameObject GetCurrentCharacter()
         {
             if (female != null && female.activeSelf)
@@ -102,6 +115,10 @@ namespace Assets.Scripts.Character
             }
         }
 
+        /// <summary>
+        /// Returns the playerStats for the active character
+        /// </summary>
+        /// <returns></returns>
         public PlayerStats GetCurrentCharacterPlayerStats()
         {
             if (female != null && female.activeSelf)

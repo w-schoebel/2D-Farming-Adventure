@@ -1,4 +1,10 @@
-﻿using Assets.Enums;
+﻿/* Author Wiebke Schöbel
+ * Created at 08.07.2020
+ * Version 3
+ * 
+ * Item that is serializable and can be saved with the save manager
+ */
+using Assets.Enums;
 using System;
 using System.Linq;
 using UnityEditor;
@@ -6,6 +12,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.ItemObjects.Types
 {
+    /// <summary>
+    /// Item that is serializable and can be saved with the save manager
+    /// </summary>
     [System.Serializable]
     public class ItemForSave
     {
@@ -29,13 +38,20 @@ namespace Assets.Scripts.ItemObjects.Types
         public bool isDefaultItem;
         public ItemType itemType;
 
-
+        /// <summary>
+        /// Extract the Sprite name and location 
+        /// </summary>
+        /// <returns></returns>
         public void SetSprite(Sprite icon)
         {
             this.path = AssetDatabase.GetAssetPath(icon);
             this.childName = icon.name;
         }
 
+        /// <summary>
+        /// Gets the Sprite by name and location of parent sprite
+        /// </summary>
+        /// <returns></returns>
         public Sprite GetSprite()
         {
             Sprite result = null;

@@ -1,8 +1,17 @@
-﻿using Assets.Enums;
+﻿/* Author Wiebke Schöbel
+ * Created at 24.05.2020
+ * Version 7
+ *
+ * Movement functionality for npc
+ */
+using Assets.Enums;
 using UnityEngine;
 
 namespace Assets.Services
 {
+    /// <summary>
+    /// Movement functionality for npc
+    /// </summary>
     public class NPCMovementServiceImpl : MovementServiceImpl
     {
         const int UP = 1;
@@ -18,13 +27,13 @@ namespace Assets.Services
 
         private NPCMovementServiceImpl(Animator animator)
         {
-            this.timerDirection = createRandomRange();
+            this.timerDirection = CreateRandomRange();
             RandomDirection();
             this.animator = animator;
         }
 
         /// <summary>
-        /// public method to create a service implementation instance
+        /// Public method to create a service implementation instance
         /// </summary>
         /// <param name="animator"></param>
         /// <returns>new instance of this service implementation</returns>
@@ -34,7 +43,7 @@ namespace Assets.Services
         }
 
         /// <summary>
-        /// calculates the new position of the NPC
+        /// Calculates new position based on current position and movementspeed
         /// </summary>
         /// <param name="currentPosition"></param>
         /// <param name="movementSpeed"></param>
@@ -73,7 +82,7 @@ namespace Assets.Services
         }
 
         /// <summary>
-        /// after a timer is down to 0 RandomDirection is called to change direction of NPC
+        /// After a timer is down to 0 RandomDirection is called to change direction of NPC
         /// </summary>
         private void SwitchDirection()
         {
@@ -86,10 +95,10 @@ namespace Assets.Services
         }
 
         /// <summary>
-        /// generates a randome float between 5 (included) and 10 (excluded)
+        /// Generates a randome float between 5 (included) and 10 (excluded)
         /// </summary>
         /// <returns>a random float</returns>
-        private float createRandomRange()
+        private float CreateRandomRange()
         {
             return Random.Range(5, 10);
         }
@@ -127,7 +136,7 @@ namespace Assets.Services
             }
             currentDirection = rndDirection;
 
-            timerDirection = createRandomRange();
+            timerDirection = CreateRandomRange();
         }
     }
 }

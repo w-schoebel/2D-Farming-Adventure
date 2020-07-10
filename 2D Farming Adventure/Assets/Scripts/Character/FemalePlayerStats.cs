@@ -1,7 +1,16 @@
-﻿using UnityEngine;
+﻿/* Author Wiebke Schöbel
+ * Created at 08.07.2020
+ * Version 4
+ * 
+ * Specific instance of PlayerStats for the female character
+ */
+using UnityEngine;
 
 namespace Assets.Scripts.Character
 {
+    /// <summary>
+    /// Specific instance of PlayerStats for the female character
+    /// </summary>
     public class FemalePlayerStats : PlayerStats
     {
         #region Singleton

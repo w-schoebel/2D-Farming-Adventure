@@ -1,12 +1,21 @@
-﻿using Assets.Enums;
+﻿/* Author Wiebke Schöbel
+ * Created at 24.05.2020
+ * Version 7
+ *
+ * BaseImplementation for movement functionality 
+ */
+using Assets.Enums;
 using UnityEngine;
 
+/// <summary>
+/// BaseImplementation for movement functionality 
+/// </summary>
 public class MovementServiceImpl : MovementService
 {
     Vector2 look_direction = new Vector2(1, 0);
 
     /// <summary>
-    /// calculation of new position as virtual method (can be overridden)
+    /// Calculates new position based on current position and movementspeed
     /// </summary>
     /// <param name="currentPosition"></param>
     /// <param name="movementSpeed"></param>
@@ -18,7 +27,7 @@ public class MovementServiceImpl : MovementService
     }
 
     /// <summary>
-    /// calculation of new position as virtual method (can be overridden)
+    /// Calculates new position based on current position and movementspeed
     /// </summary>
     /// <param name="currentPosition"></param>
     /// <param name="movementSpeed"></param>
@@ -32,7 +41,7 @@ public class MovementServiceImpl : MovementService
     }
 
     /// <summary>
-    /// calculates for one coordinate new position
+    /// Calculates new position based on single coordinate
     /// </summary>
     /// <param name="currentPosition"></param>
     /// <param name="direction"></param>
@@ -45,7 +54,7 @@ public class MovementServiceImpl : MovementService
     }
 
     /// <summary>
-    /// calculates both coordinates for new position
+    /// Calculates new position based on both coordinates
     /// </summary>
     /// <param name="currentPosition"></param>
     /// <param name="movementSpeed"></param>
@@ -60,7 +69,7 @@ public class MovementServiceImpl : MovementService
     }
 
     /// <summary>
-    /// calculates only the new y coordinate of the new position
+    /// Calculates the new y coordinate of the new position
     /// </summary>
     /// <param name="currentPosition"></param>
     /// <param name="movementSpeed"></param>
@@ -72,7 +81,7 @@ public class MovementServiceImpl : MovementService
     }
 
     /// <summary>
-    /// calculates only the x coordinate of the new position
+    /// Calculates the new x coordinate of the new position
     /// </summary>
     /// <param name="currentPosition"></param>
     /// <param name="movementSpeed"></param>
@@ -84,7 +93,7 @@ public class MovementServiceImpl : MovementService
     }
 
     /// <summary>
-    ///  manages which animation should be shown from animator while movement (both coordinates)
+    ///  Handles which animation should be shown from animator while movement (both coordinates)
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="move"></param>
@@ -102,7 +111,7 @@ public class MovementServiceImpl : MovementService
     }
 
     /// <summary>
-    /// manages animation for x coordinate
+    /// Handles animation for x coordinate
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="direction"></param>
@@ -113,7 +122,7 @@ public class MovementServiceImpl : MovementService
     }
 
     /// <summary>
-    /// manages animation for y coordinate
+    /// Handles animation for y coordinate
     /// </summary>
     /// <param name="animator"></param>
     /// <param name="direction"></param>

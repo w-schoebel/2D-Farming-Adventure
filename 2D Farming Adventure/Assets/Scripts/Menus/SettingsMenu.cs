@@ -1,8 +1,8 @@
 ﻿/* Author Maren Fischer
- * Created at 21.05.2020
- * Version 1
+ * Created at 27.05.2020
+ * Version 6
  * 
- * Contains setting options for the game (graphic, audio)
+ * Handles the settings for the game
  */
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +11,9 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Menu
 {
+    /// <summary>
+    /// Handles the settings for the game
+    /// </summary>
     public class SettingsMenu : MonoBehaviour
     {
         //Reference to the audio mixer
@@ -52,28 +55,40 @@ namespace Assets.Scripts.Menu
             resolutionDropdown.RefreshShownValue();
         }
 
+        /// <summary>
+        /// Sets the resolution for a given index
+        /// </summary>
+        /// <param name="resolutionIndex"></param>
         public void SetResolution(int resolutionIndex)
         {
             //get height and width with the resolutionIndex
             Resolution resolution = resolutions[resolutionIndex];
 
-
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         }
 
-        //Master Volume
+        /// <summary>
+        /// Sets the volume to a given value
+        /// </summary>
+        /// <param name="volume"></param>
         public void SetVolume(float volume)
         {
             audioMixer.SetFloat("volume", volume);
         }
 
-        //Unity set automaticly the QualityIndex to the chosen element
+        /// <summary>
+        /// Sets the quality for a given index
+        /// </summary>
+        /// <param name="qualityIndex"></param>
         public void SetQuality(int qualityIndex)
         {
             QualitySettings.SetQualityLevel(qualityIndex);
         }
 
-        //Toggle for fullscreen
+        /// <summary>
+        /// Toggle fullscreen mode
+        /// </summary>
+        /// <param name="isFullscreen"></param>
         public void SetFullscreen(bool isFullscreen)
         {
             Screen.fullScreen = isFullscreen;

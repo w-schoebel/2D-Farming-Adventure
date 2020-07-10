@@ -1,4 +1,10 @@
-﻿using Assets.Enums;
+﻿/* Author Wiebke Schöbel
+ * Created at 24.06.2020
+ * Version 3
+ * 
+ * Controls the movement for the Enemy-player
+ */
+using Assets.Enums;
 using Assets.Scripts.Character;
 using Assets.Services;
 using System;
@@ -6,6 +12,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
+    /// <summary>
+    /// Controls the movement for the Enemy-player
+    /// </summary>
     public class EnemyMovement : MonoBehaviour
     {
         private GameObject player;
@@ -13,7 +22,6 @@ namespace Assets.Scripts.Enemy
 
         private float movementSpeed = 2.0f;
         private float aggroRange = 1.0f;
-        private float fightRange = 0.7f;
 
         Rigidbody2D rigidbody;
         PossibleDirections possibleDirectionX;
@@ -30,23 +38,14 @@ namespace Assets.Scripts.Enemy
             player = CharacterDecider.instance.GetCurrentCharacter();
         }
 
+        /// <summary>
+        /// Chase the player if in range
+        /// </summary>
         private void Update()
         {
             float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
             possibleDirectionX = PossibleDirections.None;
             possibleDirectionY = PossibleDirections.None;
-
-            if (distanceToPlayer < fightRange)
-            {
-                //change scene to fighting scene
-
-                /*in fighting scene:
-                if(distanceToPlayer < 0.2f)
-                {
-                    HurtPlayer();
-                }
-                */
-            }
 
             if (distanceToPlayer < aggroRange)
             {
@@ -58,12 +57,18 @@ namespace Assets.Scripts.Enemy
             }
         }
 
+        /// <summary>
+        /// Stops chasing the player
+        /// </summary>
         private void StopChasingPlayer()
         {
             Vector2 curentPosition = rigidbody.position;
             rigidbody.MovePosition(movementService.CalculateNewPosition(curentPosition, 0, false, possibleDirectionX, possibleDirectionY));
         }
 
+        /// <summary>
+        /// Starts chasing the player
+        /// </summary>
         private void ChasePlayer()
         {
             Vector2 curentPosition = rigidbody.position;
@@ -107,6 +112,10 @@ namespace Assets.Scripts.Enemy
             return (float)result;
         }
 
+        /// <summary>
+        /// OnCollision with a player, the player should take damage
+        /// </summary>
+        /// <param name="collision"></param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Player"))

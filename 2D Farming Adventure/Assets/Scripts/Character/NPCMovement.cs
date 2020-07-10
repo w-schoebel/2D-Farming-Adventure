@@ -1,6 +1,15 @@
-﻿using Assets.Services;
+﻿/* Author Wiebke Schöbel
+ * Created at 03.06.2020
+ * Version 9
+ * 
+ * Controls the movement for the NPC-Player
+ */
+using Assets.Services;
 using UnityEngine;
 
+/// <summary>
+/// Controls the movement for the NPC-Player
+/// </summary>
 public class NPCMovement : MonoBehaviour
 {
     MovementService movementService;
@@ -22,7 +31,7 @@ public class NPCMovement : MonoBehaviour
 
     // Update is called once per frame
     /// <summary>
-    /// changes the position of the player character, when the moving controls (e.g.: W-A-S-D) are used 
+    /// Changes the position of the player character, when the moving controls (e.g.: W-A-S-D) are used 
     /// </summary>
     void Update()
     {
@@ -37,14 +46,11 @@ public class NPCMovement : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("NPC"))
-        {
-
-        }
-        else
+        if (collision.gameObject.CompareTag("NPC"))
         {
             enteredCollision = true;
         }
+
     }
 
     /// <summary>

@@ -1,10 +1,19 @@
-﻿using Assets.Scripts.ItemObjects.Types;
+﻿/* Author Wiebke Schöbel
+ * Created at 15.06.2020
+ * Version 6
+ * 
+ * Controls the equipment
+ */
+using Assets.Scripts.ItemObjects.Types;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.InventoryObjects
 {
+    /// <summary>
+    /// Controls the equipment
+    /// </summary>
     public class EquipmentManager : MonoBehaviour
     {
         public delegate void OnEquipmentChanged(ArmorItem newItem, ArmorItem oldItem);
@@ -34,9 +43,15 @@ namespace Assets.Scripts.InventoryObjects
             inventory = Inventory.instance;
         }
 
+        /// <summary>
+        /// Handles the equip of an item
+        /// </summary>
+        /// <param name="newItem"></param>
+        /// <param name="isInitial"></param>
         public void Equip(ArmorItem newItem, bool isInitial = false)
         {
             ArmorItem oldItem = null;
+            
 
             if (newItem != null)
             {
@@ -52,16 +67,20 @@ namespace Assets.Scripts.InventoryObjects
                     }
                 }
 
+                currentEquipment.Add(newItem);
+
+
                 if (onEquipmentChanged != null)
                 {
                     onEquipmentChanged.Invoke(newItem, oldItem);
                 }
-
-                currentEquipment.Add(newItem);
-
             }
         }
 
+        /// <summary>
+        /// Handles the unequip of an item
+        /// </summary>
+        /// <param name="itemToRemove"></param>
         public void Unequip(ArmorItem itemToRemove)
         {
             if (itemToRemove != null)
@@ -81,11 +100,17 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Unequips every item from equipment back to the inventory
+        /// </summary>
         public void UnequipAll()
         {
             new List<ArmorItem>(currentEquipment).ForEach(item => Unequip(item));
         }
 
+        /// <summary>
+        /// Unequips every item if u is pressed
+        /// </summary>
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.U))
@@ -94,6 +119,10 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Returns the current armor value of equipped items
+        /// </summary>
+        /// <returns></returns>
         public int GetCurrentAmor()
         {
             int armor = 0;
@@ -107,6 +136,10 @@ namespace Assets.Scripts.InventoryObjects
             return armor;
         }
 
+        /// <summary>
+        /// Returns the current damage value of equipped items
+        /// </summary>
+        /// <returns></returns>
         public int GetCurrentDamage()
         {
             int damage = 0;

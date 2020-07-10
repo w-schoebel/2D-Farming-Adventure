@@ -1,12 +1,15 @@
-﻿/* Author Maren Fischer
- * Created at 22.06.2020
- * Version 1
+﻿/* Author Wiebke Schöbel
+ * Created at 08.07.2020
+ * Version 3
  * 
- * class for time values
+ * DataClass to store the current time in game
  */
 
 namespace Assets.Scripts.Data
 {
+    /// <summary>
+    /// DataClass to store the current time in game
+    /// </summary>
     [System.Serializable]
     public class PlayerTimeData
     {

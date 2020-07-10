@@ -1,6 +1,6 @@
 ﻿/* Author Maren Fischer, Wiebke Schöbel
  * Created at 11.06.2020
- * Version 2
+ * Version 9
  * 
  * saving system for playerdata and time
  */
@@ -10,11 +10,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.Data
 {
-
+    /// <summary>
+    /// Controls the Load/Save mechanismn
+    /// </summary>
     public static class SaveSystem
     {
-
-        //fixed path and procedure for storing the data
+        /// <summary>
+        /// Saves the given data in the database
+        /// </summary>
+        /// <param name="data"></param>
         public static void SavePlayer(PlayerData data)
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -34,7 +38,10 @@ namespace Assets.Scripts.Data
             Debug.Log("Saved File");
         }
 
-        //Specified path and sequence for loading the data
+        /// <summary>
+        /// Loads the player from the database
+        /// </summary>
+        /// <returns></returns>
         public static PlayerData LoadPlayer()
         {
             string path = Application.persistentDataPath + "/saving/game.save";
@@ -69,6 +76,40 @@ namespace Assets.Scripts.Data
             {
                 Debug.Log("Save File not found!");
                 return null;
+            }
+        }
+
+
+        /// <summary>
+        /// Returns if the Data can be loaded or not
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckIfLoadable()
+        {
+            string path = Application.persistentDataPath + "/saving/game.save";
+            if (File.Exists(path))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream stream = new FileStream(path, FileMode.Open);
+                Debug.Log("Save File opened");
+                try
+                {
+                    PlayerData data = formatter.Deserialize(stream) as PlayerData;
+                    stream.Close();
+                    Debug.Log("Loaded");
+
+                    return data != null ? true : false;
+                }
+                catch
+                {
+                    Debug.LogErrorFormat("Failed to load file at {0}", path);
+
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
 
         }

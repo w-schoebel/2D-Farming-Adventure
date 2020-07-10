@@ -1,10 +1,19 @@
-﻿using Assets.Scripts.ItemObjects.Types;
+﻿/* Author Wiebke Schöbel
+ * Created at 15.06.2020
+ * Version 4
+ * 
+ * EventHandler for ItemDropHandling specific for Inventory
+ */
+using Assets.Scripts.ItemObjects.Types;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.InventoryObjects.Handler
 {
+    /// <summary>
+    /// EventHandler for ItemDropHandling specific for Inventory
+    /// </summary>
     public class InventoryItemDropHandler : MonoBehaviour, IDropHandler
     {
         public static InventoryItemDropHandler Instance { get; private set; }
@@ -21,6 +30,10 @@ namespace Assets.Scripts.InventoryObjects.Handler
             public Item item;
         }
 
+        /// <summary>
+        /// Sets the dropped Item and calls the itemDroppedEvent
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnDrop(PointerEventData eventData)
         {
             if (ItemDragHandler.Instance != null)

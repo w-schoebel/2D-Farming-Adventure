@@ -1,9 +1,18 @@
-﻿using Assets.Scripts.ItemObjects.Types;
+﻿/* Author Wiebke Schöbel
+ * Created at 03.06.2020
+ * Version 9
+ * 
+ * Controls the inventory
+ */
+using Assets.Scripts.ItemObjects.Types;
 using System;
 using UnityEngine;
 
 namespace Assets.Scripts.InventoryObjects
 {
+    /// <summary>
+    /// Controls the inventory
+    /// </summary>
     public class Inventory : MonoBehaviour
     {
 
@@ -35,6 +44,11 @@ namespace Assets.Scripts.InventoryObjects
 
         #endregion
 
+        /// <summary>
+        /// Adds the item to the inventory
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Add(Item item)
         {
             if (item == null)
@@ -57,6 +71,13 @@ namespace Assets.Scripts.InventoryObjects
             return true;
         }
 
+        /// <summary>
+        /// Adds the item to the inventory (specific position handling)
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="position"></param>
+        /// <param name="positionInToolbar"></param>
+        /// <returns></returns>
         public bool Add(Item item, int position, int positionInToolbar)
         {
             if (item == null || position >= space)
@@ -82,6 +103,10 @@ namespace Assets.Scripts.InventoryObjects
             return true;
         }
 
+        /// <summary>
+        /// Remove item from inventory
+        /// </summary>
+        /// <param name="item"></param>
         public void RemoveItem(Item item)
         {
             int index = Array.IndexOf(items, item);
@@ -94,6 +119,9 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Called to update the slots with new item
+        /// </summary>
         private void InvokeItemChangeCallback()
         {
             if (itemChangedCallback != null)
@@ -102,6 +130,11 @@ namespace Assets.Scripts.InventoryObjects
             }
         }
 
+        /// <summary>
+        /// Check if given item exists in inventory
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool ContainsItem(Item item)
         {
             int index = Array.IndexOf(items, item);

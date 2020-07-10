@@ -1,7 +1,16 @@
-﻿using UnityEngine;
+﻿/* Author Wiebke Schöbel
+ * Created at 08.07.2020
+ * Version 3
+ * 
+ * Specific instance of PlayerStats for the male character
+ */
+using UnityEngine;
 
 namespace Assets.Scripts.Character
 {
+    /// <summary>
+    /// Specific instance of PlayerStats for the male character
+    /// </summary>
     public class MalePlayerStats : PlayerStats
     {
         #region Singleton

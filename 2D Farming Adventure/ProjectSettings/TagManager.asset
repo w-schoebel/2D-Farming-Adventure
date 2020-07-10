@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - CharacterSelector
   - PersonImage
+  - CaveEntranceBottom
+  - CaveEntranceTop
   layers:
   - Default
   - TransparentFX

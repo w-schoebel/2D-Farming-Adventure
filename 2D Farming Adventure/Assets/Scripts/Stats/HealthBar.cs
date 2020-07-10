@@ -1,14 +1,17 @@
-﻿/* Author Maren Fischer
- * Created at 13.05.2020
- * Version 1
+﻿/* Author Maren Fischer, Wiebke Schöbel
+ * Created at 03.06.2020
+ * Version 7
  * 
- * set max and current value of healthBar
+ * DataObject for the health bar
  */
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Stats
 {
+    /// <summary>
+    /// DataObject for the health bar
+    /// </summary>
     public class HealthBar : MonoBehaviour
     {
         public Slider slider;

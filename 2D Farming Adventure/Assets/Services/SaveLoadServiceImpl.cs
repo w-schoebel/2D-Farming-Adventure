@@ -1,4 +1,10 @@
-﻿using Assets.Scripts.Data;
+﻿/* Author Wiebke Schöbel
+ * Created at 08.07.2020
+ * Version 3
+ *
+ * Handles the save and load functionality for playerData
+ */
+using Assets.Scripts.Data;
 using Assets.Scripts.InventoryObjects;
 using Assets.Scripts.ItemObjects;
 using Assets.Scripts.ItemObjects.Types;
@@ -8,6 +14,9 @@ using UnityEngine;
 
 namespace Assets.Services
 {
+    /// <summary>
+    /// Handles the save and load functionality for playerData
+    /// </summary>
     public class SaveLoadServiceImpl : SaveLoadService
     {
         public static SaveLoadServiceImpl Create()
@@ -15,7 +24,12 @@ namespace Assets.Services
             return new SaveLoadServiceImpl();
         }
 
-        public void SavePlayer(PlayerData playerData, Vector2 vector2)
+        /// <summary>
+        /// Prepares the Items for Saving and saves the given playerData with the given current position
+        /// </summary>
+        /// <param name="playerData"></param>
+        /// <param name="currentPosition"></param>
+        public void SavePlayer(PlayerData playerData, Vector2 currentPosition)
         {
             PlayerTimeData playerTimeData = DisplayTime.instance.GetCurrentPlayerTimeData();
             int armor = EquipmentManager.instance.GetCurrentAmor();
@@ -25,14 +39,13 @@ namespace Assets.Services
 
             ItemForSaveConverter itemForSaveConverter = new ItemForSaveConverter();
 
-
             ItemForSave[] toolBarItemsForSave = PrepareItemsForSave(toolbarItems, itemForSaveConverter);
             ItemForSave[] inventoryItemsForSave = PrepareItemsForSave(inventoryItems, itemForSaveConverter);
             ItemForSave[] currentEquipmentForSave = PrepareItemsForSave(currentEquipment.ToArray(), itemForSaveConverter);
 
             float[] position = new float[2];
-            position[0] = vector2.x;
-            position[1] = vector2.y;
+            position[0] = currentPosition.x;
+            position[1] = currentPosition.y;
 
             playerData.position = position;
             playerData.armor = armor;
@@ -44,6 +57,12 @@ namespace Assets.Services
             Save(playerData);
         }
 
+        /// <summary>
+        /// Converts items to itemsForSave as preparation for save
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="itemForSaveConverter"></param>
+        /// <returns></returns>
         private ItemForSave[] PrepareItemsForSave(Item[] items, ItemForSaveConverter itemForSaveConverter)
         {
             int length = items.Length;
@@ -57,6 +76,11 @@ namespace Assets.Services
             return result;
         }
 
+        /// <summary>
+        /// Loads the playerData. move the rigidbody and updates the ui elements from time, toolbar, inventory and equipment
+        /// </summary>
+        /// <param name="rigidbody"></param>
+        /// <returns></returns>
         public PlayerData LoadPlayer(Rigidbody2D rigidbody)
         {
             ItemForSaveConverter itemForSaveConverter = new ItemForSaveConverter();
@@ -75,16 +99,30 @@ namespace Assets.Services
             return playerData;
         }
 
+        /// <summary>
+        /// Moves the rigidbody to the given position
+        /// </summary>
+        /// <param name="rigidbody"></param>
+        /// <param name="position"></param>
         private void SetPosition(Rigidbody2D rigidbody, float[] position)
         {
             rigidbody.position = new Vector2(position[0], position[1]);
         }
 
+        /// <summary>
+        /// Overrides the ui time with the given time
+        /// </summary>
+        /// <param name="playerTimeData"></param>
         private void SetTimeValue(PlayerTimeData playerTimeData)
         {
             DisplayTime.instance.SetCurrentPlayerTimeData(playerTimeData);
         }
 
+        /// <summary>
+        /// Load the items into the toolbar
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="itemForSaveConverter"></param>
         private void LoadToolbarItems(ItemForSave[] items, ItemForSaveConverter itemForSaveConverter)
         {
             if (items == null)
@@ -94,6 +132,8 @@ namespace Assets.Services
 
             if (ToolbarManager.instance != null)
             {
+                ToolbarManager.instance.items = new Item[items.Length];
+
                 for (int i = 0; i < items.Length; i++)
                 {
                     if (items[i] != null)
@@ -104,6 +144,11 @@ namespace Assets.Services
             }
         }
 
+        /// <summary>
+        /// Load the items into the inventory
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="itemForSaveConverter"></param>
         private void LoadInventoryItems(ItemForSave[] items, ItemForSaveConverter itemForSaveConverter)
         {
             if (items == null)
@@ -113,6 +158,7 @@ namespace Assets.Services
 
             if (Inventory.instance != null)
             {
+                Inventory.instance.items = new Item[items.Length];
                 for (int i = 0; i < items.Length; i++)
                 {
                     if (items[i] != null)
@@ -123,6 +169,11 @@ namespace Assets.Services
             }
         }
 
+        /// <summary>
+        /// Load the items into the equipment
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="itemForSaveConverter"></param>
         private void LoadCurrentEquipment(ItemForSave[] items, ItemForSaveConverter itemForSaveConverter)
         {
             if (items == null)
@@ -132,6 +183,7 @@ namespace Assets.Services
 
             if (EquipmentManager.instance != null)
             {
+                EquipmentManager.instance.currentEquipment.Clear();
                 for (int i = 0; i < items.Length; i++)
                 {
                     if (items[i] != null)
@@ -142,6 +194,14 @@ namespace Assets.Services
             }
         }
 
+        /// <summary>
+        /// Creates a new game with standard values and save the data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="playerName"></param>
+        /// <param name="maxHealth"></param>
+        /// <param name="maxEndurance"></param>
+        /// <returns></returns>
         public PlayerData NewGame(int id, string playerName, int maxHealth, int maxEndurance)
         {
             float[] position = new float[2];
@@ -156,15 +216,32 @@ namespace Assets.Services
             return playerData;
         }
 
+        /// <summary>
+        /// Calls the save player function
+        /// </summary>
+        /// <param name="playerData"></param>
         public void Save(PlayerData playerData)
         {
             SaveSystem.SavePlayer(playerData);
             Debug.Log("Saving");
         }
 
+        /// <summary>
+        /// Calls the load player function
+        /// </summary>
+        /// <returns></returns>
         public PlayerData Load()
         {
             return SaveSystem.LoadPlayer();
+        }
+
+        /// <summary>
+        /// Calls the CheckIfLoadable function 
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckIfLoadable()
+        {
+            return SaveSystem.CheckIfLoadable();
         }
     }
 }
